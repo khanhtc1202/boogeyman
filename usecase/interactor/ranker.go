@@ -22,7 +22,7 @@ func NewRanker(pool repository.MaterialPool) *Ranker {
 func (r *Ranker) Top(searchEngines []search_engine.SearchEngineType) (*domain.ResultItems, error) {
 	topResults := domain.EmptyResultItems()
 	for _, searchEngine := range searchEngines {
-		searchResult, err := r.materialPool.GetItemsBySearchEngine(searchEngine)
+		searchResult, err := r.materialPool.GetItemsFromSearchEngine(searchEngine)
 		if err != nil {
 			return nil, errors.Wrap(err, "Error on fetch data from pool")
 		}
@@ -34,7 +34,7 @@ func (r *Ranker) Top(searchEngines []search_engine.SearchEngineType) (*domain.Re
 func (r *Ranker) CrossMatch(searchEngines []search_engine.SearchEngineType) (*domain.ResultItems, error) {
 	crossMatchedResults := domain.EmptyResultItems()
 	for _, searchEngine := range searchEngines {
-		searchResult, err := r.materialPool.GetItemsBySearchEngine(searchEngine)
+		searchResult, err := r.materialPool.GetItemsFromSearchEngine(searchEngine)
 		if err != nil {
 			return nil, errors.Wrap(err, "Error on fetch data from pool")
 		}
@@ -46,7 +46,7 @@ func (r *Ranker) CrossMatch(searchEngines []search_engine.SearchEngineType) (*do
 func (r *Ranker) None(searchEngines []search_engine.SearchEngineType) (*domain.ResultItems, error) {
 	allResults := domain.EmptyResultItems()
 	for _, searchEngine := range searchEngines {
-		searchResult, err := r.materialPool.GetItemsBySearchEngine(searchEngine)
+		searchResult, err := r.materialPool.GetItemsFromSearchEngine(searchEngine)
 		if err != nil {
 			return nil, errors.Wrap(err, "Error on fetch data from pool")
 		}
