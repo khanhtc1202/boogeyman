@@ -36,7 +36,7 @@ func (e *Ext) Filter(ctx *gocrawl.URLContext, isVisited bool) bool {
 	return !isVisited && rxOk.MatchString(ctx.NormalizedURL().String())
 }
 
-func main() {
+func sampleMain2() {
 	ext := &Ext{&gocrawl.DefaultExtender{}}
 	// Set custom options
 	opts := gocrawl.NewOptions(ext)

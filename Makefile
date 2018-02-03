@@ -11,7 +11,7 @@ dep:
 production pro p: install build-production test-production
 
 # development mode: make [development | develop | dev | d]
-development develop dev d: dep build-development test
+development develop dev d: dep build-development
 
 # buid
 build-%:

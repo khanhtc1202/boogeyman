@@ -4,11 +4,13 @@ import (
 	"fmt"
 	"log"
 
+	"errors"
 	"github.com/PuerkitoBio/goquery"
+	"os"
 )
 
-func ExampleScrape() {
-	doc, err := goquery.NewDocument("https://www.bing.com/search?q=something")
+func ExampleScrape(queryString string) {
+	doc, err := goquery.NewDocument("https://www.bing.com/search?q=" + queryString)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -23,6 +25,17 @@ func ExampleScrape() {
 	})
 }
 
+func ParseCommandParams() ([]string, error) {
+	if len(os.Args) < 2 {
+		return nil, errors.New("Missing command params")
+	}
+	return os.Args[1:], nil
+}
+
 func main() {
-	ExampleScrape()
+	cmdParams, err := ParseCommandParams()
+	if err != nil {
+		fmt.Println(err)
+	}
+	ExampleScrape(cmdParams[0])
 }

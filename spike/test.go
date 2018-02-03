@@ -31,7 +31,7 @@ func Crawl(url string, depth int, fetcher Fetcher) {
 	return
 }
 
-func main() {
+func sampleMain1() {
 	Crawl("http://golang.org/", 4, fetcher)
 }
 
