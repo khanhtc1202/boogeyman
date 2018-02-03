@@ -18,3 +18,7 @@ func NewBing(keyword string, results *domain.ResultItems) *Bing {
 func (b *Bing) Type() SearchEngineType {
 	return BING
 }
+
+func (b *Bing) TopResult() *domain.ResultItem {
+	return b.results.First()
+}

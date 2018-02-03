@@ -18,3 +18,7 @@ func NewGoogle(keyword string, results *domain.ResultItems) *Google {
 func (g *Google) Type() SearchEngineType {
 	return GOOGLE
 }
+
+func (g *Google) TopResult() *domain.ResultItem {
+	return g.results.First()
+}

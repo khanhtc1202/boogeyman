@@ -18,3 +18,7 @@ func NewDuckDuckGo(keyword string, results *domain.ResultItems) *DuckDuckGo {
 func (d *DuckDuckGo) Type() SearchEngineType {
 	return DUCKDUCKGO
 }
+
+func (d *DuckDuckGo) TopResult() *domain.ResultItem {
+	return d.results.First()
+}
