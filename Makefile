@@ -16,6 +16,7 @@ development develop dev d: dep build-development test
 # buid
 build-%:
 	GOOS=linux GOARCH=amd64	go build -tags="$* netgo" -installsuffix netgo -ldflags "$(LDFLAGS)" -o bin/$(NAME) ./$(ENTRYPOINT)
+	GOOS=darwin GOARCH=amd64 go build -tags="$* netgo" -installsuffix netgo -ldflags "$(LDFLAGS)" -o bin/$(NAME)-darwin ./$(ENTRYPOINT)
 
 # test
 test:
