@@ -1,12 +1,24 @@
 package domain
 
-type ResultItems []ResultItem
-
 type ResultItem struct {
 	createdTime string
 	title       string
 	description string
 	url         string
+}
+
+func NewResultItem(
+	createdTime string,
+	title string,
+	description string,
+	url string,
+) *ResultItem {
+	return &ResultItem{
+		createdTime: createdTime,
+		title:       title,
+		description: description,
+		url:         url,
+	}
 }
 
 func (r *ResultItem) Time() string {
@@ -23,11 +35,4 @@ func (r *ResultItem) GetDescription() string {
 
 func (r *ResultItem) GetUrl() string {
 	return r.url
-}
-
-func (r *ResultItems) Add(resultItem *ResultItem) {
-	if resultItem == nil {
-		return
-	}
-	*r = append(*r, *resultItem)
 }

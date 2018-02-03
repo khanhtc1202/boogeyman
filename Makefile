@@ -8,7 +8,7 @@ dep:
 	dep ensure
 
 # production mode: make [production | pro | p]
-production pro p: dep build-production
+production pro p: dep build-production test
 
 # development mode: make [development | develop | dev | d]
 development develop dev d: dep build-local
