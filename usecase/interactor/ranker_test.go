@@ -38,7 +38,7 @@ func TestRanker_CrossMatch(t *testing.T) {
 	if err != nil {
 		t.Fatal("Fail running test get result urls by cross match")
 	}
-	if len(*results) != 3 {
+	if len(*results) != 1 {
 		t.Fatal("Fail test logic get result urls by cross match")
 	}
 }
@@ -55,6 +55,21 @@ func TestRanker_Top(t *testing.T) {
 	}
 	if len(*results) != len(*sEngineList) {
 		t.Fatal("Fail test logic get result urls by top ranking")
+	}
+}
+
+func TestRanker_None(t *testing.T) {
+	ranker := interactor.NewRanker(&MaterialPoolMock{})
+
+	sEngineList := search_engine.EmptySearchEngineList()
+	sEngineList.AddAll()
+
+	results, err := ranker.None(*sEngineList)
+	if err != nil {
+		t.Fatal("Fail running test show all result urls")
+	}
+	if len(*results) > interactor.MaxReturnItems {
+		t.Fatal("Fail test logic show all result urls")
 	}
 }
 
