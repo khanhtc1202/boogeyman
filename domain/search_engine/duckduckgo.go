@@ -22,3 +22,7 @@ func (d *DuckDuckGo) Type() SearchEngineType {
 func (d *DuckDuckGo) TopResult() *domain.ResultItem {
 	return d.results.First()
 }
+
+func (d *DuckDuckGo) GetResults() *domain.ResultItems {
+	return d.results
+}

@@ -32,7 +32,15 @@ func (r *Ranker) Top(searchEngines []search_engine.SearchEngineType) (*domain.Re
 }
 
 func (r *Ranker) CrossMatch(searchEngines []search_engine.SearchEngineType) (*domain.ResultItems, error) {
-	topResults := domain.EmptyResultItems()
+	crossMatchedResults := domain.EmptyResultItems()
 	// TODO implement return matched urls cross search engines
-	return topResults, nil
+	for _, searchEngine := range searchEngines {
+		searchResult, err := r.materialPool.GetItemsBySearchEngine(searchEngine)
+		if err != nil {
+			return nil, errors.Wrap(err, "Error on fetch data from pool")
+		}
+		crossMatchedResults.Concatenate(searchResult.GetResults())
+	}
+	crossMatchedResults.RemoveDuplicates()
+	return crossMatchedResults, nil
 }

@@ -22,3 +22,7 @@ func (g *Google) Type() SearchEngineType {
 func (g *Google) TopResult() *domain.ResultItem {
 	return g.results.First()
 }
+
+func (g *Google) GetResults() *domain.ResultItems {
+	return g.results
+}

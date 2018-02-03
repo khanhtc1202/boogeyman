@@ -22,3 +22,7 @@ func (b *Bing) Type() SearchEngineType {
 func (b *Bing) TopResult() *domain.ResultItem {
 	return b.results.First()
 }
+
+func (b *Bing) GetResults() *domain.ResultItems {
+	return b.results
+}

@@ -38,7 +38,7 @@ func TestRanker_CrossMatch(t *testing.T) {
 	if err != nil {
 		t.Fatal("Fail running test get result urls by cross match")
 	}
-	if len(*results) != 1 {
+	if len(*results) != 3 {
 		t.Fatal("Fail test logic get result urls by cross match")
 	}
 }
