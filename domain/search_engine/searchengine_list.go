@@ -15,3 +15,12 @@ func (s *SearchEngineList) AddAll() {
 	s.Add(BING)
 	s.Add(DUCKDUCKGO)
 }
+
+func (s *SearchEngineList) Has(searchEngineType SearchEngineType) bool {
+	for _, engineType := range *s {
+		if searchEngineType == engineType {
+			return true
+		}
+	}
+	return false
+}
