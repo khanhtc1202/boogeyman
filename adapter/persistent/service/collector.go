@@ -6,5 +6,6 @@ import (
 )
 
 type Collector interface {
-	Query(searchEngineType search_engine.SearchEngineType, keyword *domain.Keyword) (search_engine.Base, error)
+	GetSearchEngineType() search_engine.SearchEngineType
+	Query(keyword *domain.Keyword) (search_engine.Base, error)
 }

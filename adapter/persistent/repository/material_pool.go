@@ -8,16 +8,20 @@ import (
 )
 
 type MaterialPool struct {
-	collector        service.Collector
+	collectors       []service.Collector
 	searchEngineList *search_engine.SearchEngineList
 	resultData       *search_engine.ResultDataPool
 }
 
-func NewMaterialPool(service service.Collector) *MaterialPool {
+func NewMaterialPool(services []service.Collector) *MaterialPool {
+	searchEngineList := search_engine.EmptySearchEngineList()
+	for _, searchEngine := range services {
+		searchEngineList.Add(searchEngine.GetSearchEngineType())
+	}
 	resultData := search_engine.EmptyResultDataPool()
 	return &MaterialPool{
-		collector:        service,
-		searchEngineList: nil,
+		collectors:       services,
+		searchEngineList: searchEngineList,
 		resultData:       resultData,
 	}
 }
@@ -26,15 +30,18 @@ func (m *MaterialPool) GetResultData() *search_engine.ResultDataPool {
 	return m.resultData
 }
 
-func (m *MaterialPool) Fetch(keyword *domain.Keyword, searchEngineList *search_engine.SearchEngineList) {
-	for _, searchEngineType := range *searchEngineList {
-		resultData, err := m.collector.Query(searchEngineType, keyword)
+func (m *MaterialPool) GetSearchEngineList() *search_engine.SearchEngineList {
+	return m.searchEngineList
+}
+
+func (m *MaterialPool) Fetch(keyword *domain.Keyword) {
+	for _, collector := range m.collectors {
+		resultData, err := collector.Query(keyword)
 		if err != nil {
 			panic("Error on fetching data from search engine!")
 		}
 		m.resultData.Add(resultData)
 	}
-	m.searchEngineList = searchEngineList
 }
 
 func (m *MaterialPool) GetItemsFromSearchEngine(searchEngineType search_engine.SearchEngineType) (search_engine.Base, error) {

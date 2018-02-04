@@ -11,22 +11,28 @@ const GoogleBaseURL = "https://www.google.com/search?q="
 
 type GoogleSpider struct {
 	baseUrl string
+	ofType  search_engine.SearchEngineType
 }
 
 func NewGoogleSpider() *GoogleSpider {
 	return &GoogleSpider{
 		baseUrl: GoogleBaseURL,
+		ofType:  search_engine.GOOGLE,
 	}
 }
 
-func (g *GoogleSpider) Query(searchEngineType search_engine.SearchEngineType, keyword *domain.Keyword) (search_engine.Base, error) {
+func (g *GoogleSpider) GetSearchEngineType() search_engine.SearchEngineType {
+	return g.ofType
+}
+
+func (g *GoogleSpider) Query(keyword *domain.Keyword) (search_engine.Base, error) {
 
 	doc := g.fetchFromInternet(keyword.String())
 	resultsData := g.parseDocumentData(doc)
 	if len(*resultsData) < 1 {
 		return nil, errors.New("Error on query data from search engine!")
 	}
-	return search_engine.NewBing(keyword, resultsData), nil
+	return search_engine.NewGoogle(keyword, resultsData), nil
 }
 
 func (g *GoogleSpider) fetchFromInternet(keyword string) *goquery.Document {
@@ -39,10 +45,10 @@ func (g *GoogleSpider) fetchFromInternet(keyword string) *goquery.Document {
 
 func (g *GoogleSpider) parseDocumentData(doc *goquery.Document) *domain.ResultItems {
 	resultsData := domain.EmptyResultItems()
-	doc.Find(".b_algo").Each(func(i int, s *goquery.Selection) {
+	doc.Find(".g").Each(func(i int, s *goquery.Selection) {
 		title := s.Find("a").Text()
 		url, _ := s.Find("a").Attr("href")
-		description := s.Find("p").Text()
+		description := s.Find("span .st").Text()
 		time := "unknown"
 		resultsData.Add(g.convertToDomain(title, url, description, time))
 	})
