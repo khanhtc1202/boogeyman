@@ -4,7 +4,7 @@ A simple program that help you get search results from multi search engines inst
 
 ## What can it does
 
-This program searches through multi search engines and return search result under some of strategies.
+This program searches through multi search engines and returns search results under some of strategies:
 
 > Top
 
