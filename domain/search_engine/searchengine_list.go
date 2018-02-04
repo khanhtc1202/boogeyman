@@ -14,6 +14,7 @@ func (s *SearchEngineList) AddAll() {
 	s.Add(GOOGLE)
 	s.Add(BING)
 	s.Add(DUCKDUCKGO)
+	s.Add(ASK)
 }
 
 func (s *SearchEngineList) Has(searchEngineType SearchEngineType) bool {

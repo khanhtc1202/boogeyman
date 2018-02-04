@@ -29,7 +29,7 @@ func NewCommandParse() *CommandParse {
 func (c *CommandParse) ParseCommandParams() *CommandParams {
 	var queryString string
 	flag.StringVar(&queryString, "keyword", "bar", "search (query) string")
-	engine := flag.String("engine", "all", "search engine: google | bing | duckduckgo | all")
+	engine := flag.String("engine", "all", "search engine: google | bing | ask | all")
 	strategy := flag.String("strategy", "all", "result show strategy: top | cross | all")
 
 	flag.Parse()

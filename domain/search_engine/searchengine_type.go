@@ -6,6 +6,7 @@ const (
 	GOOGLE SearchEngineType = iota
 	BING
 	DUCKDUCKGO
+	ASK
 )
 
 func (s SearchEngineType) String() string {
@@ -16,6 +17,8 @@ func (s SearchEngineType) String() string {
 		return "BING"
 	case DUCKDUCKGO:
 		return "DUCKDUCKGO"
+	case ASK:
+		return "ASK"
 	}
 	return "Unknown"
 }

@@ -44,6 +44,7 @@ func (d *DuckDuckGoSpider) fetchFromInternet(keyword string) *goquery.Document {
 }
 
 func (d *DuckDuckGoSpider) parseDocumentData(doc *goquery.Document) *domain.ResultItems {
+	// TODO duckduckgo gen html from script :middle_finger:
 	resultsData := domain.EmptyResultItems()
 	doc.Find(".result.results_links_deep.highlight_d").Each(func(i int, s *goquery.Selection) {
 		title := s.Find("a").Text()

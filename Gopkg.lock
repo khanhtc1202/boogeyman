@@ -2,28 +2,10 @@
 
 
 [[projects]]
-  name = "github.com/PuerkitoBio/gocrawl"
-  packages = ["."]
-  revision = "1f1a7bee20f4768c9acd330d9d4f4064ac5f7311"
-  version = "v1.0.0"
-
-[[projects]]
   name = "github.com/PuerkitoBio/goquery"
   packages = ["."]
   revision = "09540e565986583836b5fc792fe951ec5fd201dd"
   version = "v1.3.0"
-
-[[projects]]
-  name = "github.com/PuerkitoBio/purell"
-  packages = ["."]
-  revision = "0bcb03f4b4d0a9428594752bd2a3b9aa0a9d4bd4"
-  version = "v1.1.0"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/PuerkitoBio/urlesc"
-  packages = ["."]
-  revision = "de5bf2ad457846296e2031421a34e2568e304e35"
 
 [[projects]]
   branch = "master"
@@ -39,45 +21,16 @@
 
 [[projects]]
   branch = "master"
-  name = "github.com/temoto/robotstxt.go"
-  packages = ["."]
-  revision = "9e4646fa705336d5b2fa9dddfafbe0a1a965acd7"
-
-[[projects]]
-  branch = "master"
   name = "golang.org/x/net"
   packages = [
     "html",
-    "html/atom",
-    "idna"
+    "html/atom"
   ]
   revision = "2fb46b16b8dda405028c50f7c7f0f9dd1fa6bfb1"
-
-[[projects]]
-  branch = "master"
-  name = "golang.org/x/text"
-  packages = [
-    "collate",
-    "collate/build",
-    "internal/colltab",
-    "internal/gen",
-    "internal/tag",
-    "internal/triegen",
-    "internal/ucd",
-    "language",
-    "secure/bidirule",
-    "transform",
-    "unicode/bidi",
-    "unicode/cldr",
-    "unicode/norm",
-    "unicode/rangetable",
-    "width"
-  ]
-  revision = "e19ae1496984b1c655b8044a65c0300a3c878dd3"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "8201b4d46daf27bcb84c779d16c49f1f8bf8b00f9a51f6abb92de892dc21d7d5"
+  inputs-digest = "6085ad5284d9696cf03ec9bedd02ee1bf34df1081e240268dbf95cba023d2401"
   solver-name = "gps-cdcl"
   solver-version = 1
