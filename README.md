@@ -9,3 +9,8 @@ The program's architecture implemented under `the clean architecture` design. Mo
 ![boogeymain design](public/boogeyman_design.jpg)
 
 ## Usage
+
+## Download
+
+For linux x64 : [download](public/boogeyman-linux-64)
+For MacOS x64 : [download](public/boogeyman-darwin-64)
