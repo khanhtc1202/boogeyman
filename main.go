@@ -3,29 +3,27 @@ package main
 import (
 	"fmt"
 
-	"os"
+	"strings"
 
 	"github.com/khanhtc1202/boogeyman/adapter/controller"
 	"github.com/khanhtc1202/boogeyman/adapter/persistent/repository"
 	"github.com/khanhtc1202/boogeyman/adapter/persistent/service"
 	"github.com/khanhtc1202/boogeyman/domain"
+	"github.com/khanhtc1202/boogeyman/domain/search_engine"
 	spiderPool "github.com/khanhtc1202/boogeyman/infrastructure/service"
 )
 
 func main() {
-	bingSpider := spiderPool.NewBingSpider()
-	googleSpider := spiderPool.NewGoogleSpider()
-	materialPool := repository.NewMaterialPool([]service.Collector{googleSpider, bingSpider})
+	// parse command params
+	commandParse := controller.NewCommandParse()
+	cmdParams := commandParse.ParseCommandParams()
 
-	params := parseCommandParams()
-	keyword := domain.NewKeyword(params[0])
-	materialPool.Fetch(keyword)
-
-	//materialPool.Fetch(domain.NewKeyword("java"))
+	materialPool := MaterialPoolFactory(cmdParams.Engine)
+	materialPool.Fetch(domain.NewKeyword(cmdParams.QueryString))
 
 	boogeyman := controller.NewBoogeyman(materialPool)
 
-	results, err := boogeyman.ShowSearchResult(domain.ALL, materialPool.GetSearchEngineList())
+	results, err := boogeyman.ShowSearchResult(SetShowStrategy(cmdParams.Strategy), materialPool.GetSearchEngineList())
 	if err != nil {
 		fmt.Println("Error : ", err)
 		panic("Error on show search results!")
@@ -35,9 +33,33 @@ func main() {
 	}
 }
 
-func parseCommandParams() []string {
-	if len(os.Args) < 2 {
-		panic("Missing params")
+func MaterialPoolFactory(selectedEngine string) *repository.MaterialPool {
+	collectors := service.EmptyCollectorList()
+	switch strings.ToUpper(selectedEngine) {
+	case search_engine.GOOGLE.String():
+		collectors.Add(spiderPool.NewGoogleSpider())
+		break
+	case search_engine.BING.String():
+		collectors.Add(spiderPool.NewBingSpider())
+		break
+	case search_engine.BING.String():
+		collectors.Add(spiderPool.NewDuckDuckGoSpider())
+		break
+	default:
+		collectors.Add(spiderPool.NewGoogleSpider())
+		collectors.Add(spiderPool.NewBingSpider())
+		collectors.Add(spiderPool.NewDuckDuckGoSpider())
 	}
-	return os.Args[1:]
+	return repository.NewMaterialPool(*collectors)
+}
+
+func SetShowStrategy(selectedStrategy string) domain.StrategyType {
+	switch strings.ToUpper(selectedStrategy) {
+	case domain.TOP.String():
+		return domain.TOP
+	case domain.CROSS.String():
+		return domain.CROSS
+	default:
+		return domain.ALL
+	}
 }
