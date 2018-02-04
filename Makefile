@@ -12,7 +12,7 @@ production pro p: dep build-production test
 
 # development mode: make [development | develop | dev | d]
 development develop dev d: dep build-local
-dev-test: dep build-development test
+dev-test: dep build-local test
 
 # buid
 build-%:
