@@ -7,7 +7,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-const MaxReturnItems = 5
+const MaxReturnItems = 20
 
 type Ranker struct {
 	materialPool repository.MaterialPool
