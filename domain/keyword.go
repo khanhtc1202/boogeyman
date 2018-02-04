@@ -1,5 +1,7 @@
 package domain
 
+import "strings"
+
 type Keyword struct {
 	value string
 }
@@ -11,5 +13,5 @@ func NewKeyword(keyword string) *Keyword {
 }
 
 func (k *Keyword) String() string {
-	return k.value
+	return strings.Replace(k.value, " ", "%20", -1)
 }

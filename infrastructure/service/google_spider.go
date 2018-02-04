@@ -1,6 +1,8 @@
 package service
 
 import (
+	"strings"
+
 	"github.com/PuerkitoBio/goquery"
 	"github.com/khanhtc1202/boogeyman/domain"
 	"github.com/khanhtc1202/boogeyman/domain/search_engine"
@@ -48,7 +50,7 @@ func (g *GoogleSpider) parseDocumentData(doc *goquery.Document) *domain.ResultIt
 	doc.Find(".g").Each(func(i int, s *goquery.Selection) {
 		title := s.Find("a").Text()
 		url, _ := s.Find("a").Attr("href")
-		description := s.Find("span .st").Text()
+		description := s.Find(".st").Text()
 		time := "unknown"
 		resultsData.Add(g.convertToDomain(title, url, description, time))
 	})
@@ -61,5 +63,6 @@ func (g *GoogleSpider) convertToDomain(
 	description string,
 	time string,
 ) *domain.ResultItem {
+	url = strings.Replace(url, "/url?q=", "", -1)
 	return domain.NewResultItem(time, title, description, url)
 }

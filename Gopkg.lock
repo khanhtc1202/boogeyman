@@ -32,6 +32,12 @@
   revision = "349dd0209470eabd9514242c688c403c0926d266"
 
 [[projects]]
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
+  version = "v0.8.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/temoto/robotstxt.go"
   packages = ["."]
@@ -72,6 +78,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d2568d02ef8bd3f42ada5ce5b6e8bff341d14ae3ffc18f2fbd495d19a282d0f1"
+  inputs-digest = "8201b4d46daf27bcb84c779d16c49f1f8bf8b00f9a51f6abb92de892dc21d7d5"
   solver-name = "gps-cdcl"
   solver-version = 1
