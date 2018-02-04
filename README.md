@@ -54,6 +54,10 @@ Usage of ./public/boogeyman-darwin-64:
         result show strategy: top | cross | all (default "all")
 ```
 
+Sample result
+
+![query keyword cross search engines](public/sample.png)
+
 ## Run on local
 
 Boogeyman development environment requires: 
