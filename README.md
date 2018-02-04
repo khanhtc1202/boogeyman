@@ -12,7 +12,7 @@ Return top result of each search engines.
 
 > Cross Matching
 
-Return matched result cross through multi search engines. (Appeared in 2 hay more search engines)
+Return matched results cross through multi search engines. (Appeared in 2 or more search engines)
 
 > All (with limit 20)
 
