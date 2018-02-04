@@ -48,7 +48,9 @@ func TestRanker_Top(t *testing.T) {
 	ranker := interactor.NewRanker(&MaterialPoolMock{})
 
 	sEngineList := search_engine.EmptySearchEngineList()
-	sEngineList.AddAll()
+	sEngineList.Add(search_engine.GOOGLE)
+	sEngineList.Add(search_engine.BING)
+	sEngineList.Add(search_engine.DUCKDUCKGO)
 
 	results, err := ranker.Top(sEngineList)
 	if err != nil {
@@ -63,7 +65,9 @@ func TestRanker_None(t *testing.T) {
 	ranker := interactor.NewRanker(&MaterialPoolMock{})
 
 	sEngineList := search_engine.EmptySearchEngineList()
-	sEngineList.AddAll()
+	sEngineList.Add(search_engine.GOOGLE)
+	sEngineList.Add(search_engine.BING)
+	sEngineList.Add(search_engine.DUCKDUCKGO)
 
 	results, err := ranker.None(sEngineList)
 	if err != nil {
