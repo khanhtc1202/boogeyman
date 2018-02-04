@@ -4,11 +4,11 @@ import "github.com/khanhtc1202/boogeyman/domain"
 
 type DuckDuckGo struct {
 	Base
-	keyword string
+	keyword *domain.Keyword
 	results *domain.ResultItems
 }
 
-func NewDuckDuckGo(keyword string, results *domain.ResultItems) *DuckDuckGo {
+func NewDuckDuckGo(keyword *domain.Keyword, results *domain.ResultItems) *DuckDuckGo {
 	return &DuckDuckGo{
 		keyword: keyword,
 		results: results,

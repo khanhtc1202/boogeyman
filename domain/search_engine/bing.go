@@ -4,11 +4,11 @@ import "github.com/khanhtc1202/boogeyman/domain"
 
 type Bing struct {
 	Base
-	keyword string
+	keyword *domain.Keyword
 	results *domain.ResultItems
 }
 
-func NewBing(keyword string, results *domain.ResultItems) *Bing {
+func NewBing(keyword *domain.Keyword, results *domain.ResultItems) *Bing {
 	return &Bing{
 		keyword: keyword,
 		results: results,

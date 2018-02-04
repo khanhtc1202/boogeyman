@@ -34,7 +34,7 @@ func TestRanker_CrossMatch(t *testing.T) {
 	sEngineList.Add(search_engine.BING)
 	sEngineList.Add(search_engine.DUCKDUCKGO)
 
-	results, err := ranker.CrossMatch(*sEngineList)
+	results, err := ranker.CrossMatch(sEngineList)
 	if err != nil {
 		t.Fatal("Fail running test get result urls by cross match")
 	}
@@ -49,7 +49,7 @@ func TestRanker_Top(t *testing.T) {
 	sEngineList := search_engine.EmptySearchEngineList()
 	sEngineList.AddAll()
 
-	results, err := ranker.Top(*sEngineList)
+	results, err := ranker.Top(sEngineList)
 	if err != nil {
 		t.Fatal("Fail running test get result urls by top ranking")
 	}
@@ -64,7 +64,7 @@ func TestRanker_None(t *testing.T) {
 	sEngineList := search_engine.EmptySearchEngineList()
 	sEngineList.AddAll()
 
-	results, err := ranker.None(*sEngineList)
+	results, err := ranker.None(sEngineList)
 	if err != nil {
 		t.Fatal("Fail running test show all result urls")
 	}

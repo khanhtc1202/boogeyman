@@ -4,11 +4,11 @@ import "github.com/khanhtc1202/boogeyman/domain"
 
 type Google struct {
 	Base
-	keyword string
+	keyword *domain.Keyword
 	results *domain.ResultItems
 }
 
-func NewGoogle(keyword string, results *domain.ResultItems) *Google {
+func NewGoogle(keyword *domain.Keyword, results *domain.ResultItems) *Google {
 	return &Google{
 		keyword: keyword,
 		results: results,
