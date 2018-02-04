@@ -8,29 +8,26 @@ import (
 )
 
 type Boogeyman struct {
-	searchEngineList *search_engine.SearchEngineList
-	interactor       *interactor.Ranker
+	interactor *interactor.Ranker
 }
 
 func NewBoogeyman(
 	materialPool repository.MaterialPool,
-	searchEngineList *search_engine.SearchEngineList,
 ) *Boogeyman {
 	return &Boogeyman{
-		interactor:       interactor.NewRanker(materialPool),
-		searchEngineList: searchEngineList,
+		interactor: interactor.NewRanker(materialPool),
 	}
 }
 
-func (b *Boogeyman) ShowSearchResult(strategy domain.StrategyType) (*domain.ResultItems, error) {
+func (b *Boogeyman) ShowSearchResult(strategy domain.StrategyType, searchEngineList *search_engine.SearchEngineList) (*domain.ResultItems, error) {
 	switch strategy {
 	case domain.TOP:
-		return b.interactor.Top(b.searchEngineList)
+		return b.interactor.Top(searchEngineList)
 	case domain.CROSS:
-		return b.interactor.CrossMatch(b.searchEngineList)
+		return b.interactor.CrossMatch(searchEngineList)
 	case domain.ALL:
-		return b.interactor.None(b.searchEngineList)
+		return b.interactor.None(searchEngineList)
 	default:
-		return b.interactor.None(b.searchEngineList)
+		return b.interactor.None(searchEngineList)
 	}
 }

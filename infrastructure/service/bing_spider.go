@@ -11,15 +11,21 @@ const BingBaseURL = "https://www.bing.com/search?q="
 
 type BingSpider struct {
 	baseUrl string
+	ofType  search_engine.SearchEngineType
 }
 
 func NewBingSpider() *BingSpider {
 	return &BingSpider{
 		baseUrl: BingBaseURL,
+		ofType:  search_engine.BING,
 	}
 }
 
-func (b *BingSpider) Query(searchEngineType search_engine.SearchEngineType, keyword *domain.Keyword) (search_engine.Base, error) {
+func (b *BingSpider) GetSearchEngineType() search_engine.SearchEngineType {
+	return b.ofType
+}
+
+func (b *BingSpider) Query(keyword *domain.Keyword) (search_engine.Base, error) {
 
 	doc := b.fetchFromInternet(keyword.String())
 	resultsData := b.parseDocumentData(doc)

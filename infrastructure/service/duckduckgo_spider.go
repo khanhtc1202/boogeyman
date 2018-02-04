@@ -11,22 +11,28 @@ const DuckDuckGoBaseURL = "https://duckduckgo.com/?q="
 
 type DuckDuckGoSpider struct {
 	baseUrl string
+	ofType  search_engine.SearchEngineType
 }
 
 func NewDuckDuckGoSpider() *DuckDuckGoSpider {
 	return &DuckDuckGoSpider{
 		baseUrl: DuckDuckGoBaseURL,
+		ofType:  search_engine.DUCKDUCKGO,
 	}
 }
 
-func (d *DuckDuckGoSpider) Query(searchEngineType search_engine.SearchEngineType, keyword *domain.Keyword) (search_engine.Base, error) {
+func (d *DuckDuckGoSpider) GetSearchEngineType() search_engine.SearchEngineType {
+	return d.ofType
+}
+
+func (d *DuckDuckGoSpider) Query(keyword *domain.Keyword) (search_engine.Base, error) {
 
 	doc := d.fetchFromInternet(keyword.String())
 	resultsData := d.parseDocumentData(doc)
 	if len(*resultsData) < 1 {
 		return nil, errors.New("Error on query data from search engine!")
 	}
-	return search_engine.NewBing(keyword, resultsData), nil
+	return search_engine.NewDuckDuckGo(keyword, resultsData), nil
 }
 
 func (d *DuckDuckGoSpider) fetchFromInternet(keyword string) *goquery.Document {
@@ -39,10 +45,10 @@ func (d *DuckDuckGoSpider) fetchFromInternet(keyword string) *goquery.Document {
 
 func (d *DuckDuckGoSpider) parseDocumentData(doc *goquery.Document) *domain.ResultItems {
 	resultsData := domain.EmptyResultItems()
-	doc.Find(".b_algo").Each(func(i int, s *goquery.Selection) {
+	doc.Find(".result.results_links_deep.highlight_d").Each(func(i int, s *goquery.Selection) {
 		title := s.Find("a").Text()
 		url, _ := s.Find("a").Attr("href")
-		description := s.Find("p").Text()
+		description := s.Find("div .result__snippet").Text()
 		time := "unknown"
 		resultsData.Add(d.convertToDomain(title, url, description, time))
 	})

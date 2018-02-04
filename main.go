@@ -5,23 +5,22 @@ import (
 
 	"github.com/khanhtc1202/boogeyman/adapter/controller"
 	"github.com/khanhtc1202/boogeyman/adapter/persistent/repository"
+	"github.com/khanhtc1202/boogeyman/adapter/persistent/service"
 	"github.com/khanhtc1202/boogeyman/domain"
-	"github.com/khanhtc1202/boogeyman/domain/search_engine"
-	"github.com/khanhtc1202/boogeyman/infrastructure/service"
+	spiderPool "github.com/khanhtc1202/boogeyman/infrastructure/service"
 )
 
 func main() {
-	searchEngineList := search_engine.EmptySearchEngineList()
-	searchEngineList.Add(search_engine.BING)
-
 	keyword := domain.NewKeyword("sample")
-	bingSpider := service.NewBingSpider()
-	materialPool := repository.NewMaterialPool(bingSpider)
-	materialPool.Fetch(keyword, searchEngineList)
+	bingSpider := spiderPool.NewBingSpider()
+	googleSpider := spiderPool.NewGoogleSpider()
 
-	boogeyman := controller.NewBoogeyman(materialPool, searchEngineList)
+	materialPool := repository.NewMaterialPool([]service.Collector{bingSpider, googleSpider})
+	materialPool.Fetch(keyword)
 
-	results, err := boogeyman.ShowSearchResult(domain.TOP)
+	boogeyman := controller.NewBoogeyman(materialPool)
+
+	results, err := boogeyman.ShowSearchResult(domain.TOP, materialPool.GetSearchEngineList())
 	if err != nil {
 		fmt.Println("Error : ", err)
 		panic("Error on show search results!")

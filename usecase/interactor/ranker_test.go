@@ -14,13 +14,14 @@ type MaterialPoolMock struct {
 }
 
 func (m *MaterialPoolMock) GetItemsFromSearchEngine(searchEngineType search_engine.SearchEngineType) (search_engine.Base, error) {
+	keyword := domain.NewKeyword("key")
 	switch searchEngineType {
 	case search_engine.GOOGLE:
-		return search_engine.NewGoogle("key", fakeResultListSet1()), nil
+		return search_engine.NewGoogle(keyword, fakeResultListSet1()), nil
 	case search_engine.BING:
-		return search_engine.NewBing("key", fakeResultListSet2()), nil
+		return search_engine.NewBing(keyword, fakeResultListSet2()), nil
 	case search_engine.DUCKDUCKGO:
-		return search_engine.NewDuckDuckGo("key", fakeResultListSet3()), nil
+		return search_engine.NewDuckDuckGo(keyword, fakeResultListSet3()), nil
 	default:
 		return nil, nil
 	}

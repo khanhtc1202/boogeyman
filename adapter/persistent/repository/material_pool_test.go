@@ -13,29 +13,21 @@ type CollectorMock struct {
 	service.Collector
 }
 
-func (c *CollectorMock) Query(searchEngineType search_engine.SearchEngineType, keyword *domain.Keyword) (search_engine.Base, error) {
-	switch searchEngineType {
-	case search_engine.GOOGLE:
-		return search_engine.NewGoogle("key", fakeResultList()), nil
-	case search_engine.BING:
-		return search_engine.NewBing("key", fakeResultList()), nil
-	case search_engine.DUCKDUCKGO:
-		return search_engine.NewDuckDuckGo("key", fakeResultList()), nil
-	default:
-		return nil, nil
-	}
-	return nil, nil
+func (c *CollectorMock) GetSearchEngineType() search_engine.SearchEngineType {
+	return search_engine.GOOGLE
+}
+
+func (c *CollectorMock) Query(keyword *domain.Keyword) (search_engine.Base, error) {
+	return search_engine.NewGoogle(keyword, fakeResultList()), nil
 }
 
 func TestMaterialPool_Fetch(t *testing.T) {
 	keyword := domain.NewKeyword("sample")
-	searchEngineList := search_engine.EmptySearchEngineList()
-	searchEngineList.AddAll()
 
-	materialPool := repository.NewMaterialPool(&CollectorMock{})
+	materialPool := repository.NewMaterialPool([]service.Collector{&CollectorMock{}})
 
-	materialPool.Fetch(keyword, searchEngineList)
-	if len(*materialPool.GetResultData()) != len(*searchEngineList) {
+	materialPool.Fetch(keyword)
+	if len(*materialPool.GetResultData()) != len(*materialPool.GetSearchEngineList()) {
 		t.Fatal("Fail on test fetch data from search engine")
 	}
 }
@@ -45,9 +37,9 @@ func TestMaterialPool_GetItemsBySearchEngine(t *testing.T) {
 	searchEngineList := search_engine.EmptySearchEngineList()
 	searchEngineList.AddAll()
 
-	materialPool := repository.NewMaterialPool(&CollectorMock{})
+	materialPool := repository.NewMaterialPool([]service.Collector{&CollectorMock{}})
 
-	materialPool.Fetch(keyword, searchEngineList)
+	materialPool.Fetch(keyword)
 
 	searchResult, err := materialPool.GetItemsFromSearchEngine(search_engine.GOOGLE)
 	if err != nil {
