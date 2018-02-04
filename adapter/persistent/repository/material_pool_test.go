@@ -34,11 +34,8 @@ func TestMaterialPool_Fetch(t *testing.T) {
 
 func TestMaterialPool_GetItemsBySearchEngine(t *testing.T) {
 	keyword := domain.NewKeyword("sample")
-	searchEngineList := search_engine.EmptySearchEngineList()
-	searchEngineList.AddAll()
 
 	materialPool := repository.NewMaterialPool([]service.Collector{&CollectorMock{}})
-
 	materialPool.Fetch(keyword)
 
 	searchResult, err := materialPool.GetItemsFromSearchEngine(search_engine.GOOGLE)
