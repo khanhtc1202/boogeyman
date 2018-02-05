@@ -48,7 +48,7 @@ Type `-h` to get help. Return value be like
 Usage of ./public/boogeyman-darwin-64:
   -e string
         search engine(s): google | bing | ask | all (default "all")
-  -k
+  -k string
         search (query) string (default "bar")
   -s string
         result show strategy: top | cross | all (default "all")
