@@ -39,18 +39,18 @@ In case exec file you downloaded's name is `boogeyman`.
 Sample full params command
 
 ```bash
-$ ./boogeyman -engine=bing -strategy=top -keyword=some anything
+$ ./boogeyman -e=bing -s=top -k=some anything
 ```
 
 Type `-h` to get help. Return value be like
 
 ```$xslt
 Usage of ./public/boogeyman-darwin-64:
-  -engine string
-        search engine: google | bing | ask | all (default "all")
-  -keyword string
+  -e string
+        search engine(s): google | bing | ask | all (default "all")
+  -k
         search (query) string (default "bar")
-  -strategy string
+  -s string
         result show strategy: top | cross | all (default "all")
 ```
 
