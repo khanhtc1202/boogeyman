@@ -23,6 +23,7 @@ On ver `1.0`, search engines list:
 1. Ask
 2. Bing
 3. Google
+4. Yandex
 
 This list will be updated by far ~
 
@@ -47,7 +48,7 @@ Type `-h` to get help. Return value be like
 ```$xslt
 Usage of ./public/boogeyman-darwin-64:
   -e string
-        search engine(s): google | bing | ask | all (default "all")
+        search engine(s): google | bing | ask | yandex | all (default "all")
   -k string
         search (query) string (default "bar")
   -s string
