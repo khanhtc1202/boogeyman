@@ -7,6 +7,7 @@ const (
 	BING
 	DUCKDUCKGO
 	ASK
+	YANDEX
 )
 
 func (s SearchEngineType) String() string {
@@ -19,6 +20,8 @@ func (s SearchEngineType) String() string {
 		return "DUCKDUCKGO"
 	case ASK:
 		return "ASK"
+	case YANDEX:
+		return "YANDEX"
 	}
 	return "Unknown"
 }

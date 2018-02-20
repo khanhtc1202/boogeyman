@@ -45,10 +45,14 @@ func MaterialPoolFactory(selectedEngine string) *repository.MaterialPool {
 	case search_engine.ASK.String():
 		collectors.Add(spiderPool.NewAskSpider())
 		break
+	case search_engine.YANDEX.String():
+		collectors.Add(spiderPool.NewYandexSpider())
+		break
 	default:
 		collectors.Add(spiderPool.NewAskSpider())
 		collectors.Add(spiderPool.NewBingSpider())
 		collectors.Add(spiderPool.NewGoogleSpider())
+		collectors.Add(spiderPool.NewYandexSpider())
 	}
 	return repository.NewMaterialPool(*collectors)
 }
