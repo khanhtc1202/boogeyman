@@ -36,6 +36,7 @@ func (b *YandexSpider) Query(keyword *domain.Keyword) (search_engine.Base, error
 }
 
 func (b *YandexSpider) fetchFromInternet(keyword string) *goquery.Document {
+	// TODO yandex search engine catch request from boogeyman as an automate req
 	doc, err := goquery.NewDocument(b.baseUrl + keyword)
 	if err != nil {
 		panic("Error fetching data from internet!")
