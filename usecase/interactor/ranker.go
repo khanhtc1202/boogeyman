@@ -1,13 +1,12 @@
 package interactor
 
 import (
+	"github.com/khanhtc1202/boogeyman/config"
 	"github.com/khanhtc1202/boogeyman/domain"
 	"github.com/khanhtc1202/boogeyman/domain/search_engine"
 	"github.com/khanhtc1202/boogeyman/usecase/repository"
 	"github.com/pkg/errors"
 )
-
-const MaxReturnItems = 20
 
 type Ranker struct {
 	materialPool repository.MaterialPool
@@ -53,5 +52,5 @@ func (r *Ranker) None(searchEngines *search_engine.SearchEngineList) (*domain.Re
 		allResults.Concatenate(searchResult.GetResults())
 	}
 	allResults.RemoveDuplicates()
-	return allResults.Limit(MaxReturnItems), nil
+	return allResults.Limit(config.GetConfig().RankerConf.MaxReturnItems), nil
 }
