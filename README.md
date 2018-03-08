@@ -23,7 +23,7 @@ On ver `1.1`, search engines list:
 1. Ask
 2. Bing
 3. Google
-4. Yandex
+4. Yandex (remove on ver 1.1.1)
 
 This list will be updated by far ~
 
