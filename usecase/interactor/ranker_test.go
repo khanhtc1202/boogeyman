@@ -3,6 +3,7 @@ package interactor_test
 import (
 	"testing"
 
+	"github.com/khanhtc1202/boogeyman/config"
 	"github.com/khanhtc1202/boogeyman/domain"
 	"github.com/khanhtc1202/boogeyman/domain/search_engine"
 	"github.com/khanhtc1202/boogeyman/usecase/interactor"
@@ -73,7 +74,7 @@ func TestRanker_None(t *testing.T) {
 	if err != nil {
 		t.Fatal("Fail running test show all result urls")
 	}
-	if len(*results) > interactor.MaxReturnItems {
+	if len(*results) > config.GetConfig().RankerConf.MaxReturnItems {
 		t.Fatal("Fail test logic show all result urls")
 	}
 }
