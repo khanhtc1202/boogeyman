@@ -16,8 +16,8 @@ dev-test: dep build-local test-development
 
 # buid
 build-%:
-	GOOS=linux GOARCH=amd64	go build -tags="$* netgo" -installsuffix netgo -ldflags "$(LDFLAGS)" -o bin/$(NAME) ./$(ENTRYPOINT)
-	GOOS=darwin GOARCH=amd64 go build -tags="$* netgo" -installsuffix netgo -ldflags "$(LDFLAGS)" -o bin/$(NAME)-darwin ./$(ENTRYPOINT)
+	GOOS=linux GOARCH=amd64	go build -tags="$* netgo" -installsuffix netgo -ldflags "$(LDFLAGS)" -o bin/$(NAME)-linux-64 ./$(ENTRYPOINT)
+	GOOS=darwin GOARCH=amd64 go build -tags="$* netgo" -installsuffix netgo -ldflags "$(LDFLAGS)" -o bin/$(NAME)-darwin-64 ./$(ENTRYPOINT)
 
 # test
 test-%:
@@ -29,3 +29,7 @@ update:
 # Generate Go file
 gobindata-%:
 	go-bindata -pkg config -o config/config_tml.go config.$*.tml
+
+# publicing
+deploy:
+	mv ./bin/* ./public/
