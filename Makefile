@@ -12,7 +12,7 @@ production pro p: dep gobindata-production build-production test-production
 
 # development mode: make [development | develop | dev | d]
 development develop dev d: dep gobindata-development build-development
-dev-test: dep build-local test-development
+dev-test: dep gobindata-development build-development test-development
 
 # buid
 build-%:
