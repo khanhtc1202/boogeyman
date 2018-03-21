@@ -14,7 +14,7 @@ type MaterialPoolMock struct {
 	repository.MaterialPool
 }
 
-func (m *MaterialPoolMock) GetItemsFromSearchEngine(searchEngineType search_engine.SearchEngineType) (search_engine.Base, error) {
+func (m *MaterialPoolMock) GetItemsFromSearchEngine(searchEngineType search_engine.SearchEngineType) (search_engine.SearchEngine, error) {
 	keyword := domain.NewKeyword("key")
 	switch searchEngineType {
 	case search_engine.GOOGLE:

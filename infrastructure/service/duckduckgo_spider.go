@@ -25,7 +25,7 @@ func (d *DuckDuckGoSpider) GetSearchEngineType() search_engine.SearchEngineType 
 	return d.ofType
 }
 
-func (d *DuckDuckGoSpider) Query(keyword *domain.Keyword) (search_engine.Base, error) {
+func (d *DuckDuckGoSpider) Query(keyword *domain.Keyword) (search_engine.SearchEngine, error) {
 
 	doc := d.fetchFromInternet(keyword.String())
 	resultsData := d.parseDocumentData(doc)

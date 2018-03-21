@@ -25,7 +25,7 @@ func (b *AskSpider) GetSearchEngineType() search_engine.SearchEngineType {
 	return b.ofType
 }
 
-func (b *AskSpider) Query(keyword *domain.Keyword) (search_engine.Base, error) {
+func (b *AskSpider) Query(keyword *domain.Keyword) (search_engine.SearchEngine, error) {
 
 	doc := b.fetchFromInternet(keyword.String())
 	resultsData := b.parseDocumentData(doc)

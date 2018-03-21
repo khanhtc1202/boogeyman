@@ -5,5 +5,5 @@ import (
 )
 
 type MaterialPool interface {
-	GetItemsFromSearchEngine(searchEngineType search_engine.SearchEngineType) (search_engine.Base, error)
+	GetItemsFromSearchEngine(searchEngineType search_engine.SearchEngineType) (search_engine.SearchEngine, error)
 }

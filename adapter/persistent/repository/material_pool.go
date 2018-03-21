@@ -44,7 +44,7 @@ func (m *MaterialPool) Fetch(keyword *domain.Keyword) {
 	}
 }
 
-func (m *MaterialPool) GetItemsFromSearchEngine(searchEngineType search_engine.SearchEngineType) (search_engine.Base, error) {
+func (m *MaterialPool) GetItemsFromSearchEngine(searchEngineType search_engine.SearchEngineType) (search_engine.SearchEngine, error) {
 	if m.searchEngineList.Has(searchEngineType) {
 		return m.resultData.FilterByEngineType(searchEngineType), nil
 	} else {

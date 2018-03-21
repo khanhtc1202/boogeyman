@@ -25,7 +25,7 @@ func (b *YandexSpider) GetSearchEngineType() search_engine.SearchEngineType {
 	return b.ofType
 }
 
-func (b *YandexSpider) Query(keyword *domain.Keyword) (search_engine.Base, error) {
+func (b *YandexSpider) Query(keyword *domain.Keyword) (search_engine.SearchEngine, error) {
 
 	doc := b.fetchFromInternet(keyword.String())
 	resultsData := b.parseDocumentData(doc)

@@ -17,7 +17,7 @@ func (c *CollectorMock) GetSearchEngineType() search_engine.SearchEngineType {
 	return search_engine.GOOGLE
 }
 
-func (c *CollectorMock) Query(keyword *domain.Keyword) (search_engine.Base, error) {
+func (c *CollectorMock) Query(keyword *domain.Keyword) (search_engine.SearchEngine, error) {
 	return search_engine.NewGoogle(keyword, fakeResultList()), nil
 }
 
