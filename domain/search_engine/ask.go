@@ -5,7 +5,7 @@ import (
 )
 
 type Ask struct {
-	Base
+	SearchEngine
 	keyword *domain.Keyword
 	results *domain.ResultItems
 }

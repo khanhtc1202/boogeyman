@@ -3,7 +3,7 @@ package search_engine
 import "github.com/khanhtc1202/boogeyman/domain"
 
 type Google struct {
-	Base
+	SearchEngine
 	keyword *domain.Keyword
 	results *domain.ResultItems
 }
