@@ -1,6 +1,13 @@
 package controller
 
-import "flag"
+import (
+	"flag"
+	"fmt"
+
+	"os"
+
+	"github.com/khanhtc1202/boogeyman/infrastructure/meta_info"
+)
 
 type CommandParams struct {
 	Engine      string
@@ -35,4 +42,16 @@ func (c *CommandParse) ParseCommandParams() *CommandParams {
 	flag.Parse()
 
 	return NewCommandParams(*engine, *strategy, queryString)
+}
+
+func (c *CommandParse) ShowInfo(metaInfo *meta_info.MetaInfo) {
+	var showVersion = false
+	flag.BoolVar(&showVersion, "v", false, "show application version")
+	flag.BoolVar(&showVersion, "version", false, "show application version")
+	flag.Parse()
+
+	if showVersion {
+		fmt.Printf(metaInfo.GetMetaInfo())
+		os.Exit(0)
+	}
 }

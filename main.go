@@ -10,12 +10,33 @@ import (
 	"github.com/khanhtc1202/boogeyman/adapter/persistent/service"
 	"github.com/khanhtc1202/boogeyman/domain"
 	"github.com/khanhtc1202/boogeyman/domain/search_engine"
+	"github.com/khanhtc1202/boogeyman/infrastructure/meta_info"
 	spiderPool "github.com/khanhtc1202/boogeyman/infrastructure/service"
 )
 
+var (
+	version   string
+	revision  string
+	buildDate string
+	goVersion string
+	mode      string
+)
+
+var metaInfo = meta_info.NewMetaInfo(
+	version,
+	revision,
+	buildDate,
+	goVersion,
+	mode,
+)
+
 func main() {
-	// parse command params
 	commandParse := controller.NewCommandParse()
+
+	// check meta_info
+	commandParse.ShowInfo(metaInfo)
+
+	// parse command params
 	cmdParams := commandParse.ParseCommandParams()
 
 	materialPool := MaterialPoolFactory(cmdParams.Engine)
