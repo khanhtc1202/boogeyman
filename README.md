@@ -53,6 +53,9 @@ Usage of ./public/boogeyman-darwin-64:
         search (query) string (default "bar")
   -s string
         result show strategy: top | cross | all (default "all")
+  -v    show application version
+  -version
+        show application version
 ```
 
 Sample result
