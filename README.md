@@ -18,7 +18,7 @@ Return matched results cross through multi search engines. (Appeared in 2 or mor
 
 Return all :)
 
-On ver `1.1`, search engines list:
+On ver `1.2`, search engines list:
 
 1. Ask
 2. Bing
