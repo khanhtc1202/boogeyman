@@ -1,7 +1,10 @@
 # application meta info
 NAME := boogeyman
+VERSION= 1.2
 REVISION := $(shell git rev-parse --short HEAD)
-LDFLAGS := -X \'main.Revision=$(REVISION)\'
+BUILDDATE := $(shell date '+%Y/%m/%d %H:%M:%S %Z')
+GOVERSION := $(shell go version)
+LDFLAGS := -X 'main.revision=$(REVISION)' -X 'main.version=$(VERSION)' -X 'main.buildDate=$(BUILDDATE)' -X 'main.goVersion=$(GOVERSION)'
 ENTRYPOINT := main.go
 
 dep:
@@ -16,8 +19,8 @@ dev-test: dep gobindata-development build-development test-development
 
 # buid
 build-%:
-	GOOS=linux GOARCH=amd64	go build -tags="$* netgo" -installsuffix netgo -ldflags "$(LDFLAGS)" -o bin/$(NAME)-linux-64 ./$(ENTRYPOINT)
-	GOOS=darwin GOARCH=amd64 go build -tags="$* netgo" -installsuffix netgo -ldflags "$(LDFLAGS)" -o bin/$(NAME)-darwin-64 ./$(ENTRYPOINT)
+	GOOS=linux GOARCH=amd64	go build -tags="$* netgo" -installsuffix netgo -ldflags "$(LDFLAGS) -X 'main.mode=$*'" -o bin/$(NAME)-linux-64 ./$(ENTRYPOINT)
+	GOOS=darwin GOARCH=amd64 go build -tags="$* netgo" -installsuffix netgo -ldflags "$(LDFLAGS) -X 'main.mode=$*'" -o bin/$(NAME)-darwin-64 ./$(ENTRYPOINT)
 
 # test
 test-%:
