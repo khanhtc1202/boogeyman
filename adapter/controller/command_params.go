@@ -33,9 +33,9 @@ func NewCommandParse() *CommandParse {
 
 func (c *CommandParse) ParseCommandParams() *CommandParams {
 	var queryString string
-	flag.StringVar(&queryString, "k", "github.com/khanhtc1202/boogeyman", "search (query) string")
+	flag.StringVar(&queryString, "k", "boogeyman", "search (query) string")
 	engine := flag.String("e", "all", "search engine(s): google | bing | ask | all")
-	strategy := flag.String("s", "all", "result show strategy: top | cross | all")
+	strategy := flag.String("s", "cross", "result show strategy: top | cross | all")
 
 	var showVersion bool
 	flag.BoolVar(&showVersion, "v", false, "show application version")
