@@ -5,6 +5,8 @@ import (
 
 	"strings"
 
+	"os"
+
 	"github.com/khanhtc1202/boogeyman/adapter/controller"
 	"github.com/khanhtc1202/boogeyman/adapter/persistent/repository"
 	"github.com/khanhtc1202/boogeyman/adapter/persistent/service"
@@ -33,11 +35,13 @@ var metaInfo = meta_info.NewMetaInfo(
 func main() {
 	commandParse := controller.NewCommandParse()
 
-	// check meta_info
-	commandParse.ShowInfo(metaInfo)
-
 	// parse command params
 	cmdParams := commandParse.ParseCommandParams()
+
+	// check meta_info
+	if cmdParams.ShowVersion {
+		ShowMetaInfo(metaInfo)
+	}
 
 	materialPool := MaterialPoolFactory(cmdParams.Engine)
 	materialPool.Fetch(domain.NewKeyword(cmdParams.QueryString))
@@ -52,6 +56,11 @@ func main() {
 	for _, result := range *results {
 		fmt.Println(result.Show())
 	}
+}
+
+func ShowMetaInfo(metaInfo *meta_info.MetaInfo) {
+	fmt.Printf(metaInfo.GetMetaInfo())
+	os.Exit(0)
 }
 
 func MaterialPoolFactory(selectedEngine string) *repository.MaterialPool {
