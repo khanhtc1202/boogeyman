@@ -1,6 +1,9 @@
 package service
 
 import (
+	"fmt"
+	"os"
+
 	"github.com/PuerkitoBio/goquery"
 	"github.com/khanhtc1202/boogeyman/domain"
 	"github.com/khanhtc1202/boogeyman/domain/search_engine"
@@ -38,7 +41,8 @@ func (b *BingSpider) Query(keyword *domain.Keyword) (search_engine.SearchEngine,
 func (b *BingSpider) fetchFromInternet(keyword string) *goquery.Document {
 	doc, err := goquery.NewDocument(b.baseUrl + keyword)
 	if err != nil {
-		panic("Error fetching data from internet!")
+		fmt.Println("Error fetching data from bing.com!")
+		os.Exit(1)
 	}
 	return doc
 }

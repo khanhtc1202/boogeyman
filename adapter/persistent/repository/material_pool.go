@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"fmt"
+
 	"github.com/khanhtc1202/boogeyman/adapter/persistent/service"
 	"github.com/khanhtc1202/boogeyman/domain"
 	"github.com/khanhtc1202/boogeyman/domain/search_engine"
@@ -38,7 +40,7 @@ func (m *MaterialPool) Fetch(keyword *domain.Keyword) {
 	for _, collector := range m.collectors {
 		resultData, err := collector.Query(keyword)
 		if err != nil {
-			panic("Error on fetching data from search engine!")
+			fmt.Printf("Error on fetching data from search engine! \n %s", err.Error())
 		}
 		m.resultData.Add(resultData)
 	}
