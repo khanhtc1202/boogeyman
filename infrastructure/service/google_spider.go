@@ -3,6 +3,9 @@ package service
 import (
 	"strings"
 
+	"fmt"
+	"os"
+
 	"github.com/PuerkitoBio/goquery"
 	"github.com/khanhtc1202/boogeyman/domain"
 	"github.com/khanhtc1202/boogeyman/domain/search_engine"
@@ -40,7 +43,8 @@ func (g *GoogleSpider) Query(keyword *domain.Keyword) (search_engine.SearchEngin
 func (g *GoogleSpider) fetchFromInternet(keyword string) *goquery.Document {
 	doc, err := goquery.NewDocument(g.baseUrl + keyword)
 	if err != nil {
-		panic("Error fetching data from internet!")
+		fmt.Println("Error fetching data from google.com!")
+		os.Exit(1)
 	}
 	return doc
 }
