@@ -1,9 +1,9 @@
-[codecov]: https://codecov.io/gh/khanhtc1202/boogeyman
-[codecov-svg]: https://codecov.io/gh/khanhtc1202/boogeyman/branch/master/graph/badge.svg
+# Boogeyman
+
+[![][goreportcard-svg]][goreportcard]
+
 [goreportcard]: https://goreportcard.com/report/github.com/khanhtc1202/boogeyman
 [goreportcard-svg]: https://goreportcard.com/badge/github.com/khanhtc1202/boogeyman
-
-# Boogeyman
 
 A simple program that help you get search results from multi search engines instead of just from google.
 
