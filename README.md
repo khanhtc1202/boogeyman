@@ -1,9 +1,9 @@
 # Boogeyman
 
 [![][goreportcard-svg]][goreportcard]
-
 [goreportcard]: https://goreportcard.com/report/github.com/khanhtc1202/boogeyman
 [goreportcard-svg]: https://goreportcard.com/badge/github.com/khanhtc1202/boogeyman
+[![CodeFactor](https://www.codefactor.io/repository/github/khanhtc1202/boogeyman/badge)](https://www.codefactor.io/repository/github/khanhtc1202/boogeyman)
 
 A simple program that help you get search results from multi search engines instead of just from google.
 
