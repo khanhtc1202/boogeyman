@@ -1,9 +1,11 @@
 # Boogeyman
 
-[![][goreportcard-svg]][goreportcard] ![][CodeFactor-svg]
+[![][goreportcard-svg]][goreportcard] 
+[![][CodeFactor]](https://www.codefactor.io/repository/github/khanhtc1202/boogeyman)
+[![][Build Status]](https://travis-ci.org/khanhtc1202/fromnoobstogeeks)
 
-[CodeFactor-svg]: https://www.codefactor.io/repository/github/khanhtc1202/boogeyman/badge
-[CodeFactor]: https://www.codefactor.io/repository/github/khanhtc1202/boogeyman
+[Build Status]: https://travis-ci.org/khanhtc1202/fromnoobstogeeks.svg?branch=master
+[CodeFactor]: https://www.codefactor.io/repository/github/khanhtc1202/boogeyman/badge
 [goreportcard]: https://goreportcard.com/report/github.com/khanhtc1202/boogeyman
 [goreportcard-svg]: https://goreportcard.com/badge/github.com/khanhtc1202/boogeyman
 
