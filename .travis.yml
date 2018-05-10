@@ -3,6 +3,7 @@ go:
     - 1.9.2
 before_install:
     - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+    - go get github.com/jteeuwen/go-bindata/go-bindata
 install:
     - make dep
 script:
