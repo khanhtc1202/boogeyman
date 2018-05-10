@@ -6,4 +6,4 @@ before_install:
 install:
     - make dep
 script:
-    - make test-production
+    - make production
