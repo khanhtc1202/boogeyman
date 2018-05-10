@@ -77,6 +77,7 @@ Boogeyman development environment requires:
 
 1. Golang (1.9.2 or higher). Install go [here](https://golang.org/doc/install).
 2. dep (Go dependency management tool). Install go [here](https://github.com/golang/dep).
+3. go-bindata (Go generate bindata from template file). Install go [here](https://github.com/jteeuwen/go-bindata).
 
 Run by `go`
 
