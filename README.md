@@ -96,3 +96,6 @@ All contributions will be welcome in this project.
 For linux x64 : [download](public/boogeyman-linux-64)
 
 For MacOS x64 : [download](public/boogeyman-darwin-64)
+
+## License
+The MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
