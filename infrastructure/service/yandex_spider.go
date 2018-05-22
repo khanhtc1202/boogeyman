@@ -30,7 +30,7 @@ func (b *YandexSpider) Query(keyword *domain.Keyword) (search_engine.SearchEngin
 	doc := b.fetchFromInternet(keyword.String())
 	resultsData := b.parseDocumentData(doc)
 	if len(*resultsData) < 1 {
-		return nil, errors.New("Error on query data from search engine!")
+		return nil, errors.New("Error on query data from search engine (Yandex)!")
 	}
 	return search_engine.NewYandex(keyword, resultsData), nil
 }

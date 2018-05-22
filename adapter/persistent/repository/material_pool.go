@@ -36,14 +36,15 @@ func (m *MaterialPool) GetSearchEngineList() *search_engine.SearchEngineList {
 	return m.searchEngineList
 }
 
-func (m *MaterialPool) Fetch(keyword *domain.Keyword) {
+func (m *MaterialPool) Fetch(keyword *domain.Keyword) error {
 	for _, collector := range m.collectors {
 		resultData, err := collector.Query(keyword)
 		if err != nil {
-			fmt.Printf("Error on fetching data from search engine! \n %s", err.Error())
+			return errors.Wrap(err, fmt.Sprintf("Error on fetching data from search engine! \n"))
 		}
 		m.resultData.Add(resultData)
 	}
+	return nil
 }
 
 func (m *MaterialPool) GetItemsFromSearchEngine(searchEngineType search_engine.SearchEngineType) (search_engine.SearchEngine, error) {

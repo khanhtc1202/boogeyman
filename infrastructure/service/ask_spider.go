@@ -33,7 +33,7 @@ func (b *AskSpider) Query(keyword *domain.Keyword) (search_engine.SearchEngine, 
 	doc := b.fetchFromInternet(keyword.String())
 	resultsData := b.parseDocumentData(doc)
 	if len(*resultsData) < 1 {
-		return nil, errors.New("Error on query data from search engine!")
+		return nil, errors.New("Error on query data from search engine (Ask)!")
 	}
 	return search_engine.NewAsk(keyword, resultsData), nil
 }

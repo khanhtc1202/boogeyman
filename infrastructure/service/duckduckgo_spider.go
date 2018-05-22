@@ -30,7 +30,7 @@ func (d *DuckDuckGoSpider) Query(keyword *domain.Keyword) (search_engine.SearchE
 	doc := d.fetchFromInternet(keyword.String())
 	resultsData := d.parseDocumentData(doc)
 	if len(*resultsData) < 1 {
-		return nil, errors.New("Error on query data from search engine!")
+		return nil, errors.New("Error on query data from search engine (Duckduckgo)!")
 	}
 	return search_engine.NewDuckDuckGo(keyword, resultsData), nil
 }

@@ -35,7 +35,7 @@ func (g *GoogleSpider) Query(keyword *domain.Keyword) (search_engine.SearchEngin
 	doc := g.fetchFromInternet(keyword.String())
 	resultsData := g.parseDocumentData(doc)
 	if len(*resultsData) < 1 {
-		return nil, errors.New("Error on query data from search engine!")
+		return nil, errors.New("Error on query data from search engine (Google)!")
 	}
 	return search_engine.NewGoogle(keyword, resultsData), nil
 }

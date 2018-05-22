@@ -44,14 +44,17 @@ func main() {
 	}
 
 	materialPool := MaterialPoolFactory(cmdParams.Engine)
-	materialPool.Fetch(domain.NewKeyword(cmdParams.QueryString))
+	err := materialPool.Fetch(domain.NewKeyword(cmdParams.QueryString))
+	if err != nil {
+		fmt.Printf("Error : %s \n", err)
+		os.Exit(1)
+	}
 
 	boogeyman := controller.NewBoogeyman(materialPool)
-
 	results, err := boogeyman.ShowSearchResult(SetShowStrategy(cmdParams.Strategy), materialPool.GetSearchEngineList())
 	if err != nil {
-		fmt.Println("Error : ", err)
-		panic("Error on show search results!")
+		fmt.Printf("Error : %s \n", err)
+		os.Exit(1)
 	}
 	for _, result := range *results {
 		fmt.Println(result.Show())
