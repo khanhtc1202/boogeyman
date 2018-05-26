@@ -52,7 +52,7 @@ func main() {
 	}
 
 	boogeyman := controller.NewBoogeyman(materialPool)
-	results, err := boogeyman.ShowSearchResult(SetShowStrategy(cmdParams.Strategy), materialPool.GetSearchEngineList())
+	results, err := boogeyman.QuerySearchResult(SetQueryStrategy(cmdParams.Strategy), materialPool.GetSearchEngineList())
 	if err != nil {
 		io.Errorln(err)
 		os.Exit(1)
@@ -87,7 +87,7 @@ func MaterialPoolFactory(selectedEngine string) *repository.MaterialPool {
 	return repository.NewMaterialPool(*collectors)
 }
 
-func SetShowStrategy(selectedStrategy string) domain.StrategyType {
+func SetQueryStrategy(selectedStrategy string) domain.StrategyType {
 	switch strings.ToUpper(selectedStrategy) {
 	case domain.TOP.String():
 		return domain.TOP
