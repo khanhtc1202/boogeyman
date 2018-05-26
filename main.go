@@ -12,6 +12,7 @@ import (
 	"github.com/khanhtc1202/boogeyman/adapter/persistent/service"
 	"github.com/khanhtc1202/boogeyman/domain"
 	"github.com/khanhtc1202/boogeyman/domain/search_engine"
+	"github.com/khanhtc1202/boogeyman/infrastructure/io"
 	"github.com/khanhtc1202/boogeyman/infrastructure/meta_info"
 	spiderPool "github.com/khanhtc1202/boogeyman/infrastructure/service"
 )
@@ -46,14 +47,14 @@ func main() {
 	materialPool := MaterialPoolFactory(cmdParams.Engine)
 	err := materialPool.Fetch(domain.NewKeyword(cmdParams.QueryString))
 	if err != nil {
-		fmt.Printf("Error : %s \n", err)
+		io.Errorln(err)
 		os.Exit(1)
 	}
 
 	boogeyman := controller.NewBoogeyman(materialPool)
-	results, err := boogeyman.ShowSearchResult(SetShowStrategy(cmdParams.Strategy), materialPool.GetSearchEngineList())
+	results, err := boogeyman.QuerySearchResult(SetQueryStrategy(cmdParams.Strategy), materialPool.GetSearchEngineList())
 	if err != nil {
-		fmt.Printf("Error : %s \n", err)
+		io.Errorln(err)
 		os.Exit(1)
 	}
 	for _, result := range *results {
@@ -62,7 +63,7 @@ func main() {
 }
 
 func ShowMetaInfo(metaInfo *meta_info.MetaInfo) {
-	fmt.Printf(metaInfo.GetMetaInfo())
+	io.Infof(metaInfo.GetMetaInfo())
 	os.Exit(0)
 }
 
@@ -86,7 +87,7 @@ func MaterialPoolFactory(selectedEngine string) *repository.MaterialPool {
 	return repository.NewMaterialPool(*collectors)
 }
 
-func SetShowStrategy(selectedStrategy string) domain.StrategyType {
+func SetQueryStrategy(selectedStrategy string) domain.StrategyType {
 	switch strings.ToUpper(selectedStrategy) {
 	case domain.TOP.String():
 		return domain.TOP
