@@ -2,13 +2,14 @@ package io
 
 import (
 	"github.com/fatih/color"
+	"github.com/khanhtc1202/boogeyman/infrastructure/io"
 	"github.com/mattn/go-colorable"
 )
 
 var (
-	Stdout  = colorable.NewColorableStdout()
-	Stderr  = colorable.NewColorableStderr()
-	Default = Console{Stdout: Stdout, Stderr: Stderr}
+	Stdout     = colorable.NewColorableStdout()
+	Stderr     = colorable.NewColorableStderr()
+	Default UI = io.Console{Stdout: Stdout, Stderr: Stderr}
 )
 
 func Infof(format string, a ...interface{}) (n int, err error) {

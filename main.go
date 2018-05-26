@@ -10,9 +10,9 @@ import (
 	"github.com/khanhtc1202/boogeyman/adapter/controller"
 	"github.com/khanhtc1202/boogeyman/adapter/persistent/repository"
 	"github.com/khanhtc1202/boogeyman/adapter/persistent/service"
+	"github.com/khanhtc1202/boogeyman/cross_cutting/io"
 	"github.com/khanhtc1202/boogeyman/domain"
 	"github.com/khanhtc1202/boogeyman/domain/search_engine"
-	"github.com/khanhtc1202/boogeyman/infrastructure/io"
 	"github.com/khanhtc1202/boogeyman/infrastructure/meta_info"
 	spiderPool "github.com/khanhtc1202/boogeyman/infrastructure/service"
 )
