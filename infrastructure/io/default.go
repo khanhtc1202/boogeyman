@@ -24,5 +24,5 @@ func Errorf(format string, a ...interface{}) (n int, err error) {
 }
 
 func Errorln(a ...interface{}) (n int, err error) {
-	return Default.Errorln(a...)
+	return Errorf("%s\n", a...)
 }
