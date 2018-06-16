@@ -3,7 +3,6 @@ package interactor
 import (
 	"github.com/khanhtc1202/boogeyman/config"
 	"github.com/khanhtc1202/boogeyman/domain"
-	"github.com/khanhtc1202/boogeyman/domain/search_engine"
 	"github.com/khanhtc1202/boogeyman/usecase/repository"
 	"github.com/pkg/errors"
 )
@@ -18,7 +17,7 @@ func NewRanker(pool repository.MaterialPool) *Ranker {
 	}
 }
 
-func (r *Ranker) Top(searchEngines *search_engine.SearchEngineList) (*domain.ResultItems, error) {
+func (r *Ranker) Top(searchEngines *domain.SearchEngineList) (*domain.ResultItems, error) {
 	topResults := domain.EmptyResultItems()
 	for _, searchEngine := range *searchEngines {
 		searchResult, err := r.materialPool.GetItemsFromSearchEngine(searchEngine)
@@ -30,7 +29,7 @@ func (r *Ranker) Top(searchEngines *search_engine.SearchEngineList) (*domain.Res
 	return topResults, nil
 }
 
-func (r *Ranker) CrossMatch(searchEngines *search_engine.SearchEngineList) (*domain.ResultItems, error) {
+func (r *Ranker) CrossMatch(searchEngines *domain.SearchEngineList) (*domain.ResultItems, error) {
 	crossMatchedResults := domain.EmptyResultItems()
 	for _, searchEngine := range *searchEngines {
 		searchResult, err := r.materialPool.GetItemsFromSearchEngine(searchEngine)
@@ -42,7 +41,7 @@ func (r *Ranker) CrossMatch(searchEngines *search_engine.SearchEngineList) (*dom
 	return crossMatchedResults.DuplicateElements(), nil
 }
 
-func (r *Ranker) None(searchEngines *search_engine.SearchEngineList) (*domain.ResultItems, error) {
+func (r *Ranker) None(searchEngines *domain.SearchEngineList) (*domain.ResultItems, error) {
 	allResults := domain.EmptyResultItems()
 	for _, searchEngine := range *searchEngines {
 		searchResult, err := r.materialPool.GetItemsFromSearchEngine(searchEngine)

@@ -6,19 +6,18 @@ import (
 	"github.com/khanhtc1202/boogeyman/adapter/persistent/repository"
 	"github.com/khanhtc1202/boogeyman/adapter/persistent/service"
 	"github.com/khanhtc1202/boogeyman/domain"
-	"github.com/khanhtc1202/boogeyman/domain/search_engine"
 )
 
 type CollectorMock struct {
 	service.Collector
 }
 
-func (c *CollectorMock) GetSearchEngineType() search_engine.SearchEngineType {
-	return search_engine.GOOGLE
+func (c *CollectorMock) GetSearchEngineType() domain.SearchEngineType {
+	return domain.GOOGLE
 }
 
-func (c *CollectorMock) Query(keyword *domain.Keyword) (search_engine.SearchEngine, error) {
-	return search_engine.NewGoogle(keyword, fakeResultList()), nil
+func (c *CollectorMock) Query(keyword *domain.Keyword) (*domain.SearchEngine, error) {
+	return domain.NewSearchEngine(domain.GOOGLE, fakeResultList()), nil
 }
 
 func TestMaterialPool_Fetch(t *testing.T) {
@@ -38,11 +37,11 @@ func TestMaterialPool_GetItemsBySearchEngine(t *testing.T) {
 	materialPool := repository.NewMaterialPool([]service.Collector{&CollectorMock{}})
 	materialPool.Fetch(keyword)
 
-	searchResult, err := materialPool.GetItemsFromSearchEngine(search_engine.GOOGLE)
+	searchResult, err := materialPool.GetItemsFromSearchEngine(domain.GOOGLE)
 	if err != nil {
 		t.Fatal("Fail on test get items from search engine")
 	}
-	if searchResult == nil || searchResult.Type() != search_engine.GOOGLE {
+	if searchResult == nil || searchResult.Type() != domain.GOOGLE {
 		t.Fatal("Fail type of return value on query from search engine")
 	}
 	if len(*searchResult.GetResults()) != 2 {

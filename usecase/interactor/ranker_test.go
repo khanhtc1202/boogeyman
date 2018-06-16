@@ -5,7 +5,6 @@ import (
 
 	"github.com/khanhtc1202/boogeyman/config"
 	"github.com/khanhtc1202/boogeyman/domain"
-	"github.com/khanhtc1202/boogeyman/domain/search_engine"
 	"github.com/khanhtc1202/boogeyman/usecase/interactor"
 	"github.com/khanhtc1202/boogeyman/usecase/repository"
 )
@@ -14,15 +13,14 @@ type MaterialPoolMock struct {
 	repository.MaterialPool
 }
 
-func (m *MaterialPoolMock) GetItemsFromSearchEngine(searchEngineType search_engine.SearchEngineType) (search_engine.SearchEngine, error) {
-	keyword := domain.NewKeyword("key")
+func (m *MaterialPoolMock) GetItemsFromSearchEngine(searchEngineType domain.SearchEngineType) (*domain.SearchEngine, error) {
 	switch searchEngineType {
-	case search_engine.GOOGLE:
-		return search_engine.NewGoogle(keyword, fakeResultListSet1()), nil
-	case search_engine.BING:
-		return search_engine.NewBing(keyword, fakeResultListSet2()), nil
-	case search_engine.DUCKDUCKGO:
-		return search_engine.NewDuckDuckGo(keyword, fakeResultListSet3()), nil
+	case domain.GOOGLE:
+		return domain.NewSearchEngine(domain.GOOGLE, fakeResultListSet1()), nil
+	case domain.BING:
+		return domain.NewSearchEngine(domain.BING, fakeResultListSet2()), nil
+	case domain.DUCKDUCKGO:
+		return domain.NewSearchEngine(domain.DUCKDUCKGO, fakeResultListSet3()), nil
 	default:
 		return nil, nil
 	}
@@ -30,11 +28,7 @@ func (m *MaterialPoolMock) GetItemsFromSearchEngine(searchEngineType search_engi
 
 func TestRanker_CrossMatch(t *testing.T) {
 	ranker := interactor.NewRanker(&MaterialPoolMock{})
-
-	sEngineList := search_engine.EmptySearchEngineList()
-	sEngineList.Add(search_engine.GOOGLE)
-	sEngineList.Add(search_engine.BING)
-	sEngineList.Add(search_engine.DUCKDUCKGO)
+	sEngineList := fakeSearchEngineList()
 
 	results, err := ranker.CrossMatch(sEngineList)
 	if err != nil {
@@ -47,11 +41,7 @@ func TestRanker_CrossMatch(t *testing.T) {
 
 func TestRanker_Top(t *testing.T) {
 	ranker := interactor.NewRanker(&MaterialPoolMock{})
-
-	sEngineList := search_engine.EmptySearchEngineList()
-	sEngineList.Add(search_engine.GOOGLE)
-	sEngineList.Add(search_engine.BING)
-	sEngineList.Add(search_engine.DUCKDUCKGO)
+	sEngineList := fakeSearchEngineList()
 
 	results, err := ranker.Top(sEngineList)
 	if err != nil {
@@ -64,11 +54,7 @@ func TestRanker_Top(t *testing.T) {
 
 func TestRanker_None(t *testing.T) {
 	ranker := interactor.NewRanker(&MaterialPoolMock{})
-
-	sEngineList := search_engine.EmptySearchEngineList()
-	sEngineList.Add(search_engine.GOOGLE)
-	sEngineList.Add(search_engine.BING)
-	sEngineList.Add(search_engine.DUCKDUCKGO)
+	sEngineList := fakeSearchEngineList()
 
 	results, err := ranker.None(sEngineList)
 	if err != nil {
@@ -77,6 +63,14 @@ func TestRanker_None(t *testing.T) {
 	if len(*results) > config.GetConfig().RankerConf.MaxReturnItems {
 		t.Fatal("Fail test logic show all result urls")
 	}
+}
+
+func fakeSearchEngineList() *domain.SearchEngineList {
+	sEngineList := domain.EmptySearchEngineList()
+	sEngineList.Add(domain.GOOGLE)
+	sEngineList.Add(domain.BING)
+	sEngineList.Add(domain.DUCKDUCKGO)
+	return sEngineList
 }
 
 func fakeResultListSet1() *domain.ResultItems {

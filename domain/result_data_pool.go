@@ -1,16 +1,16 @@
-package search_engine
+package domain
 
-type ResultDataPool []SearchEngine
+type ResultDataPool []*SearchEngine
 
 func EmptyResultDataPool() *ResultDataPool {
 	return &ResultDataPool{}
 }
 
-func (r *ResultDataPool) Add(resultData SearchEngine) {
+func (r *ResultDataPool) Add(resultData *SearchEngine) {
 	*r = append(*r, resultData)
 }
 
-func (r *ResultDataPool) FilterByEngineType(searchEngineType SearchEngineType) SearchEngine {
+func (r *ResultDataPool) FilterByEngineType(searchEngineType SearchEngineType) *SearchEngine {
 	for _, resultData := range *r {
 		if resultData.Type() == searchEngineType {
 			return resultData

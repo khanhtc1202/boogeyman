@@ -6,7 +6,6 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/khanhtc1202/boogeyman/domain"
-	"github.com/khanhtc1202/boogeyman/domain/search_engine"
 	"github.com/pkg/errors"
 )
 
@@ -14,28 +13,28 @@ const BingBaseURL = "https://www.bing.com/search?q="
 
 type BingSpider struct {
 	baseUrl string
-	ofType  search_engine.SearchEngineType
+	ofType  domain.SearchEngineType
 }
 
 func NewBingSpider() *BingSpider {
 	return &BingSpider{
 		baseUrl: BingBaseURL,
-		ofType:  search_engine.BING,
+		ofType:  domain.BING,
 	}
 }
 
-func (b *BingSpider) GetSearchEngineType() search_engine.SearchEngineType {
+func (b *BingSpider) GetSearchEngineType() domain.SearchEngineType {
 	return b.ofType
 }
 
-func (b *BingSpider) Query(keyword *domain.Keyword) (search_engine.SearchEngine, error) {
+func (b *BingSpider) Query(keyword *domain.Keyword) (*domain.SearchEngine, error) {
 
 	doc := b.fetchFromInternet(keyword.String())
 	resultsData := b.parseDocumentData(doc)
 	if len(*resultsData) < 1 {
 		return nil, errors.New("Error on query data from search engine (Bing)!")
 	}
-	return search_engine.NewBing(keyword, resultsData), nil
+	return domain.NewSearchEngine(b.ofType, resultsData), nil
 }
 
 func (b *BingSpider) fetchFromInternet(keyword string) *goquery.Document {

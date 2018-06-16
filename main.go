@@ -12,7 +12,6 @@ import (
 	"github.com/khanhtc1202/boogeyman/adapter/persistent/service"
 	"github.com/khanhtc1202/boogeyman/cross_cutting/io"
 	"github.com/khanhtc1202/boogeyman/domain"
-	"github.com/khanhtc1202/boogeyman/domain/search_engine"
 	"github.com/khanhtc1202/boogeyman/infrastructure/meta_info"
 	spiderPool "github.com/khanhtc1202/boogeyman/infrastructure/service"
 )
@@ -70,13 +69,13 @@ func ShowMetaInfo(metaInfo *meta_info.MetaInfo) {
 func MaterialPoolFactory(selectedEngine string) *repository.MaterialPool {
 	collectors := service.EmptyCollectorList()
 	switch strings.ToUpper(selectedEngine) {
-	case search_engine.GOOGLE.String():
+	case domain.GOOGLE.String():
 		collectors.Add(spiderPool.NewGoogleSpider())
 		break
-	case search_engine.BING.String():
+	case domain.BING.String():
 		collectors.Add(spiderPool.NewBingSpider())
 		break
-	case search_engine.ASK.String():
+	case domain.ASK.String():
 		collectors.Add(spiderPool.NewAskSpider())
 		break
 	default:

@@ -8,7 +8,6 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/khanhtc1202/boogeyman/domain"
-	"github.com/khanhtc1202/boogeyman/domain/search_engine"
 	"github.com/pkg/errors"
 )
 
@@ -16,28 +15,28 @@ const GoogleBaseURL = "https://www.google.com/search?q="
 
 type GoogleSpider struct {
 	baseUrl string
-	ofType  search_engine.SearchEngineType
+	ofType  domain.SearchEngineType
 }
 
 func NewGoogleSpider() *GoogleSpider {
 	return &GoogleSpider{
 		baseUrl: GoogleBaseURL,
-		ofType:  search_engine.GOOGLE,
+		ofType:  domain.GOOGLE,
 	}
 }
 
-func (g *GoogleSpider) GetSearchEngineType() search_engine.SearchEngineType {
+func (g *GoogleSpider) GetSearchEngineType() domain.SearchEngineType {
 	return g.ofType
 }
 
-func (g *GoogleSpider) Query(keyword *domain.Keyword) (search_engine.SearchEngine, error) {
+func (g *GoogleSpider) Query(keyword *domain.Keyword) (*domain.SearchEngine, error) {
 
 	doc := g.fetchFromInternet(keyword.String())
 	resultsData := g.parseDocumentData(doc)
 	if len(*resultsData) < 1 {
 		return nil, errors.New("Error on query data from search engine (Google)!")
 	}
-	return search_engine.NewGoogle(keyword, resultsData), nil
+	return domain.NewSearchEngine(g.ofType, resultsData), nil
 }
 
 func (g *GoogleSpider) fetchFromInternet(keyword string) *goquery.Document {

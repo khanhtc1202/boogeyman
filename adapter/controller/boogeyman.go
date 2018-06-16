@@ -2,7 +2,6 @@ package controller
 
 import (
 	"github.com/khanhtc1202/boogeyman/domain"
-	"github.com/khanhtc1202/boogeyman/domain/search_engine"
 	"github.com/khanhtc1202/boogeyman/usecase/interactor"
 	"github.com/khanhtc1202/boogeyman/usecase/repository"
 )
@@ -19,7 +18,10 @@ func NewBoogeyman(
 	}
 }
 
-func (b *Boogeyman) QuerySearchResult(strategy domain.StrategyType, searchEngineList *search_engine.SearchEngineList) (*domain.ResultItems, error) {
+func (b *Boogeyman) QuerySearchResult(
+	strategy domain.StrategyType,
+	searchEngineList *domain.SearchEngineList,
+) (*domain.ResultItems, error) {
 	switch strategy {
 	case domain.TOP:
 		return b.interactor.Top(searchEngineList)

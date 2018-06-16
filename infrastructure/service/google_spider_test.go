@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/khanhtc1202/boogeyman/domain"
-	"github.com/khanhtc1202/boogeyman/domain/search_engine"
 	"github.com/khanhtc1202/boogeyman/infrastructure/service"
 )
 
@@ -19,7 +18,7 @@ func TestGoogleSpider_Query(t *testing.T) {
 	if len(*result.GetResults()) < 1 {
 		t.Fatal("Fail test query data from se, maybe error on internet connection")
 	}
-	if result.Type() != search_engine.GOOGLE {
+	if result.Type() != domain.GOOGLE {
 		t.Fatal("Fail test query data from se, error search engine type")
 	}
 }
