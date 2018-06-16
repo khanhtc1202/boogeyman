@@ -9,7 +9,7 @@ import (
 type MaterialPool struct {
 	collectors       []service.Collector
 	searchEngineList *domain.SearchEngineList
-	resultData       *domain.ResultDataPool
+	resultData       *domain.QueryResultPool
 }
 
 func NewMaterialPool(services []service.Collector) *MaterialPool {
@@ -17,7 +17,7 @@ func NewMaterialPool(services []service.Collector) *MaterialPool {
 	for _, searchEngine := range services {
 		searchEngineList.Add(searchEngine.GetSearchEngineType())
 	}
-	resultData := domain.EmptyResultDataPool()
+	resultData := domain.EmptyResultPool()
 	return &MaterialPool{
 		collectors:       services,
 		searchEngineList: searchEngineList,
@@ -25,7 +25,7 @@ func NewMaterialPool(services []service.Collector) *MaterialPool {
 	}
 }
 
-func (m *MaterialPool) GetResultData() *domain.ResultDataPool {
+func (m *MaterialPool) GetResultData() *domain.QueryResultPool {
 	return m.resultData
 }
 

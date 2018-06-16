@@ -73,31 +73,31 @@ func fakeSearchEngineList() *domain.SearchEngineList {
 	return sEngineList
 }
 
-func fakeResultListSet1() *domain.ResultItems {
+func fakeResultListSet1() *domain.QueryResult {
 	fakeResult1 := domain.NewResultItem("timestamp", "google 1", "my desc", "http://sample.com/acv")
 	fakeResult2 := domain.NewResultItem("timestamp", "google 2", "my desc", "http://...")
 
-	results := domain.EmptyResultItems()
+	results := domain.EmptyQueryResult()
 	results.Add(fakeResult1)
 	results.Add(fakeResult2)
 	return results
 }
 
-func fakeResultListSet2() *domain.ResultItems {
+func fakeResultListSet2() *domain.QueryResult {
 	fakeResult1 := domain.NewResultItem("timestamp", "bing 1 ", "my desc", "http://...")
 	fakeResult2 := domain.NewResultItem("timestamp", "bing 2", "my desc", "http://sample.com/123")
 
-	results := domain.EmptyResultItems()
+	results := domain.EmptyQueryResult()
 	results.Add(fakeResult1)
 	results.Add(fakeResult2)
 	return results
 }
 
-func fakeResultListSet3() *domain.ResultItems {
+func fakeResultListSet3() *domain.QueryResult {
 	fakeResult1 := domain.NewResultItem("timestamp", "duck 1 ", "my desc", "http://...")
 	fakeResult2 := domain.NewResultItem("timestamp", "duck 2", "my desc", "http://...")
 
-	results := domain.EmptyResultItems()
+	results := domain.EmptyQueryResult()
 	results.Add(fakeResult1)
 	results.Add(fakeResult2)
 	return results

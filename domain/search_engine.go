@@ -1,17 +1,17 @@
 package domain
 
 type SearchEngine struct {
-	EType   SearchEngineType
-	results *ResultItems
+	EType        SearchEngineType
+	queryResults *QueryResult
 }
 
 func NewSearchEngine(
 	eType SearchEngineType,
-	results *ResultItems,
+	results *QueryResult,
 ) *SearchEngine {
 	return &SearchEngine{
-		EType:   eType,
-		results: results,
+		EType:        eType,
+		queryResults: results,
 	}
 }
 
@@ -20,9 +20,9 @@ func (s *SearchEngine) Type() SearchEngineType {
 }
 
 func (s *SearchEngine) TopResult() *ResultItem {
-	return s.results.First()
+	return s.queryResults.First()
 }
 
-func (s *SearchEngine) GetResults() *ResultItems {
-	return s.results
+func (s *SearchEngine) GetQueryResults() *QueryResult {
+	return s.queryResults
 }

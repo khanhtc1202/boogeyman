@@ -44,16 +44,16 @@ func TestMaterialPool_GetItemsBySearchEngine(t *testing.T) {
 	if searchResult == nil || searchResult.Type() != domain.GOOGLE {
 		t.Fatal("Fail type of return value on query from search engine")
 	}
-	if len(*searchResult.GetResults()) != 2 {
+	if len(*searchResult.GetQueryResults()) != 2 {
 		t.Fatal("Fail on query from search engine, maybe fail by network connection")
 	}
 }
 
-func fakeResultList() *domain.ResultItems {
+func fakeResultList() *domain.QueryResult {
 	fakeResult1 := domain.NewResultItem("timestamp", "title 1", "my desc", "http://sample.com/acv")
 	fakeResult2 := domain.NewResultItem("timestamp", "title 2", "my desc", "http://sample.com/123")
 
-	results := domain.EmptyResultItems()
+	results := domain.EmptyQueryResult()
 	results.Add(fakeResult1)
 	results.Add(fakeResult2)
 	return results

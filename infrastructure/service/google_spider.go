@@ -48,8 +48,8 @@ func (g *GoogleSpider) fetchFromInternet(keyword string) *goquery.Document {
 	return doc
 }
 
-func (g *GoogleSpider) parseDocumentData(doc *goquery.Document) *domain.ResultItems {
-	resultsData := domain.EmptyResultItems()
+func (g *GoogleSpider) parseDocumentData(doc *goquery.Document) *domain.QueryResult {
+	resultsData := domain.EmptyQueryResult()
 	doc.Find(".g").Each(func(i int, s *goquery.Selection) {
 		title := s.Find("a").Text()
 		url, _ := s.Find("a").Attr("href")

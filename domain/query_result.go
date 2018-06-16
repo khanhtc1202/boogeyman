@@ -1,31 +1,31 @@
 package domain
 
-type ResultItems []*ResultItem
+type QueryResult []*ResultItem
 
-func EmptyResultItems() *ResultItems {
-	return &ResultItems{}
+func EmptyQueryResult() *QueryResult {
+	return &QueryResult{}
 }
 
-func (r *ResultItems) Add(resultItem *ResultItem) {
+func (r *QueryResult) Add(resultItem *ResultItem) {
 	if resultItem == nil {
 		return
 	}
 	*r = append(*r, resultItem)
 }
 
-func (r *ResultItems) Concatenate(itemList *ResultItems) {
+func (r *QueryResult) Concatenate(itemList *QueryResult) {
 	for _, item := range *itemList {
 		r.Add(item)
 	}
 }
 
-func (r *ResultItems) First() *ResultItem {
+func (r *QueryResult) First() *ResultItem {
 	return (*r)[0]
 }
 
-func (r *ResultItems) RemoveDuplicates() {
+func (r *QueryResult) RemoveDuplicates() {
 	keys := make(map[string]bool)
-	list := EmptyResultItems()
+	list := EmptyQueryResult()
 	for _, entry := range *r {
 		if _, value := keys[entry.url]; !value {
 			keys[entry.url] = true
@@ -35,8 +35,8 @@ func (r *ResultItems) RemoveDuplicates() {
 	*r = *list
 }
 
-func (r *ResultItems) DuplicateElements() *ResultItems {
-	duplicateElements := EmptyResultItems()
+func (r *QueryResult) DuplicateElements() *QueryResult {
+	duplicateElements := EmptyQueryResult()
 
 	keys := make(map[string]bool)
 	for _, entry := range *r {
@@ -50,8 +50,8 @@ func (r *ResultItems) DuplicateElements() *ResultItems {
 	return duplicateElements
 }
 
-func (r *ResultItems) Limit(limitSize int) *ResultItems {
-	splitSlide := EmptyResultItems()
+func (r *QueryResult) Limit(limitSize int) *QueryResult {
+	splitSlide := EmptyQueryResult()
 
 	if limitSize > len(*r) {
 		return r

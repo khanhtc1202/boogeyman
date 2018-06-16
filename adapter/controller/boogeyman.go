@@ -21,7 +21,7 @@ func NewBoogeyman(
 func (b *Boogeyman) QuerySearchResult(
 	strategy domain.StrategyType,
 	searchEngineList *domain.SearchEngineList,
-) (*domain.ResultItems, error) {
+) (*domain.QueryResult, error) {
 	switch strategy {
 	case domain.TOP:
 		return b.interactor.Top(searchEngineList)
