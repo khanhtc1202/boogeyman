@@ -49,13 +49,13 @@ In case exec file you downloaded's name is `boogeyman`.
 Sample full params command
 
 ```bash
-$ ./boogeyman -e=bing -s=top -k=some anything
+$ ./boogeyman -e=bing -s=top -k="some anything"
 ```
 
 Type `-h` to get help. Return value be like
 
 ```$xslt
-Usage of ./public/boogeyman-darwin-64:
+Usage of ./boogeyman:
   -e string
         search engine(s): google | bing | ask | yandex | all (default "all")
   -k string

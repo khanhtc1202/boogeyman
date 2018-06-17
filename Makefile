@@ -1,6 +1,6 @@
 # application meta info
 NAME := boogeyman
-VERSION= 1.2.2
+VERSION= 1.2.4
 REVISION := $(shell git rev-parse --short HEAD)
 BUILDDATE := $(shell date '+%Y/%m/%d %H:%M:%S %Z')
 GOVERSION := $(shell go version)
