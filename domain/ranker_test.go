@@ -3,7 +3,6 @@ package domain_test
 import (
 	"testing"
 
-	"github.com/khanhtc1202/boogeyman/config"
 	"github.com/khanhtc1202/boogeyman/domain"
 )
 
@@ -34,12 +33,13 @@ func TestRanker_Top(t *testing.T) {
 
 func TestRanker_None(t *testing.T) {
 	ranker := domain.NewRanker(fakeQueryResultPoll())
+	maxReturnItem := 20
 
-	results, err := ranker.None()
+	results, err := ranker.All(maxReturnItem)
 	if err != nil {
 		t.Fatal("Fail running test show all result urls")
 	}
-	if len(*results) > config.GetConfig().RankerConf.MaxReturnItems {
+	if len(*results) > maxReturnItem {
 		t.Fatal("Fail test logic show all result urls")
 	}
 }

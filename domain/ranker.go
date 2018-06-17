@@ -1,9 +1,5 @@
 package domain
 
-import (
-	"github.com/khanhtc1202/boogeyman/config"
-)
-
 type Ranker struct {
 	resultPool *QueryResultPool
 }
@@ -32,12 +28,12 @@ func (r *Ranker) CrossMatch() (*QueryResult, error) {
 	return crossMatchedResults.DuplicateElements(), nil
 }
 
-func (r *Ranker) None() (*QueryResult, error) {
+func (r *Ranker) All(maxReturnItems int) (*QueryResult, error) {
 	allResults := EmptyQueryResult()
 	for _, searchEngine := range *r.resultPool.GetSearchEngineList() {
 		searchResult := r.resultPool.FilterByEngineType(searchEngine)
 		allResults.Concatenate(searchResult.GetQueryResults())
 	}
 	allResults.RemoveDuplicates()
-	return allResults.Limit(config.GetConfig().RankerConf.MaxReturnItems), nil
+	return allResults.Limit(maxReturnItems), nil
 }
