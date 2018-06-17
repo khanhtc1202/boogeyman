@@ -1,37 +1,33 @@
 package domain
 
-type Ranker struct {
-	resultPool *QueryResultPool
+type Ranker struct{}
+
+func NewRanker() *Ranker {
+	return &Ranker{}
 }
 
-func NewRanker(pool *QueryResultPool) *Ranker {
-	return &Ranker{
-		resultPool: pool,
-	}
-}
-
-func (r *Ranker) Top() (*QueryResult, error) {
+func (r *Ranker) Top(pool *QueryResultPool) (*QueryResult, error) {
 	topResults := EmptyQueryResult()
-	for _, searchEngine := range *r.resultPool.GetSearchEngineList() {
-		searchEngine := r.resultPool.FilterByEngineType(searchEngine)
+	for _, searchEngine := range *pool.GetSearchEngineList() {
+		searchEngine := pool.FilterByEngineType(searchEngine)
 		topResults.Add(searchEngine.TopResult())
 	}
 	return topResults, nil
 }
 
-func (r *Ranker) CrossMatch() (*QueryResult, error) {
+func (r *Ranker) CrossMatch(pool *QueryResultPool) (*QueryResult, error) {
 	crossMatchedResults := EmptyQueryResult()
-	for _, searchEngine := range *r.resultPool.GetSearchEngineList() {
-		searchResult := r.resultPool.FilterByEngineType(searchEngine)
+	for _, searchEngine := range *pool.GetSearchEngineList() {
+		searchResult := pool.FilterByEngineType(searchEngine)
 		crossMatchedResults.Concatenate(searchResult.GetQueryResults())
 	}
 	return crossMatchedResults.DuplicateElements(), nil
 }
 
-func (r *Ranker) All(maxReturnItems int) (*QueryResult, error) {
+func (r *Ranker) All(pool *QueryResultPool, maxReturnItems int) (*QueryResult, error) {
 	allResults := EmptyQueryResult()
-	for _, searchEngine := range *r.resultPool.GetSearchEngineList() {
-		searchResult := r.resultPool.FilterByEngineType(searchEngine)
+	for _, searchEngine := range *pool.GetSearchEngineList() {
+		searchResult := pool.FilterByEngineType(searchEngine)
 		allResults.Concatenate(searchResult.GetQueryResults())
 	}
 	allResults.RemoveDuplicates()

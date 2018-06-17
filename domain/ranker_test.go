@@ -7,9 +7,9 @@ import (
 )
 
 func TestRanker_CrossMatch(t *testing.T) {
-	ranker := domain.NewRanker(fakeQueryResultPoll())
+	ranker := domain.NewRanker()
 
-	results, err := ranker.CrossMatch()
+	results, err := ranker.CrossMatch(fakeQueryResultPoll())
 	if err != nil {
 		t.Fatal("Fail running test get result urls by cross match")
 	}
@@ -19,10 +19,10 @@ func TestRanker_CrossMatch(t *testing.T) {
 }
 
 func TestRanker_Top(t *testing.T) {
-	ranker := domain.NewRanker(fakeQueryResultPoll())
+	ranker := domain.NewRanker()
 	sEngineList := fakeSearchEngineList()
 
-	results, err := ranker.Top()
+	results, err := ranker.Top(fakeQueryResultPoll())
 	if err != nil {
 		t.Fatal("Fail running test get result urls by top ranking")
 	}
@@ -32,10 +32,10 @@ func TestRanker_Top(t *testing.T) {
 }
 
 func TestRanker_None(t *testing.T) {
-	ranker := domain.NewRanker(fakeQueryResultPoll())
+	ranker := domain.NewRanker()
 	maxReturnItem := 20
 
-	results, err := ranker.All(maxReturnItem)
+	results, err := ranker.All(fakeQueryResultPoll(), maxReturnItem)
 	if err != nil {
 		t.Fatal("Fail running test show all result urls")
 	}
