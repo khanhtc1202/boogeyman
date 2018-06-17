@@ -7,23 +7,15 @@ import (
 )
 
 type QueryResultPool struct {
-	collectors       []service.Collector
-	searchEngineList *domain.SearchEngineList
+	collectors []service.Collector
 }
 
-func NewResultPool(services []service.Collector) *QueryResultPool {
-	searchEngineList := domain.EmptySearchEngineList()
-	for _, searchEngine := range services {
-		searchEngineList.Add(searchEngine.GetSearchEngineType())
-	}
+func NewResultPool(
+	services []service.Collector,
+) *QueryResultPool {
 	return &QueryResultPool{
-		collectors:       services,
-		searchEngineList: searchEngineList,
+		collectors: services,
 	}
-}
-
-func (m *QueryResultPool) GetSearchEngineList() *domain.SearchEngineList {
-	return m.searchEngineList
 }
 
 func (m *QueryResultPool) FetchData(
