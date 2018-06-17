@@ -2,19 +2,28 @@ package domain
 
 type QueryResultPool []*SearchEngine
 
-func EmptyResultPool() *QueryResultPool {
+func EmptyQueryResultPool() *QueryResultPool {
 	return &QueryResultPool{}
 }
 
-func (r *QueryResultPool) Add(resultData *SearchEngine) {
-	*r = append(*r, resultData)
+func (q *QueryResultPool) Add(queryResult *SearchEngine) {
+	*q = append(*q, queryResult)
 }
 
-func (r *QueryResultPool) FilterByEngineType(searchEngineType SearchEngineType) *SearchEngine {
-	for _, resultData := range *r {
+func (q *QueryResultPool) FilterByEngineType(searchEngineType SearchEngineType) *SearchEngine {
+	for _, resultData := range *q {
 		if resultData.Type() == searchEngineType {
 			return resultData
 		}
 	}
 	return nil
+}
+
+func (q *QueryResultPool) GetSearchEngineList() *SearchEngineList {
+	// TODO change pool from array to map ???
+	sEngineList := EmptySearchEngineList()
+	for _, engine := range *q {
+		sEngineList.Add(engine.EType)
+	}
+	return sEngineList
 }

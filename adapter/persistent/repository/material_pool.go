@@ -17,7 +17,7 @@ func NewMaterialPool(services []service.Collector) *MaterialPool {
 	for _, searchEngine := range services {
 		searchEngineList.Add(searchEngine.GetSearchEngineType())
 	}
-	resultData := domain.EmptyResultPool()
+	resultData := domain.EmptyQueryResultPool()
 	return &MaterialPool{
 		collectors:       services,
 		searchEngineList: searchEngineList,

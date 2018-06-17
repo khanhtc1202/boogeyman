@@ -19,7 +19,7 @@ func NewBoogeyman(
 }
 
 func (b *Boogeyman) QuerySearchResult(
-	strategy domain.StrategyType,
+	strategy domain.RankerStrategyType,
 	searchEngineList *domain.SearchEngineList,
 ) (*domain.QueryResult, error) {
 	switch strategy {

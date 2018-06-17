@@ -86,7 +86,7 @@ func MaterialPoolFactory(selectedEngine string) *repository.MaterialPool {
 	return repository.NewMaterialPool(*collectors)
 }
 
-func SetQueryStrategy(selectedStrategy string) domain.StrategyType {
+func SetQueryStrategy(selectedStrategy string) domain.RankerStrategyType {
 	switch strings.ToUpper(selectedStrategy) {
 	case domain.TOP.String():
 		return domain.TOP
