@@ -43,15 +43,10 @@ func main() {
 		ShowMetaInfo(metaInfo)
 	}
 
-	materialPool := MaterialPoolFactory(cmdParams.Engine)
-	err := materialPool.Fetch(domain.NewKeyword(cmdParams.QueryString))
-	if err != nil {
-		io.Errorln(err)
-		os.Exit(1)
-	}
+	resultPoolRepo := MaterialPoolFactory(cmdParams.Engine)
+	boogeyman := controller.NewBoogeyman(resultPoolRepo)
 
-	boogeyman := controller.NewBoogeyman(materialPool)
-	results, err := boogeyman.QuerySearchResult(SetQueryStrategy(cmdParams.Strategy), materialPool.GetSearchEngineList())
+	results, err := boogeyman.Search(cmdParams.QueryString, SetQueryStrategy(cmdParams.Strategy))
 	if err != nil {
 		io.Errorln(err)
 		os.Exit(1)
@@ -66,7 +61,7 @@ func ShowMetaInfo(metaInfo *meta_info.MetaInfo) {
 	os.Exit(0)
 }
 
-func MaterialPoolFactory(selectedEngine string) *repository.MaterialPool {
+func MaterialPoolFactory(selectedEngine string) *repository.QueryResultPool {
 	collectors := service.EmptyCollectorList()
 	switch strings.ToUpper(selectedEngine) {
 	case domain.GOOGLE.String():
@@ -83,7 +78,7 @@ func MaterialPoolFactory(selectedEngine string) *repository.MaterialPool {
 		collectors.Add(spiderPool.NewBingSpider())
 		collectors.Add(spiderPool.NewGoogleSpider())
 	}
-	return repository.NewMaterialPool(*collectors)
+	return repository.NewResultPool(*collectors)
 }
 
 func SetQueryStrategy(selectedStrategy string) domain.RankerStrategyType {
