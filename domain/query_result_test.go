@@ -35,8 +35,8 @@ func TestResultItems_DuplicateElements(t *testing.T) {
 	}
 }
 
-func itemListFactory() *domain.ResultItems {
-	resultItems := domain.EmptyResultItems()
+func itemListFactory() *domain.QueryResult {
+	resultItems := domain.EmptyQueryResult()
 
 	item1 := domain.NewResultItem("dummy", "dummy", "dummy", "http://...")
 	item2 := domain.NewResultItem("dummy", "dummy", "dummy", "http://...")

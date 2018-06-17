@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/khanhtc1202/boogeyman/domain"
-	"github.com/khanhtc1202/boogeyman/domain/search_engine"
 	"github.com/khanhtc1202/boogeyman/infrastructure/service"
 )
 
@@ -16,10 +15,10 @@ func TestBingSpider_Query(t *testing.T) {
 	if err != nil {
 		t.Fatal("Fail test query data from search engine")
 	}
-	if len(*result.GetResults()) < 1 {
+	if len(*result.GetQueryResults()) < 1 {
 		t.Fatal("Fail test query data from se, maybe error on internet connection")
 	}
-	if result.Type() != search_engine.BING {
+	if result.Type() != domain.BING {
 		t.Fatal("Fail test query data from se, error search engine type")
 	}
 }

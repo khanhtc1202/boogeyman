@@ -1,4 +1,4 @@
-package search_engine
+package domain
 
 type SearchEngineList []SearchEngineType
 
@@ -13,9 +13,7 @@ func (s *SearchEngineList) Add(searchEngineType SearchEngineType) {
 func (s *SearchEngineList) AddAll() {
 	s.Add(GOOGLE)
 	s.Add(BING)
-	s.Add(DUCKDUCKGO)
 	s.Add(ASK)
-	s.Add(YANDEX)
 }
 
 func (s *SearchEngineList) Has(searchEngineType SearchEngineType) bool {

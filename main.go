@@ -12,7 +12,6 @@ import (
 	"github.com/khanhtc1202/boogeyman/adapter/persistent/service"
 	"github.com/khanhtc1202/boogeyman/cross_cutting/io"
 	"github.com/khanhtc1202/boogeyman/domain"
-	"github.com/khanhtc1202/boogeyman/domain/search_engine"
 	"github.com/khanhtc1202/boogeyman/infrastructure/meta_info"
 	spiderPool "github.com/khanhtc1202/boogeyman/infrastructure/service"
 )
@@ -44,15 +43,10 @@ func main() {
 		ShowMetaInfo(metaInfo)
 	}
 
-	materialPool := MaterialPoolFactory(cmdParams.Engine)
-	err := materialPool.Fetch(domain.NewKeyword(cmdParams.QueryString))
-	if err != nil {
-		io.Errorln(err)
-		os.Exit(1)
-	}
+	resultPoolRepo := MaterialPoolFactory(cmdParams.Engine)
+	boogeyman := controller.NewBoogeyman(resultPoolRepo)
 
-	boogeyman := controller.NewBoogeyman(materialPool)
-	results, err := boogeyman.QuerySearchResult(SetQueryStrategy(cmdParams.Strategy), materialPool.GetSearchEngineList())
+	results, err := boogeyman.Search(cmdParams.QueryString, SetQueryStrategy(cmdParams.Strategy))
 	if err != nil {
 		io.Errorln(err)
 		os.Exit(1)
@@ -67,16 +61,16 @@ func ShowMetaInfo(metaInfo *meta_info.MetaInfo) {
 	os.Exit(0)
 }
 
-func MaterialPoolFactory(selectedEngine string) *repository.MaterialPool {
+func MaterialPoolFactory(selectedEngine string) *repository.QueryResultPool {
 	collectors := service.EmptyCollectorList()
 	switch strings.ToUpper(selectedEngine) {
-	case search_engine.GOOGLE.String():
+	case domain.GOOGLE.String():
 		collectors.Add(spiderPool.NewGoogleSpider())
 		break
-	case search_engine.BING.String():
+	case domain.BING.String():
 		collectors.Add(spiderPool.NewBingSpider())
 		break
-	case search_engine.ASK.String():
+	case domain.ASK.String():
 		collectors.Add(spiderPool.NewAskSpider())
 		break
 	default:
@@ -84,10 +78,10 @@ func MaterialPoolFactory(selectedEngine string) *repository.MaterialPool {
 		collectors.Add(spiderPool.NewBingSpider())
 		collectors.Add(spiderPool.NewGoogleSpider())
 	}
-	return repository.NewMaterialPool(*collectors)
+	return repository.NewResultPool(*collectors)
 }
 
-func SetQueryStrategy(selectedStrategy string) domain.StrategyType {
+func SetQueryStrategy(selectedStrategy string) domain.RankerStrategyType {
 	switch strings.ToUpper(selectedStrategy) {
 	case domain.TOP.String():
 		return domain.TOP

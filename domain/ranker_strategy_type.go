@@ -1,14 +1,14 @@
 package domain
 
-type StrategyType int
+type RankerStrategyType int
 
 const (
-	ALL StrategyType = iota
+	ALL RankerStrategyType = iota
 	TOP
 	CROSS
 )
 
-func (s StrategyType) String() string {
+func (s RankerStrategyType) String() string {
 	switch s {
 	case ALL:
 		return "ALL"
