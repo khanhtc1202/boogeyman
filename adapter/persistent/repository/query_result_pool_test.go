@@ -26,7 +26,7 @@ func TestMaterialPool_FetchData(t *testing.T) {
 	resultPoolRepo := repository.NewResultPool([]service.Collector{&CollectorMock{}})
 
 	resultPool, _ := resultPoolRepo.FetchData(keyword)
-	if len(*resultPool) != len(*resultPoolRepo.GetSearchEngineList()) {
+	if len(*resultPool) != 1 {
 		t.Fatal("Fail on test fetch data from search engine")
 	}
 }
