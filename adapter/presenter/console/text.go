@@ -25,9 +25,9 @@ func (t *TextPresenter) PrintList(results *domain.QueryResult) {
 }
 
 func (t *TextPresenter) presentItem(result *domain.ResultItem) {
-	t.writer.Println("---------------------")
 	t.writer.Printf(color.GreenString("Title: %v \n", result.GetTitleString()))
 	t.writer.Printf(color.RedString("URL: %v \n", result.GetUrl()))
 	t.writer.Printf(color.BlueString("Description: %v \n", result.GetDescription()))
 	t.writer.Printf(color.YellowString("Create At: %v \n", result.Time()))
+	t.writer.Println("---------------------")
 }
