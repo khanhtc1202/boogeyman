@@ -9,7 +9,7 @@ import (
 func TestRanker_CrossMatch(t *testing.T) {
 	ranker := domain.NewRanker()
 
-	results, err := ranker.CrossMatch(fakeQueryResultPoll())
+	results, err := ranker.CrossMatch(fakeQueryResultPool())
 	if err != nil {
 		t.Fatal("Fail running test get result urls by cross match")
 	}
@@ -22,7 +22,7 @@ func TestRanker_Top(t *testing.T) {
 	ranker := domain.NewRanker()
 	sEngineList := fakeSearchEngineList()
 
-	results, err := ranker.Top(fakeQueryResultPoll())
+	results, err := ranker.Top(fakeQueryResultPool())
 	if err != nil {
 		t.Fatal("Fail running test get result urls by top ranking")
 	}
@@ -31,11 +31,24 @@ func TestRanker_Top(t *testing.T) {
 	}
 }
 
+func TestRanker_TopOfEmptyQueryResults(t *testing.T) {
+	ranker := domain.NewRanker()
+	sEngineList := fakeSearchEngineList()
+
+	results, err := ranker.Top(fakeQueryResultPoolEmptyCase())
+	if err != nil {
+		t.Fatal("Fail running test get result urls by top ranking")
+	}
+	if len(*results) == len(*sEngineList) {
+		t.Fatal("Fail test logic get result urls by top ranking")
+	}
+}
+
 func TestRanker_None(t *testing.T) {
 	ranker := domain.NewRanker()
 	maxReturnItem := 20
 
-	results, err := ranker.All(fakeQueryResultPoll(), maxReturnItem)
+	results, err := ranker.All(fakeQueryResultPool(), maxReturnItem)
 	if err != nil {
 		t.Fatal("Fail running test show all result urls")
 	}
@@ -44,9 +57,17 @@ func TestRanker_None(t *testing.T) {
 	}
 }
 
-func fakeQueryResultPoll() *domain.QueryResultPool {
+func fakeQueryResultPool() *domain.QueryResultPool {
 	pool := domain.EmptyQueryResultPool()
 	pool.Add(domain.NewSearchEngine(domain.GOOGLE, fakeResultListSet1()))
+	pool.Add(domain.NewSearchEngine(domain.BING, fakeResultListSet2()))
+	pool.Add(domain.NewSearchEngine(domain.DUCKDUCKGO, fakeResultListSet3()))
+	return pool
+}
+
+func fakeQueryResultPoolEmptyCase() *domain.QueryResultPool {
+	pool := domain.EmptyQueryResultPool()
+	pool.Add(domain.NewSearchEngine(domain.GOOGLE, domain.EmptyQueryResult()))
 	pool.Add(domain.NewSearchEngine(domain.BING, fakeResultListSet2()))
 	pool.Add(domain.NewSearchEngine(domain.DUCKDUCKGO, fakeResultListSet3()))
 	return pool

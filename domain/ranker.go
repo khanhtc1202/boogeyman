@@ -10,7 +10,9 @@ func (r *Ranker) Top(pool *QueryResultPool) (*QueryResult, error) {
 	topResults := EmptyQueryResult()
 	for _, searchEngine := range *pool.GetSearchEngineList() {
 		searchEngine := pool.FilterByEngineType(searchEngine)
-		topResults.Add(searchEngine.TopResult())
+		if searchEngine.GetQueryResults().Length() > 0 {
+			topResults.Add(searchEngine.TopResult())
+		}
 	}
 	return topResults, nil
 }

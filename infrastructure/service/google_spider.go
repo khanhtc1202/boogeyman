@@ -8,7 +8,6 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/khanhtc1202/boogeyman/domain"
-	"github.com/pkg/errors"
 )
 
 const GoogleBaseURL = "https://www.google.com/search?q="
@@ -33,9 +32,6 @@ func (g *GoogleSpider) Query(keyword *domain.Keyword) (*domain.SearchEngine, err
 
 	doc := g.fetchFromInternet(keyword.String())
 	resultsData := g.parseDocumentData(doc)
-	if len(*resultsData) < 1 {
-		return nil, errors.New("Error on query data from search engine (Google)!")
-	}
 	return domain.NewSearchEngine(g.ofType, resultsData), nil
 }
 

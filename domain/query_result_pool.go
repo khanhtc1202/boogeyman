@@ -20,7 +20,7 @@ func (q *QueryResultPool) FilterByEngineType(searchEngineType SearchEngineType) 
 }
 
 func (q *QueryResultPool) GetSearchEngineList() *SearchEngineList {
-	// TODO change pool from array to map ???
+	// TODO change pool from array to map
 	sEngineList := EmptySearchEngineList()
 	for _, engine := range *q {
 		sEngineList.Add(engine.EType)

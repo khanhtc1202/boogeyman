@@ -6,7 +6,6 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/khanhtc1202/boogeyman/domain"
-	"github.com/pkg/errors"
 )
 
 const AskBaseURL = "https://www.ask.com/web?q="
@@ -31,9 +30,6 @@ func (a *AskSpider) Query(keyword *domain.Keyword) (*domain.SearchEngine, error)
 
 	doc := a.fetchFromInternet(keyword.String())
 	resultsData := a.parseDocumentData(doc)
-	if len(*resultsData) < 1 {
-		return nil, errors.New("Error on query data from search engine (Ask)!")
-	}
 	return domain.NewSearchEngine(a.ofType, resultsData), nil
 }
 

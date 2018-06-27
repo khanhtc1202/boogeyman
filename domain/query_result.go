@@ -23,6 +23,10 @@ func (r *QueryResult) First() *ResultItem {
 	return (*r)[0]
 }
 
+func (r *QueryResult) Length() int {
+	return len(*r)
+}
+
 func (r *QueryResult) RemoveDuplicates() {
 	keys := make(map[string]bool)
 	list := EmptyQueryResult()

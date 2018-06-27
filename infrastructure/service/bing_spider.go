@@ -6,7 +6,6 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/khanhtc1202/boogeyman/domain"
-	"github.com/pkg/errors"
 )
 
 const BingBaseURL = "https://www.bing.com/search?q="
@@ -31,9 +30,6 @@ func (b *BingSpider) Query(keyword *domain.Keyword) (*domain.SearchEngine, error
 
 	doc := b.fetchFromInternet(keyword.String())
 	resultsData := b.parseDocumentData(doc)
-	if len(*resultsData) < 1 {
-		return nil, errors.New("Error on query data from search engine (Bing)!")
-	}
 	return domain.NewSearchEngine(b.ofType, resultsData), nil
 }
 
