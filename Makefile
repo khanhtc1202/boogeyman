@@ -7,15 +7,16 @@ GOVERSION := $(shell go version)
 LDFLAGS := -X 'main.revision=$(REVISION)' -X 'main.version=$(VERSION)' -X 'main.buildDate=$(BUILDDATE)' -X 'main.goVersion=$(GOVERSION)'
 ENTRYPOINT := main.go
 
+all: dep production
+
 dep:
 	dep ensure
 
 # production mode: make [production | pro | p]
-production pro p: dep gobindata-production build-production test-production
+production pro p: gobindata-production build-production test-production
 
 # development mode: make [development | develop | dev | d]
 development develop dev d: dep gobindata-development build-development
-dev-test: dep gobindata-development build-development test-development
 
 # buid
 build-%:
