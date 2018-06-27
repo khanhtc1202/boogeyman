@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"strings"
 
 	"os"
@@ -46,13 +44,10 @@ func main() {
 	resultPoolRepo := MaterialPoolFactory(cmdParams.Engine)
 	boogeyman := controller.NewBoogeyman(resultPoolRepo)
 
-	results, err := boogeyman.Search(cmdParams.QueryString, SetQueryStrategy(cmdParams.Strategy))
+	err := boogeyman.Search(cmdParams.QueryString, SetQueryStrategy(cmdParams.Strategy))
 	if err != nil {
 		io.Errorln(err)
 		os.Exit(1)
-	}
-	for _, result := range *results {
-		fmt.Println(result.Show())
 	}
 }
 

@@ -3,11 +3,19 @@ package io
 import (
 	"fmt"
 	"io"
+
+	"github.com/mattn/go-colorable"
 )
 
 type Console struct {
 	Stdout io.Writer
 	Stderr io.Writer
+}
+
+func ColorfulConsole() *Console {
+	Stdout := colorable.NewColorableStdout()
+	Stderr := colorable.NewColorableStderr()
+	return &Console{Stdout: Stdout, Stderr: Stderr}
 }
 
 func (c Console) Printf(format string, a ...interface{}) (n int, err error) {
