@@ -3,21 +3,25 @@ package interactor
 import (
 	"github.com/khanhtc1202/boogeyman/config"
 	"github.com/khanhtc1202/boogeyman/domain"
+	"github.com/khanhtc1202/boogeyman/usecase/presenter"
 	"github.com/khanhtc1202/boogeyman/usecase/repository"
 	"github.com/pkg/errors"
 )
 
 type InfoSearch struct {
-	ranker   *domain.Ranker
-	poolRepo repository.QueryResultPool
+	ranker    *domain.Ranker
+	poolRepo  repository.QueryResultPool
+	presenter presenter.TextPresenter
 }
 
 func NewInfoSearch(
+	presenter presenter.TextPresenter,
 	poolRepo repository.QueryResultPool,
 ) *InfoSearch {
 	return &InfoSearch{
-		ranker:   domain.NewRanker(),
-		poolRepo: poolRepo,
+		ranker:    domain.NewRanker(),
+		poolRepo:  poolRepo,
+		presenter: presenter,
 	}
 }
 
@@ -40,6 +44,10 @@ func (i *InfoSearch) Search(
 	default:
 		return i.ranker.CrossMatch(resultPool)
 	}
+}
+
+func (i *InfoSearch) PrintResults(results *domain.QueryResult) {
+	i.presenter.PrintList(results)
 }
 
 func (i *InfoSearch) fetchData(

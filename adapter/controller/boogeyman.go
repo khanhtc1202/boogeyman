@@ -1,24 +1,20 @@
 package controller
 
 import (
-	"github.com/khanhtc1202/boogeyman/adapter/controller/presenter"
-	"github.com/khanhtc1202/boogeyman/adapter/presenter/console"
+	"github.com/khanhtc1202/boogeyman/cross_cutting/common"
 	"github.com/khanhtc1202/boogeyman/domain"
 	"github.com/khanhtc1202/boogeyman/usecase/interactor"
-	"github.com/khanhtc1202/boogeyman/usecase/repository"
 )
 
 type Boogeyman struct {
 	interactor *interactor.InfoSearch
-	presenter  presenter.TextPresenter
 }
 
 func NewBoogeyman(
-	resultPoolRepo repository.QueryResultPool,
+	container common.IDIContainer,
 ) *Boogeyman {
 	return &Boogeyman{
-		interactor: interactor.NewInfoSearch(resultPoolRepo),
-		presenter:  console.NewColorfulTextPresenter(),
+		interactor: container.SearchInfo(),
 	}
 }
 
@@ -30,6 +26,6 @@ func (b *Boogeyman) Search(
 	if err != nil {
 		return err
 	}
-	b.presenter.PrintList(queryResults)
+	b.interactor.PrintResults(queryResults)
 	return nil
 }
