@@ -1,24 +1,26 @@
 package controller
 
 import (
-	"github.com/khanhtc1202/boogeyman/cross_cutting/common"
 	"github.com/khanhtc1202/boogeyman/domain"
 	"github.com/khanhtc1202/boogeyman/usecase/interactor"
+	"github.com/khanhtc1202/boogeyman/usecase/presenter"
+	"github.com/khanhtc1202/boogeyman/usecase/repository"
 )
 
-type Boogeyman struct {
+type InfoSearch struct {
 	interactor *interactor.InfoSearch
 }
 
-func NewBoogeyman(
-	container common.IDIContainer,
-) *Boogeyman {
-	return &Boogeyman{
-		interactor: container.SearchInfo(),
+func NewInfoSearch(
+	presenter presenter.TextPresenter,
+	resultPoolRepo repository.QueryResultPool,
+) *InfoSearch {
+	return &InfoSearch{
+		interactor: interactor.NewInfoSearch(presenter, resultPoolRepo),
 	}
 }
 
-func (b *Boogeyman) Search(
+func (b *InfoSearch) Search(
 	queryString string,
 	strategy domain.RankerStrategyType,
 ) error {

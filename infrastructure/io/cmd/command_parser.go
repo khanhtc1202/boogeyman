@@ -1,17 +1,17 @@
-package io
+package cmd
 
 import (
 	"flag"
-	"github.com/khanhtc1202/boogeyman/infrastructure/io/data"
+	"github.com/khanhtc1202/boogeyman/infrastructure/io/cmd/data"
 )
 
-type CommandParse struct{}
+type Parser struct{}
 
-func NewCommandParse() *CommandParse {
-	return &CommandParse{}
+func NewCommandParser() *Parser {
+	return &Parser{}
 }
 
-func (c *CommandParse) ParseCommandParams() *data.CommandParams {
+func (c *Parser) ParseParams() *data.CommandParams {
 	var queryString string
 	flag.StringVar(&queryString, "k", "boogeyman", "search (query) string")
 	engine := flag.String("e", "all", "search engine(s): google | bing | ask | all")
