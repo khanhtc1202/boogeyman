@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"flag"
-	"github.com/khanhtc1202/boogeyman/infrastructure/io/cmd/data"
+	"github.com/khanhtc1202/boogeyman/infrastructure/cmd/data"
 )
 
 type Parser struct{}

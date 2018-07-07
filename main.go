@@ -11,7 +11,7 @@ import (
 	"github.com/khanhtc1202/boogeyman/adapter/presenter/console"
 	"github.com/khanhtc1202/boogeyman/cross_cutting/io"
 	"github.com/khanhtc1202/boogeyman/domain"
-	"github.com/khanhtc1202/boogeyman/infrastructure/io/cmd"
+	"github.com/khanhtc1202/boogeyman/infrastructure/cmd"
 	"github.com/khanhtc1202/boogeyman/infrastructure/meta_info"
 	spiderPool "github.com/khanhtc1202/boogeyman/infrastructure/service"
 )
