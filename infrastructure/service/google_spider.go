@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"os"
 
+	"regexp"
+
 	"github.com/PuerkitoBio/goquery"
 	"github.com/khanhtc1202/boogeyman/domain"
 )
@@ -63,5 +65,6 @@ func (g *GoogleSpider) convertToDomain(
 	time string,
 ) *domain.ResultItem {
 	url = strings.Replace(url, "/url?q=", "", -1)
-	return domain.NewResultItem(time, title, description, url)
+	r := regexp.MustCompile("&sa=*")
+	return domain.NewResultItem(time, title, description, fmt.Sprintf(r.ReplaceAllString(url, "")))
 }
