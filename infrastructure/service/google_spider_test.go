@@ -3,8 +3,6 @@ package service_test
 import (
 	"testing"
 
-	"fmt"
-
 	"github.com/khanhtc1202/boogeyman/domain"
 	"github.com/khanhtc1202/boogeyman/infrastructure/service"
 )
@@ -23,5 +21,4 @@ func TestGoogleSpider_Query(t *testing.T) {
 	if result.Type() != domain.GOOGLE {
 		t.Fatal("Fail test query data from se, error search engine type")
 	}
-	fmt.Println(result.TopResult().GetUrl())
 }

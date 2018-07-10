@@ -65,6 +65,6 @@ func (g *GoogleSpider) convertToDomain(
 	time string,
 ) *domain.ResultItem {
 	url = strings.Replace(url, "/url?q=", "", -1)
-	r := regexp.MustCompile("&sa=*")
+	r := regexp.MustCompile(`(?:&sa\=)(?:[^ ]+)`)
 	return domain.NewResultItem(time, title, description, fmt.Sprintf(r.ReplaceAllString(url, "")))
 }
