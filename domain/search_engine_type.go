@@ -8,6 +8,7 @@ const (
 	DUCKDUCKGO
 	ASK
 	YANDEX
+	YAHOO
 )
 
 func (s SearchEngineType) String() string {
@@ -22,6 +23,8 @@ func (s SearchEngineType) String() string {
 		return "ASK"
 	case YANDEX:
 		return "YANDEX"
+	case YAHOO:
+		return "YAHOO"
 	}
 	return "Unknown"
 }
