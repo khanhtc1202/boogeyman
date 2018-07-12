@@ -73,10 +73,14 @@ func MaterialPoolFactory(selectedEngine string) *repository.QueryResultPool {
 	case domain.ASK.String():
 		collectors.Add(spiderPool.NewAskSpider())
 		break
+	case domain.YAHOO.String():
+		collectors.Add(spiderPool.NewYahooSpider())
+		break
 	default:
 		collectors.Add(spiderPool.NewAskSpider())
 		collectors.Add(spiderPool.NewBingSpider())
 		collectors.Add(spiderPool.NewGoogleSpider())
+		collectors.Add(spiderPool.NewYahooSpider())
 	}
 	return repository.NewResultPool(*collectors)
 }
