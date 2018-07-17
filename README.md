@@ -27,12 +27,12 @@ Return matched results cross through multi search engines. (Appeared in 2 or mor
 
 Return all :)
 
-On ver `1.2`, search engines list:
+On ver `1.2.5`, search engines list:
 
 1. Ask
 2. Bing
 3. Google
-4. Yandex (remove on ver 1.1.1)
+4. Yahoo
 
 This list will be updated by far ~
 
@@ -57,11 +57,11 @@ Type `-h` to get help. Return value be like
 ```$xslt
 Usage of ./boogeyman:
   -e string
-        search engine(s): google | bing | ask | yandex | all (default "all")
+        search engine(s): google | bing | ask | yahoo | all (default "all")
   -k string
         search (query) string (default "bar")
   -s string
-        result show strategy: top | cross | all (default "all")
+        result show strategy: top | cross | all (default "top")
   -v    show application version
   -version
         show application version
