@@ -22,12 +22,33 @@ func (m *QueryResultPool) FetchData(
 	keyword *domain.Keyword,
 ) (*domain.QueryResultPool, error) {
 	resultPool := domain.EmptyQueryResultPool()
+	resultsChan := make(chan *domain.SearchEngine)
+	errChan := make(chan error)
+
+	defer func() {
+		close(resultsChan)
+		close(errChan)
+	}()
+
 	for _, collector := range m.collectors {
-		resultData, err := collector.Query(keyword)
-		if err != nil {
-			return nil, errors.Wrap(err, "Error on fetching data from search engine! \n")
-		}
-		resultPool.Add(resultData)
+		go func(collector service.Collector) {
+			resultData, err := collector.Query(keyword)
+			if err != nil {
+				errChan <- err
+			}
+			resultsChan <- resultData
+		}(collector)
 	}
-	return resultPool, nil
+
+	for {
+		select {
+		case err := <-errChan:
+			return nil, errors.Wrap(err, "Error on fetching data from search engine! \n")
+		case resultData := <-resultsChan:
+			resultPool.Add(resultData)
+			if len(*resultPool) == len(m.collectors) {
+				return resultPool, nil
+			}
+		}
+	}
 }
