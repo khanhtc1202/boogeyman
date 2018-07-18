@@ -13,6 +13,8 @@ A simple program that help you get search results from multi search engines inst
 
 ## What can it does
 
+![showcase](https://media.giphy.com/media/1pAkc2dmDxi2u05imr/giphy.gif)
+
 This program searches through multi search engines and returns search results under some of strategies:
 
 > Top
@@ -66,10 +68,6 @@ Usage of ./boogeyman:
   -version
         show application version
 ```
-
-Sample result
-
-![query keyword cross search engines](public/sample.png)
 
 ## Run on local
 
