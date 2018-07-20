@@ -14,9 +14,7 @@ func (r *QueryResult) Add(resultItem *ResultItem) {
 }
 
 func (r *QueryResult) Concatenate(itemList *QueryResult) {
-	for _, item := range *itemList {
-		r.Add(item)
-	}
+	*r = append(*r, *itemList...)
 }
 
 func (r *QueryResult) First() *ResultItem {
