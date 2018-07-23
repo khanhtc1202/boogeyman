@@ -25,11 +25,6 @@ func (m *QueryResultPool) FetchData(
 	resultsChan := make(chan *domain.SearchEngine)
 	errChan := make(chan error)
 
-	defer func() {
-		close(resultsChan)
-		close(errChan)
-	}()
-
 	for _, collector := range m.collectors {
 		go func(collector service.Collector) {
 			resultData, err := collector.Query(keyword)
