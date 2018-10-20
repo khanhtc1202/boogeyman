@@ -29,8 +29,8 @@ func (r *QueryResult) RemoveDuplicates() {
 	keys := make(map[string]bool)
 	list := EmptyQueryResult()
 	for _, entry := range *r {
-		if _, value := keys[entry.url]; !value {
-			keys[entry.url] = true
+		if _, value := keys[entry.GetUrl()]; !value {
+			keys[entry.GetUrl()] = true
 			list.Add(entry)
 		}
 	}
@@ -42,8 +42,8 @@ func (r *QueryResult) DuplicateElements() *QueryResult {
 
 	keys := make(map[string]bool)
 	for _, entry := range *r {
-		if _, value := keys[entry.url]; !value {
-			keys[entry.url] = true
+		if _, value := keys[entry.GetUrl()]; !value {
+			keys[entry.GetUrl()] = true
 		} else {
 			duplicateElements.Add(entry)
 		}
