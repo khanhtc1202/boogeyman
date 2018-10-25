@@ -1,5 +1,6 @@
 .idea/
 bin/*
 !bin/.gitkeep
+!bin/boogeyman*
 vendor/
 config_tml.go
