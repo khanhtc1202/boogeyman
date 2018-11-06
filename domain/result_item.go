@@ -4,7 +4,6 @@ type ComparableResultItem interface {
 	GetCompareField() string
 }
 
-// TODO make interface
 type UrlBaseResultItem struct {
 	ComparableResultItem
 	createdTime string
