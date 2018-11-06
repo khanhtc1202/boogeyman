@@ -30,7 +30,7 @@ func (i *InfoSearch) Search(
 	strategy domain.RankerStrategyType,
 ) (*domain.QueryResult, error) {
 	// fetch data from search engines
-	resultPool, err := i.fetchData(domain.NewKeyword(queryString))
+	resultPool, err := i.poolRepo.FetchData(domain.NewKeyword(queryString))
 	if err != nil {
 		return nil, errors.Wrap(err, "Error on fetch data from pool!\n")
 	}
@@ -62,14 +62,4 @@ func (i *InfoSearch) Search(
 	}
 
 	return queryResult, nil
-}
-
-func (i *InfoSearch) fetchData(
-	keyword *domain.Keyword,
-) (*domain.QueryResultPool, error) {
-	pool, err := i.poolRepo.FetchData(keyword)
-	if err != nil {
-		return nil, errors.Wrap(err, "Error fetching data from search engines!\n")
-	}
-	return pool, nil
 }

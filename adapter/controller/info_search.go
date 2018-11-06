@@ -25,9 +25,5 @@ func (b *InfoSearch) Search(
 	strategy domain.RankerStrategyType,
 ) error {
 	_, err := b.interactor.Search(queryString, strategy)
-	if err != nil {
-		return err
-	}
-	//b.interactor.PrintResults(queryResults)
-	return nil
+	return err
 }
