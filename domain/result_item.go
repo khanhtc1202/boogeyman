@@ -1,6 +1,12 @@
 package domain
 
-type ResultItem struct {
+type ComparableResultItem interface {
+	GetCompareField() string
+}
+
+// TODO make interface
+type UrlBaseResultItem struct {
+	ComparableResultItem
 	createdTime string
 	title       string
 	description string
@@ -12,8 +18,8 @@ func NewResultItem(
 	title string,
 	description string,
 	url string,
-) *ResultItem {
-	return &ResultItem{
+) *UrlBaseResultItem {
+	return &UrlBaseResultItem{
 		createdTime: createdTime,
 		title:       title,
 		description: description,
@@ -21,18 +27,22 @@ func NewResultItem(
 	}
 }
 
-func (r *ResultItem) Time() string {
+func (r *UrlBaseResultItem) Time() string {
 	return r.createdTime
 }
 
-func (r *ResultItem) GetTitleString() string {
+func (r *UrlBaseResultItem) GetTitleString() string {
 	return r.title
 }
 
-func (r *ResultItem) GetDescription() string {
+func (r *UrlBaseResultItem) GetDescription() string {
 	return r.description
 }
 
-func (r *ResultItem) GetUrl() string {
+func (r *UrlBaseResultItem) GetUrl() string {
+	return r.url
+}
+
+func (r *UrlBaseResultItem) GetCompareField() string {
 	return r.url
 }

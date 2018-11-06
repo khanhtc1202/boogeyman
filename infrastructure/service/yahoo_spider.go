@@ -1,23 +1,24 @@
 package service
 
 import (
-	"github.com/khanhtc1202/boogeyman/domain"
-	"github.com/PuerkitoBio/goquery"
-	"os"
 	"fmt"
+	"os"
+
+	"github.com/PuerkitoBio/goquery"
+	"github.com/khanhtc1202/boogeyman/domain"
 )
 
 const YahooBaseURL = "https://search.yahoo.com/search?p="
 
 type YahooSpider struct {
 	baseUrl string
-	ofType	domain.SearchEngineType
+	ofType  domain.SearchEngineType
 }
 
 func NewYahooSpider() *YahooSpider {
 	return &YahooSpider{
 		baseUrl: YahooBaseURL,
-		ofType:	domain.YAHOO,
+		ofType:  domain.YAHOO,
 	}
 }
 
@@ -57,6 +58,6 @@ func (y *YahooSpider) convertToDomain(
 	url string,
 	description string,
 	time string,
-) *domain.ResultItem {
+) *domain.UrlBaseResultItem {
 	return domain.NewResultItem(time, title, description, url)
 }

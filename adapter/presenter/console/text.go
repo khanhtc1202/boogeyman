@@ -5,6 +5,7 @@ import (
 	ioInterface "github.com/khanhtc1202/boogeyman/cross_cutting/io"
 	"github.com/khanhtc1202/boogeyman/domain"
 	"github.com/khanhtc1202/boogeyman/infrastructure/io"
+	"github.com/pkg/errors"
 )
 
 type TextPresenter struct {
@@ -17,14 +18,22 @@ func NewColorfulTextPresenter() *TextPresenter {
 	}
 }
 
-func (t *TextPresenter) PrintList(results *domain.QueryResult) {
+func (t *TextPresenter) PrintList(results *domain.QueryResult) error {
 	for _, result := range *results {
-		t.presentItem(result)
+		switch result.(type) {
+		case *domain.UrlBaseResultItem:
+			t.presentUrlBaseItem(result.(*domain.UrlBaseResultItem))
+			continue
+		default:
+			return errors.New("Error not found presenter for this type of ResultItem")
+		}
 	}
+
 	t.writer.Printf(color.HiCyanString("\nTotal %v result(s) founded!\n", len(*results)))
+	return nil
 }
 
-func (t *TextPresenter) presentItem(result *domain.ResultItem) {
+func (t *TextPresenter) presentUrlBaseItem(result *domain.UrlBaseResultItem) {
 	t.writer.Printf(color.HiGreenString("Title: %v \n", result.GetTitleString()))
 	t.writer.Printf(color.YellowString("URL: %v \n", result.GetUrl()))
 	t.writer.Printf(color.RedString("Description: ") + result.GetDescription() + "\n")

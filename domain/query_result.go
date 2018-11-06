@@ -1,12 +1,12 @@
 package domain
 
-type QueryResult []*ResultItem
+type QueryResult []ComparableResultItem
 
 func EmptyQueryResult() *QueryResult {
 	return &QueryResult{}
 }
 
-func (r *QueryResult) Add(resultItem *ResultItem) {
+func (r *QueryResult) Add(resultItem ComparableResultItem) {
 	if resultItem == nil {
 		return
 	}
@@ -17,7 +17,7 @@ func (r *QueryResult) Concatenate(itemList *QueryResult) {
 	*r = append(*r, *itemList...)
 }
 
-func (r *QueryResult) First() *ResultItem {
+func (r *QueryResult) First() ComparableResultItem {
 	return (*r)[0]
 }
 
@@ -29,8 +29,8 @@ func (r *QueryResult) RemoveDuplicates() {
 	keys := make(map[string]bool)
 	list := EmptyQueryResult()
 	for _, entry := range *r {
-		if _, value := keys[entry.GetUrl()]; !value {
-			keys[entry.GetUrl()] = true
+		if _, value := keys[entry.GetCompareField()]; !value {
+			keys[entry.GetCompareField()] = true
 			list.Add(entry)
 		}
 	}
@@ -42,8 +42,8 @@ func (r *QueryResult) DuplicateElements() *QueryResult {
 
 	keys := make(map[string]bool)
 	for _, entry := range *r {
-		if _, value := keys[entry.GetUrl()]; !value {
-			keys[entry.GetUrl()] = true
+		if _, value := keys[entry.GetCompareField()]; !value {
+			keys[entry.GetCompareField()] = true
 		} else {
 			duplicateElements.Add(entry)
 		}

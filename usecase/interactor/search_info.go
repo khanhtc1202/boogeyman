@@ -29,25 +29,39 @@ func (i *InfoSearch) Search(
 	queryString string,
 	strategy domain.RankerStrategyType,
 ) (*domain.QueryResult, error) {
+	// fetch data from search engines
 	resultPool, err := i.fetchData(domain.NewKeyword(queryString))
 	if err != nil {
 		return nil, errors.Wrap(err, "Error on fetch data from pool!\n")
 	}
+
+	// merge by strategy
+	var queryResult *domain.QueryResult
 	switch strategy {
 	case domain.TOP:
-		return i.ranker.Top(resultPool)
+		queryResult, err = i.ranker.Top(resultPool)
+		break
 	case domain.CROSS:
-		return i.ranker.CrossMatch(resultPool)
+		queryResult, err = i.ranker.CrossMatch(resultPool)
+		break
 	case domain.ALL:
-		return i.ranker.All(resultPool,
+		queryResult, err = i.ranker.All(resultPool,
 			config.GetConfig().RankerConf.MaxReturnItems)
+		break
 	default:
-		return i.ranker.CrossMatch(resultPool)
+		queryResult, err = i.ranker.CrossMatch(resultPool)
+		break
 	}
-}
+	if err != nil {
+		return nil, err
+	}
 
-func (i *InfoSearch) PrintResults(results *domain.QueryResult) {
-	i.presenter.PrintList(results)
+	// printout
+	if err = i.presenter.PrintList(queryResult); err != nil {
+		return nil, err
+	}
+
+	return queryResult, nil
 }
 
 func (i *InfoSearch) fetchData(

@@ -59,6 +59,6 @@ func (b *BingSpider) convertToDomain(
 	url string,
 	description string,
 	time string,
-) *domain.ResultItem {
+) *domain.UrlBaseResultItem {
 	return domain.NewResultItem(time, title, description, url)
 }

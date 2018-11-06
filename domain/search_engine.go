@@ -19,7 +19,7 @@ func (s *SearchEngine) Type() SearchEngineType {
 	return s.eType
 }
 
-func (s *SearchEngine) TopResult() *ResultItem {
+func (s *SearchEngine) TopResult() ComparableResultItem {
 	return s.queryResults.First()
 }
 

@@ -24,10 +24,10 @@ func (b *InfoSearch) Search(
 	queryString string,
 	strategy domain.RankerStrategyType,
 ) error {
-	queryResults, err := b.interactor.Search(queryString, strategy)
+	_, err := b.interactor.Search(queryString, strategy)
 	if err != nil {
 		return err
 	}
-	b.interactor.PrintResults(queryResults)
+	//b.interactor.PrintResults(queryResults)
 	return nil
 }
