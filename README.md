@@ -87,7 +87,7 @@ or check [Makefile](https://github.com/khanhtc1202/boogeyman/blob/master/Makefil
 
 ## Contribution
 
-All contributions will are welcomed in this project.
+All contributions are welcomed in this project.
 
 ## Download
 
