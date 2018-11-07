@@ -29,7 +29,7 @@ Return matched results cross through multi search engines. (Appeared in 2 or mor
 
 Return all :)
 
-On ver `1.2.5`, search engines list:
+On ver `1.2.6`, search engines list:
 
 1. Ask
 2. Bing
@@ -87,7 +87,7 @@ or check [Makefile](https://github.com/khanhtc1202/boogeyman/blob/master/Makefil
 
 ## Contribution
 
-All contributions will be welcome in this project.
+All contributions will are welcomed in this project.
 
 ## Download
 
