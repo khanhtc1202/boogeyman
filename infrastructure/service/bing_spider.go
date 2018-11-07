@@ -26,7 +26,7 @@ func (b *BingSpider) GetSearchEngineType() domain.SearchEngineType {
 	return b.ofType
 }
 
-func (b *BingSpider) Query(keyword *domain.Keyword) (*domain.SearchEngine, error) {
+func (b *BingSpider) Query(keyword domain.Keyword) (*domain.SearchEngine, error) {
 
 	doc := b.fetchFromInternet(keyword.String())
 	resultsData := b.parseDocumentData(doc)

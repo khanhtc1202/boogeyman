@@ -26,7 +26,7 @@ func (y *YahooSpider) GetSearchEngineType() domain.SearchEngineType {
 	return y.ofType
 }
 
-func (y *YahooSpider) Query(keyword *domain.Keyword) (*domain.SearchEngine, error) {
+func (y *YahooSpider) Query(keyword domain.Keyword) (*domain.SearchEngine, error) {
 	doc := y.fetchFromInternet(keyword.String())
 	resultsData := y.parseDocumentData(doc)
 	return domain.NewSearchEngine(y.ofType, resultsData), nil

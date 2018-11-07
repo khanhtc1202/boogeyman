@@ -30,7 +30,7 @@ func (g *GoogleSpider) GetSearchEngineType() domain.SearchEngineType {
 	return g.ofType
 }
 
-func (g *GoogleSpider) Query(keyword *domain.Keyword) (*domain.SearchEngine, error) {
+func (g *GoogleSpider) Query(keyword domain.Keyword) (*domain.SearchEngine, error) {
 
 	doc := g.fetchFromInternet(keyword.String())
 	resultsData := g.parseDocumentData(doc)

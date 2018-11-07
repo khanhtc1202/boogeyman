@@ -5,5 +5,5 @@ import (
 )
 
 type QueryResultPool interface {
-	FetchData(keyword *domain.Keyword) (*domain.QueryResultPool, error)
+	FetchData(keyword domain.Keyword) (*domain.QueryResultPool, error)
 }

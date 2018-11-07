@@ -19,7 +19,7 @@ func NewResultPool(
 }
 
 func (m *QueryResultPool) FetchData(
-	keyword *domain.Keyword,
+	keyword domain.Keyword,
 ) (*domain.QueryResultPool, error) {
 	resultPool := domain.EmptyQueryResultPool()
 	resultsChan := make(chan *domain.SearchEngine)

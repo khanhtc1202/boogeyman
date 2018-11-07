@@ -6,7 +6,7 @@ import (
 
 type Collector interface {
 	GetSearchEngineType() domain.SearchEngineType
-	Query(keyword *domain.Keyword) (*domain.SearchEngine, error)
+	Query(keyword domain.Keyword) (*domain.SearchEngine, error)
 }
 
 type CollectorList []Collector
