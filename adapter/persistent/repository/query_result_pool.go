@@ -22,7 +22,7 @@ func (m *QueryResultPool) FetchData(
 	keyword domain.Keyword,
 ) (*domain.QueryResultPool, error) {
 	resultPool := domain.EmptyQueryResultPool()
-	resultsChan := make(chan *domain.SearchEngine)
+	resultsChan := make(chan *domain.SearchEngine, len(m.collectors))
 	errChan := make(chan error)
 
 	for _, collector := range m.collectors {
