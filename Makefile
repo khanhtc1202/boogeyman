@@ -36,4 +36,4 @@ gobindata-%:
 
 # publicing
 deploy:
-	mv ./bin/* ./public/
+	cp ./bin/* ./public/
