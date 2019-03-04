@@ -28,11 +28,11 @@ func NewInfoSearch(
 func (i *InfoSearch) Search(
 	queryString string,
 	strategy domain.RankerStrategyType,
-) (*domain.QueryResult, error) {
+) error {
 	// fetch data from search engines
 	resultPool, err := i.poolRepo.FetchData(domain.NewKeyword(queryString))
 	if err != nil {
-		return nil, errors.Wrap(err, "Error on fetch data from pool!\n")
+		return errors.Wrap(err, "Error on fetch data from pool!\n")
 	}
 
 	// merge by strategy
@@ -53,13 +53,13 @@ func (i *InfoSearch) Search(
 		break
 	}
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	// printout
 	if err = i.presenter.PrintList(queryResult); err != nil {
-		return nil, err
+		return err
 	}
 
-	return queryResult, nil
+	return nil
 }

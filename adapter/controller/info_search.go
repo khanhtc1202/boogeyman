@@ -24,6 +24,5 @@ func (b *InfoSearch) Search(
 	queryString string,
 	strategy domain.RankerStrategyType,
 ) error {
-	_, err := b.interactor.Search(queryString, strategy)
-	return err
+	return b.interactor.Search(queryString, strategy)
 }
