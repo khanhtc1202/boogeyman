@@ -13,7 +13,7 @@ A simple program that help you get search results from multi search engines inst
 
 ## What can it does
 
-![showcase](public/sample.gif)
+![showcase](asserts/sample.gif)
 
 This program searches through multi search engines and returns search results under some of strategies:
 
@@ -42,7 +42,7 @@ This list will be updated by far ~
 
 The program's architecture implemented under `the clean architecture` design. More info go [here](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html).
 
-![boogeymain design](public/boogeyman_design.jpg)
+![boogeymain design](asserts/boogeyman_design.jpg)
 
 ## Usage
 
@@ -91,9 +91,9 @@ All contributions are welcomed in this project.
 
 ## Download
 
-For linux x64 : [download](public/boogeyman-linux-64)
+For linux x64 : [download](bin/boogeyman-linux-64)
 
-For MacOS x64 : [download](public/boogeyman-darwin-64)
+For MacOS x64 : [download](bin/boogeyman-darwin-64)
 
 ## License
 The MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
