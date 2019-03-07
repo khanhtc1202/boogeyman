@@ -1,11 +1,11 @@
 # application meta info
 NAME := boogeyman
-VERSION= 1.2.6
+VERSION= 1.2.7
 REVISION := $(shell git rev-parse --short HEAD)
 BUILDDATE := $(shell date '+%Y/%m/%d %H:%M:%S %Z')
 GOVERSION := $(shell go version)
 LDFLAGS := -X 'main.revision=$(REVISION)' -X 'main.version=$(VERSION)' -X 'main.buildDate=$(BUILDDATE)' -X 'main.goVersion=$(GOVERSION)'
-ENTRYPOINT := main.go
+ENTRYPOINT := cmd/boogeyman/main.go
 
 all: dep production
 
