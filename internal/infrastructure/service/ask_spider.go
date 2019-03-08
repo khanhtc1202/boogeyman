@@ -42,7 +42,7 @@ func (a *AskSpider) fetchFromInternet(keyword string) *goquery.Document {
 	return doc
 }
 
-func (a *AskSpider) parseDocumentData(doc *goquery.Document) *domain.QueryResult {
+func (a *AskSpider) parseDocumentData(doc *goquery.Document) *domain.QueryResults {
 	resultsData := domain.EmptyQueryResult()
 	doc.Find(".PartialSearchResults-item").Each(func(i int, s *goquery.Selection) {
 		title := s.Find("a").Text()

@@ -20,7 +20,7 @@ func TestRanker_CrossMatch(t *testing.T) {
 
 func TestRanker_Top(t *testing.T) {
 	ranker := domain.NewRanker()
-	sEngineList := fakeSearchEngineList()
+	sEngineList := fakeSearchEngineTypeList()
 
 	results, err := ranker.Top(fakeQueryResultPool())
 	if err != nil {
@@ -33,7 +33,7 @@ func TestRanker_Top(t *testing.T) {
 
 func TestRanker_TopOfEmptyQueryResults(t *testing.T) {
 	ranker := domain.NewRanker()
-	sEngineList := fakeSearchEngineList()
+	sEngineList := fakeSearchEngineTypeList()
 
 	results, err := ranker.Top(fakeQueryResultPoolEmptyCase())
 	if err != nil {
@@ -57,31 +57,31 @@ func TestRanker_None(t *testing.T) {
 	}
 }
 
-func fakeQueryResultPool() *domain.QueryResultPool {
-	pool := domain.EmptyQueryResultPool()
+func fakeQueryResultPool() *domain.SearchEnginePool {
+	pool := domain.EmptySearchEnginePool()
 	pool.Add(domain.NewSearchEngine(domain.GOOGLE, fakeResultListSet1()))
 	pool.Add(domain.NewSearchEngine(domain.BING, fakeResultListSet2()))
 	pool.Add(domain.NewSearchEngine(domain.DUCKDUCKGO, fakeResultListSet3()))
 	return pool
 }
 
-func fakeQueryResultPoolEmptyCase() *domain.QueryResultPool {
-	pool := domain.EmptyQueryResultPool()
+func fakeQueryResultPoolEmptyCase() *domain.SearchEnginePool {
+	pool := domain.EmptySearchEnginePool()
 	pool.Add(domain.NewSearchEngine(domain.GOOGLE, domain.EmptyQueryResult()))
 	pool.Add(domain.NewSearchEngine(domain.BING, fakeResultListSet2()))
 	pool.Add(domain.NewSearchEngine(domain.DUCKDUCKGO, fakeResultListSet3()))
 	return pool
 }
 
-func fakeSearchEngineList() *domain.SearchEngineList {
-	sEngineList := domain.EmptySearchEngineList()
+func fakeSearchEngineTypeList() *domain.SearchEngineTypeList {
+	sEngineList := domain.EmptySearchEngineTypeList()
 	sEngineList.Add(domain.GOOGLE)
 	sEngineList.Add(domain.BING)
 	sEngineList.Add(domain.DUCKDUCKGO)
 	return sEngineList
 }
 
-func fakeResultListSet1() *domain.QueryResult {
+func fakeResultListSet1() *domain.QueryResults {
 	fakeResult1 := domain.NewResultItem("timestamp", "google 1", "my desc", "http://sample.com/acv")
 	fakeResult2 := domain.NewResultItem("timestamp", "google 2", "my desc", "http://...")
 
@@ -91,7 +91,7 @@ func fakeResultListSet1() *domain.QueryResult {
 	return results
 }
 
-func fakeResultListSet2() *domain.QueryResult {
+func fakeResultListSet2() *domain.QueryResults {
 	fakeResult1 := domain.NewResultItem("timestamp", "bing 1 ", "my desc", "http://...")
 	fakeResult2 := domain.NewResultItem("timestamp", "bing 2", "my desc", "http://sample.com/123")
 
@@ -101,7 +101,7 @@ func fakeResultListSet2() *domain.QueryResult {
 	return results
 }
 
-func fakeResultListSet3() *domain.QueryResult {
+func fakeResultListSet3() *domain.QueryResults {
 	fakeResult1 := domain.NewResultItem("timestamp", "duck 1 ", "my desc", "http://...")
 	fakeResult2 := domain.NewResultItem("timestamp", "duck 2", "my desc", "http://...")
 

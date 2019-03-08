@@ -20,8 +20,8 @@ func NewResultPool(
 
 func (m *QueryResultPool) FetchData(
 	keyword domain.Keyword,
-) (*domain.QueryResultPool, error) {
-	resultPool := domain.EmptyQueryResultPool()
+) (*domain.SearchEnginePool, error) {
+	searchEnginePool := domain.EmptySearchEnginePool()
 	resultsChan := make(chan *domain.SearchEngine, len(m.collectors))
 	errChan := make(chan error)
 
@@ -40,9 +40,9 @@ func (m *QueryResultPool) FetchData(
 		case err := <-errChan:
 			return nil, errors.Wrap(err, "Error on fetching data from search engine! \n")
 		case resultData := <-resultsChan:
-			resultPool.Add(resultData)
-			if len(*resultPool) == len(m.collectors) {
-				return resultPool, nil
+			searchEnginePool.Add(resultData)
+			if len(*searchEnginePool) == len(m.collectors) {
+				return searchEnginePool, nil
 			}
 		}
 	}

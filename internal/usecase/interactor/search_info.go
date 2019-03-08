@@ -36,7 +36,7 @@ func (i *InfoSearch) Search(
 	}
 
 	// merge by strategy
-	var queryResult *domain.QueryResult
+	var queryResult *domain.QueryResults
 	switch strategy {
 	case domain.TOP:
 		queryResult, err = i.ranker.Top(resultPool)

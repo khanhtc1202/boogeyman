@@ -18,7 +18,7 @@ func NewColorfulTextPresenter() *TextPresenter {
 	}
 }
 
-func (t *TextPresenter) PrintList(results *domain.QueryResult) error {
+func (t *TextPresenter) PrintList(results *domain.QueryResults) error {
 	for _, result := range *results {
 		switch result.(type) {
 		case *domain.UrlBaseResultItem:

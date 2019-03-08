@@ -1,31 +1,31 @@
 package domain
 
-type QueryResult []ComparableResultItem
+type QueryResults []ComparableResultItem
 
-func EmptyQueryResult() *QueryResult {
-	return &QueryResult{}
+func EmptyQueryResult() *QueryResults {
+	return &QueryResults{}
 }
 
-func (r *QueryResult) Add(resultItem ComparableResultItem) {
+func (r *QueryResults) Add(resultItem ComparableResultItem) {
 	if resultItem == nil {
 		return
 	}
 	*r = append(*r, resultItem)
 }
 
-func (r *QueryResult) Concatenate(itemList *QueryResult) {
+func (r *QueryResults) Concatenate(itemList *QueryResults) {
 	*r = append(*r, *itemList...)
 }
 
-func (r *QueryResult) First() ComparableResultItem {
+func (r *QueryResults) First() ComparableResultItem {
 	return (*r)[0]
 }
 
-func (r *QueryResult) Length() int {
+func (r *QueryResults) Length() int {
 	return len(*r)
 }
 
-func (r *QueryResult) RemoveDuplicates() {
+func (r *QueryResults) RemoveDuplicates() {
 	keys := make(map[string]bool)
 	list := EmptyQueryResult()
 	for _, entry := range *r {
@@ -37,7 +37,7 @@ func (r *QueryResult) RemoveDuplicates() {
 	*r = *list
 }
 
-func (r *QueryResult) DuplicateElements() *QueryResult {
+func (r *QueryResults) DuplicateElements() *QueryResults {
 	duplicateElements := EmptyQueryResult()
 
 	keys := make(map[string]bool)
@@ -52,7 +52,7 @@ func (r *QueryResult) DuplicateElements() *QueryResult {
 	return duplicateElements
 }
 
-func (r *QueryResult) Limit(limitSize int) *QueryResult {
+func (r *QueryResults) Limit(limitSize int) *QueryResults {
 	splitSlide := EmptyQueryResult()
 
 	if limitSize > len(*r) {

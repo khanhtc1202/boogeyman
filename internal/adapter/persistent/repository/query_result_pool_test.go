@@ -31,7 +31,7 @@ func TestMaterialPool_FetchData(t *testing.T) {
 	}
 }
 
-func fakeResultList() *domain.QueryResult {
+func fakeResultList() *domain.QueryResults {
 	fakeResult1 := domain.NewResultItem("timestamp", "title 1", "my desc", "http://sample.com/acv")
 	fakeResult2 := domain.NewResultItem("timestamp", "title 2", "my desc", "http://sample.com/123")
 

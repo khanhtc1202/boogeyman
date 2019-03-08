@@ -42,7 +42,7 @@ func (b *BingSpider) fetchFromInternet(keyword string) *goquery.Document {
 	return doc
 }
 
-func (b *BingSpider) parseDocumentData(doc *goquery.Document) *domain.QueryResult {
+func (b *BingSpider) parseDocumentData(doc *goquery.Document) *domain.QueryResults {
 	resultsData := domain.EmptyQueryResult()
 	doc.Find(".b_algo").Each(func(i int, s *goquery.Selection) {
 		title := s.Find("a").Text()

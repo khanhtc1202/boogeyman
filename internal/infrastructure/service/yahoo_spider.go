@@ -41,7 +41,7 @@ func (y *YahooSpider) fetchFromInternet(keyword string) *goquery.Document {
 	return doc
 }
 
-func (y *YahooSpider) parseDocumentData(doc *goquery.Document) *domain.QueryResult {
+func (y *YahooSpider) parseDocumentData(doc *goquery.Document) *domain.QueryResults {
 	resultsData := domain.EmptyQueryResult()
 	doc.Find(".algo-sr").Each(func(i int, s *goquery.Selection) {
 		title := s.Find("a").Text()
