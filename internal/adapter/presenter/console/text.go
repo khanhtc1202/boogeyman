@@ -2,14 +2,13 @@ package console
 
 import (
 	"github.com/fatih/color"
-	ioInterface "github.com/khanhtc1202/boogeyman/internal/cross_cutting/io"
 	"github.com/khanhtc1202/boogeyman/internal/domain"
-	"github.com/khanhtc1202/boogeyman/internal/infrastructure/io"
+	"github.com/khanhtc1202/boogeyman/tools/io"
 	"github.com/pkg/errors"
 )
 
 type TextPresenter struct {
-	writer ioInterface.UI
+	writer io.UI
 }
 
 func NewColorfulTextPresenter() *TextPresenter {

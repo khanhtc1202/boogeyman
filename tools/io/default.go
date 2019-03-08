@@ -2,11 +2,10 @@ package io
 
 import (
 	"github.com/fatih/color"
-	"github.com/khanhtc1202/boogeyman/internal/infrastructure/io"
 )
 
 var (
-	Default UI = io.ColorfulConsole()
+	Default UI = ColorfulConsole()
 )
 
 func Infof(format string, a ...interface{}) (n int, err error) {
