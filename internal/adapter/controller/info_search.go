@@ -22,7 +22,7 @@ func NewInfoSearch(
 
 func (b *InfoSearch) Search(
 	queryString string,
-	strategy domain.RankerStrategyType,
+	strategy domain.FilterStrategyType,
 ) error {
 	return b.interactor.Search(queryString, strategy)
 }

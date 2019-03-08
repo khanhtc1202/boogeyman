@@ -27,7 +27,7 @@ func NewInfoSearch(
 
 func (i *InfoSearch) Search(
 	queryString string,
-	strategy domain.RankerStrategyType,
+	strategy domain.FilterStrategyType,
 ) error {
 	// fetch data from search engines
 	resultPool, err := i.poolRepo.FetchData(domain.NewKeyword(queryString))

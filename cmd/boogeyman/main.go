@@ -85,7 +85,7 @@ func MaterialPoolFactory(selectedEngine string) *repository.QueryResultPool {
 	return repository.NewResultPool(*collectors)
 }
 
-func SetQueryStrategy(selectedStrategy string) domain.RankerStrategyType {
+func SetQueryStrategy(selectedStrategy string) domain.FilterStrategyType {
 	switch strings.ToUpper(selectedStrategy) {
 	case domain.TOP.String():
 		return domain.TOP
