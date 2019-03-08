@@ -6,10 +6,10 @@ import (
 	"strings"
 
 	"github.com/khanhtc1202/boogeyman/internal/adapter/controller"
-	"github.com/khanhtc1202/boogeyman/internal/adapter/persistent/repository"
-	"github.com/khanhtc1202/boogeyman/internal/adapter/persistent/service"
 	"github.com/khanhtc1202/boogeyman/internal/adapter/presenter/console"
 	"github.com/khanhtc1202/boogeyman/internal/domain"
+	"github.com/khanhtc1202/boogeyman/internal/gateway/repository"
+	"github.com/khanhtc1202/boogeyman/internal/gateway/service"
 	"github.com/khanhtc1202/boogeyman/internal/infrastructure/cmd"
 	"github.com/khanhtc1202/boogeyman/internal/infrastructure/meta_info"
 	spiderPool "github.com/khanhtc1202/boogeyman/internal/infrastructure/service"
@@ -61,7 +61,7 @@ func ShowMetaInfo(metaInfo *meta_info.MetaInfo) {
 	os.Exit(0)
 }
 
-func MaterialPoolFactory(selectedEngine string) *repository.QueryResultPool {
+func MaterialPoolFactory(selectedEngine string) *repository.SearchEnginePool {
 	collectors := service.EmptyCollectorList()
 	switch strings.ToUpper(selectedEngine) {
 	case domain.GOOGLE.String():
@@ -82,7 +82,7 @@ func MaterialPoolFactory(selectedEngine string) *repository.QueryResultPool {
 		collectors.Add(spiderPool.NewGoogleSpider())
 		collectors.Add(spiderPool.NewYahooSpider())
 	}
-	return repository.NewResultPool(*collectors)
+	return repository.NewSearchEnginePool(*collectors)
 }
 
 func SetQueryStrategy(selectedStrategy string) domain.FilterStrategyType {

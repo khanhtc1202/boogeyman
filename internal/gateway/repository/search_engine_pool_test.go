@@ -3,9 +3,9 @@ package repository_test
 import (
 	"testing"
 
-	"github.com/khanhtc1202/boogeyman/internal/adapter/persistent/repository"
-	"github.com/khanhtc1202/boogeyman/internal/adapter/persistent/service"
 	"github.com/khanhtc1202/boogeyman/internal/domain"
+	"github.com/khanhtc1202/boogeyman/internal/gateway/repository"
+	"github.com/khanhtc1202/boogeyman/internal/gateway/service"
 )
 
 type CollectorMock struct {
@@ -23,7 +23,7 @@ func (c *CollectorMock) Query(keyword domain.Keyword) (*domain.SearchEngine, err
 func TestMaterialPool_FetchData(t *testing.T) {
 	keyword := domain.NewKeyword("sample")
 
-	resultPoolRepo := repository.NewResultPool([]service.Collector{&CollectorMock{}})
+	resultPoolRepo := repository.NewSearchEnginePool([]service.Collector{&CollectorMock{}})
 
 	resultPool, _ := resultPoolRepo.FetchData(keyword)
 	if len(*resultPool) != 1 {

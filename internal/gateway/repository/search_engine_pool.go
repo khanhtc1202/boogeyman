@@ -1,24 +1,24 @@
 package repository
 
 import (
-	"github.com/khanhtc1202/boogeyman/internal/adapter/persistent/service"
 	"github.com/khanhtc1202/boogeyman/internal/domain"
+	"github.com/khanhtc1202/boogeyman/internal/gateway/service"
 	"github.com/pkg/errors"
 )
 
-type QueryResultPool struct {
+type SearchEnginePool struct {
 	collectors []service.Collector
 }
 
-func NewResultPool(
+func NewSearchEnginePool(
 	services []service.Collector,
-) *QueryResultPool {
-	return &QueryResultPool{
+) *SearchEnginePool {
+	return &SearchEnginePool{
 		collectors: services,
 	}
 }
 
-func (m *QueryResultPool) FetchData(
+func (m *SearchEnginePool) FetchData(
 	keyword domain.Keyword,
 ) (*domain.SearchEnginePool, error) {
 	searchEnginePool := domain.EmptySearchEnginePool()
