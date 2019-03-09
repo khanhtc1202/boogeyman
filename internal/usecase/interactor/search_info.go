@@ -1,7 +1,6 @@
 package interactor
 
 import (
-	"github.com/khanhtc1202/boogeyman/config"
 	"github.com/khanhtc1202/boogeyman/internal/domain"
 	"github.com/khanhtc1202/boogeyman/internal/usecase/presenter"
 	"github.com/khanhtc1202/boogeyman/internal/usecase/repository"
@@ -9,56 +8,43 @@ import (
 )
 
 type InfoSearch struct {
-	ranker    *domain.Ranker
-	poolRepo  repository.SearchEnginesRepository
-	presenter presenter.TextPresenter
+	searchStrategies repository.SearchStrategies
+	searchEngines    repository.SearchEngines
+	presenter        presenter.TextPresenter
 }
 
 func NewInfoSearch(
+	strategiesRepo repository.SearchStrategies,
+	searchEngines repository.SearchEngines,
 	presenter presenter.TextPresenter,
-	poolRepo repository.SearchEnginesRepository,
 ) *InfoSearch {
 	return &InfoSearch{
-		ranker:    domain.NewRanker(),
-		poolRepo:  poolRepo,
-		presenter: presenter,
+		searchStrategies: strategiesRepo,
+		searchEngines:    searchEngines,
+		presenter:        presenter,
 	}
 }
 
 func (i *InfoSearch) Search(
-	queryString string,
+	query domain.Keyword,
 	strategy domain.FilterStrategyType,
 ) error {
 	// fetch data from search engines
-	resultPool, err := i.poolRepo.FetchData(domain.NewKeyword(queryString))
+	engines, err := i.searchEngines.FetchData(query)
 	if err != nil {
 		return errors.Wrap(err, "Error on fetch data from pool!\n")
 	}
 
-	// merge by strategy
-	var queryResult *domain.QueryResults
-	switch strategy {
-	case domain.TOP:
-		queryResult, err = i.ranker.Top(resultPool)
-		break
-	case domain.CROSS:
-		queryResult, err = i.ranker.CrossMatch(resultPool)
-		break
-	case domain.ALL:
-		queryResult, err = i.ranker.All(resultPool,
-			config.GetConfig().RankerConf.MaxReturnItems)
-		break
-	default:
-		queryResult, err = i.ranker.CrossMatch(resultPool)
-		break
-	}
+	// filter result
+	searchStrategy := i.searchStrategies.GetStrategyByType(strategy, engines)
+	queryResult, err := searchStrategy.Filter()
 	if err != nil {
-		return err
+		return errors.Wrap(err, "Error on filter results!\n")
 	}
 
-	// printout
+	// out
 	if err = i.presenter.PrintList(queryResult); err != nil {
-		return err
+		return errors.Wrap(err, "Error on push results!\n")
 	}
 
 	return nil

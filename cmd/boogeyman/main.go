@@ -5,8 +5,8 @@ import (
 
 	"strings"
 
-	"github.com/khanhtc1202/boogeyman/internal/adapter/controller"
-	"github.com/khanhtc1202/boogeyman/internal/adapter/presenter/console"
+	"github.com/khanhtc1202/boogeyman/cmd/boogeyman/presenter/console"
+	"github.com/khanhtc1202/boogeyman/internal/controller"
 	"github.com/khanhtc1202/boogeyman/internal/domain"
 	"github.com/khanhtc1202/boogeyman/internal/gateway/repository"
 	"github.com/khanhtc1202/boogeyman/internal/gateway/service"
@@ -43,13 +43,13 @@ func main() {
 		ShowMetaInfo(metaInfo)
 	}
 
-	resultPoolRepo := MaterialPoolFactory(cmdParams.Engine)
+	searchStrategiesRepo := repository.SearchStrategies()
+	searchEnginesRepo := MaterialPoolFactory(cmdParams.Engine)
 	textPresenter := console.NewColorfulTextPresenter()
-	queryStrategy := SetQueryStrategy(cmdParams.Strategy)
 
-	infoSearchCtl := controller.NewInfoSearch(textPresenter, resultPoolRepo)
+	infoSearchCtl := controller.NewInfoSearch(searchStrategiesRepo, searchEnginesRepo, textPresenter)
 
-	err := infoSearchCtl.Search(cmdParams.QueryString, queryStrategy)
+	err := infoSearchCtl.Search(cmdParams.QueryString, cmdParams.Strategy)
 	if err != nil {
 		io.Errorln(err)
 		os.Exit(1)
@@ -61,7 +61,7 @@ func ShowMetaInfo(metaInfo *meta_info.MetaInfo) {
 	os.Exit(0)
 }
 
-func MaterialPoolFactory(selectedEngine string) *repository.SearchEnginesRepository {
+func MaterialPoolFactory(selectedEngine string) *repository.SearchEngines {
 	collectors := service.EmptyCollectorList()
 	switch strings.ToUpper(selectedEngine) {
 	case domain.GOOGLE.String():
@@ -83,15 +83,4 @@ func MaterialPoolFactory(selectedEngine string) *repository.SearchEnginesReposit
 		collectors.Add(spiderPool.NewYahooSpider())
 	}
 	return repository.NewSearchEnginesRepository(*collectors)
-}
-
-func SetQueryStrategy(selectedStrategy string) domain.FilterStrategyType {
-	switch strings.ToUpper(selectedStrategy) {
-	case domain.TOP.String():
-		return domain.TOP
-	case domain.CROSS.String():
-		return domain.CROSS
-	default:
-		return domain.ALL
-	}
 }

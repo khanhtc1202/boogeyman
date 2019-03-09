@@ -4,6 +4,6 @@ import (
 	"github.com/khanhtc1202/boogeyman/internal/domain"
 )
 
-type SearchEnginesRepository interface {
+type SearchEngines interface {
 	FetchData(keyword domain.Keyword) (*domain.SearchEnginePool, error)
 }
