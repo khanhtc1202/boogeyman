@@ -1,10 +1,9 @@
-package repository_test
+package repository
 
 import (
 	"testing"
 
 	"github.com/khanhtc1202/boogeyman/internal/domain"
-	"github.com/khanhtc1202/boogeyman/internal/gateway/repository"
 	"github.com/khanhtc1202/boogeyman/internal/gateway/service"
 )
 
@@ -25,11 +24,24 @@ func TestMaterialPool_FetchData(t *testing.T) {
 
 	collectors := service.EmptyCollectorList()
 	collectors.Add(&CollectorMock{})
-	resultPoolRepo := repository.SearchEngines(collectors)
+	enginesRepo := SearchEngines(collectors)
 
-	resultPool, _ := resultPoolRepo.FetchData(keyword)
+	resultPool, _ := enginesRepo.FetchData(keyword)
 	if len(*resultPool) != 1 {
 		t.Fatal("Fail on test fetch data from search engine")
+	}
+}
+
+func TestSearchEngines_AddEnginesByType_AddAllEngineByDefault(t *testing.T) {
+	collectors := service.EmptyCollectorList()
+	enginesRepo := SearchEngines(collectors)
+
+	err := enginesRepo.AddEnginesByType(domain.UNKNOWN_ENGINE)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+	if len(*enginesRepo.collectors) != 4 {
+		t.Fatal("Error not all engines been added")
 	}
 }
 

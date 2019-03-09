@@ -11,6 +11,7 @@ const (
 	MERGE FilterStrategyType = iota
 	TOP
 	CROSS
+	UNKNOWN_STRATEGY
 )
 
 func FactoryFilterStrategyType(fType string) FilterStrategyType {
@@ -19,8 +20,10 @@ func FactoryFilterStrategyType(fType string) FilterStrategyType {
 		return TOP
 	case CROSS.String():
 		return CROSS
-	default:
+	case MERGE.String():
 		return MERGE
+	default:
+		return UNKNOWN_STRATEGY
 	}
 }
 
@@ -33,7 +36,7 @@ func (s FilterStrategyType) String() string {
 	case TOP:
 		return "TOP"
 	}
-	return "MERGE"
+	return "Unknown"
 }
 
 /*

@@ -45,6 +45,7 @@ const (
 	ASK
 	YANDEX
 	YAHOO
+	UNKNOWN_ENGINE
 )
 
 func FactorySearchEngineType(sType string) SearchEngineType {
@@ -57,8 +58,10 @@ func FactorySearchEngineType(sType string) SearchEngineType {
 		return ASK
 	case YAHOO.String():
 		return YAHOO
-	default:
+	case ALL.String():
 		return ALL
+	default:
+		return UNKNOWN_ENGINE
 	}
 }
 
@@ -79,7 +82,7 @@ func (s SearchEngineType) String() string {
 	case YAHOO:
 		return "YAHOO"
 	}
-	return "ALL"
+	return "Unknown"
 }
 
 /*
