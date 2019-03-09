@@ -10,13 +10,13 @@ import (
 
 type InfoSearch struct {
 	ranker    *domain.Ranker
-	poolRepo  repository.QueryResultPool
+	poolRepo  repository.SearchEnginesRepository
 	presenter presenter.TextPresenter
 }
 
 func NewInfoSearch(
 	presenter presenter.TextPresenter,
-	poolRepo repository.QueryResultPool,
+	poolRepo repository.SearchEnginesRepository,
 ) *InfoSearch {
 	return &InfoSearch{
 		ranker:    domain.NewRanker(),

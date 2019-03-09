@@ -61,7 +61,7 @@ func ShowMetaInfo(metaInfo *meta_info.MetaInfo) {
 	os.Exit(0)
 }
 
-func MaterialPoolFactory(selectedEngine string) *repository.SearchEnginePool {
+func MaterialPoolFactory(selectedEngine string) *repository.SearchEnginesRepository {
 	collectors := service.EmptyCollectorList()
 	switch strings.ToUpper(selectedEngine) {
 	case domain.GOOGLE.String():
@@ -82,7 +82,7 @@ func MaterialPoolFactory(selectedEngine string) *repository.SearchEnginePool {
 		collectors.Add(spiderPool.NewGoogleSpider())
 		collectors.Add(spiderPool.NewYahooSpider())
 	}
-	return repository.NewSearchEnginePool(*collectors)
+	return repository.NewSearchEnginesRepository(*collectors)
 }
 
 func SetQueryStrategy(selectedStrategy string) domain.FilterStrategyType {

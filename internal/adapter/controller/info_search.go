@@ -13,7 +13,7 @@ type InfoSearch struct {
 
 func NewInfoSearch(
 	presenter presenter.TextPresenter,
-	resultPoolRepo repository.QueryResultPool,
+	resultPoolRepo repository.SearchEnginesRepository,
 ) *InfoSearch {
 	return &InfoSearch{
 		interactor: interactor.NewInfoSearch(presenter, resultPoolRepo),

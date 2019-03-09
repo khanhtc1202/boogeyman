@@ -6,19 +6,19 @@ import (
 	"github.com/pkg/errors"
 )
 
-type SearchEnginePool struct {
+type SearchEnginesRepository struct {
 	collectors []service.Collector
 }
 
-func NewSearchEnginePool(
+func NewSearchEnginesRepository(
 	services []service.Collector,
-) *SearchEnginePool {
-	return &SearchEnginePool{
+) *SearchEnginesRepository {
+	return &SearchEnginesRepository{
 		collectors: services,
 	}
 }
 
-func (m *SearchEnginePool) FetchData(
+func (m *SearchEnginesRepository) FetchData(
 	keyword domain.Keyword,
 ) (*domain.SearchEnginePool, error) {
 	searchEnginePool := domain.EmptySearchEnginePool()
