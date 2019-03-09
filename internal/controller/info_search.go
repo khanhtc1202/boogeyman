@@ -1,8 +1,6 @@
 package controller
 
 import (
-	"strings"
-
 	"github.com/khanhtc1202/boogeyman/internal/domain"
 	"github.com/khanhtc1202/boogeyman/internal/usecase/interactor"
 	"github.com/khanhtc1202/boogeyman/internal/usecase/presenter"
@@ -28,21 +26,16 @@ func NewInfoSearch(
 
 func (b *InfoSearch) Search(
 	queryString string,
+	engine string,
 	strategy string,
 ) error {
 	// adapt universe type (string) to internal type (domain type)
 	keyword := domain.NewKeyword(queryString)
 
-	var strategyType domain.FilterStrategyType
-	switch strings.ToUpper(strategy) {
-	case domain.TOP.String():
-		strategyType = domain.TOP
-	case domain.CROSS.String():
-		strategyType = domain.CROSS
-	default:
-		strategyType = domain.ALL
-	}
+	searchEngineType := domain.FactorySearchEngineType(engine)
+
+	strategyType := domain.FactoryFilterStrategyType(strategy)
 
 	// call interactor
-	return b.interactor.Search(keyword, strategyType)
+	return b.interactor.Search(keyword, searchEngineType, strategyType)
 }

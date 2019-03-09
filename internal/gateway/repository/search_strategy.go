@@ -17,7 +17,7 @@ func (s *searchStrategies) GetStrategyByType(
 	engines *domain.SearchEnginePool,
 ) domain.FilterSearch {
 	switch fType {
-	case domain.ALL:
+	case domain.MERGE:
 		maxReturnItem := config.GetConfig().RankerConf.MaxReturnItems
 		return domain.MergeResultsByEngines(engines, maxReturnItem)
 	case domain.TOP:

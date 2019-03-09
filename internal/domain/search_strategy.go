@@ -1,26 +1,39 @@
 package domain
 
+import "strings"
+
 /*
 Filter Strategy Type
 */
 type FilterStrategyType int
 
 const (
-	ALL FilterStrategyType = iota
+	MERGE FilterStrategyType = iota
 	TOP
 	CROSS
 )
 
+func FactoryFilterStrategyType(fType string) FilterStrategyType {
+	switch strings.ToUpper(fType) {
+	case TOP.String():
+		return TOP
+	case CROSS.String():
+		return CROSS
+	default:
+		return MERGE
+	}
+}
+
 func (s FilterStrategyType) String() string {
 	switch s {
-	case ALL:
-		return "ALL"
+	case MERGE:
+		return "MERGE"
 	case CROSS:
 		return "CROSS"
 	case TOP:
 		return "TOP"
 	}
-	return "ALL"
+	return "MERGE"
 }
 
 /*

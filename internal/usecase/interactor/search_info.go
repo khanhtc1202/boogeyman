@@ -27,8 +27,15 @@ func NewInfoSearch(
 
 func (i *InfoSearch) Search(
 	query domain.Keyword,
-	strategy domain.FilterStrategyType,
+	engineType domain.SearchEngineType,
+	strategyType domain.FilterStrategyType,
 ) error {
+	// set search engine list
+	err := i.searchEngines.AddEnginesByType(engineType)
+	if err != nil {
+		return errors.Wrap(err, "Error on set search engine by type!\n")
+	}
+
 	// fetch data from search engines
 	engines, err := i.searchEngines.FetchData(query)
 	if err != nil {
@@ -36,7 +43,7 @@ func (i *InfoSearch) Search(
 	}
 
 	// filter result
-	searchStrategy := i.searchStrategies.GetStrategyByType(strategy, engines)
+	searchStrategy := i.searchStrategies.GetStrategyByType(strategyType, engines)
 	queryResult, err := searchStrategy.Filter()
 	if err != nil {
 		return errors.Wrap(err, "Error on filter results!\n")

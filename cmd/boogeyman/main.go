@@ -1,19 +1,15 @@
 package main
 
 import (
+	"flag"
 	"os"
-
-	"strings"
 
 	"github.com/khanhtc1202/boogeyman/cmd/boogeyman/presenter/console"
 	"github.com/khanhtc1202/boogeyman/internal/controller"
-	"github.com/khanhtc1202/boogeyman/internal/domain"
 	"github.com/khanhtc1202/boogeyman/internal/gateway/repository"
 	"github.com/khanhtc1202/boogeyman/internal/gateway/service"
-	"github.com/khanhtc1202/boogeyman/internal/infrastructure/cmd"
-	"github.com/khanhtc1202/boogeyman/internal/infrastructure/meta_info"
-	spiderPool "github.com/khanhtc1202/boogeyman/internal/infrastructure/service"
 	"github.com/khanhtc1202/boogeyman/tools/io"
+	"github.com/khanhtc1202/boogeyman/tools/meta_info"
 )
 
 var (
@@ -32,11 +28,44 @@ var metaInfo = meta_info.NewMetaInfo(
 	mode,
 )
 
-func main() {
-	commandParser := cmd.NewCommandParser()
+type commandParams struct {
+	Engine      string
+	Strategy    string
+	QueryString string
+	ShowVersion bool
+}
 
+func CommandParams(
+	engine string,
+	strategy string,
+	queryString string,
+	showVersion bool,
+) *commandParams {
+	return &commandParams{
+		Engine:      engine,
+		Strategy:    strategy,
+		QueryString: queryString,
+		ShowVersion: showVersion,
+	}
+}
+
+func ParseParams() *commandParams {
+	var queryString string
+	flag.StringVar(&queryString, "k", "boogeyman", "search (query) string")
+	engine := flag.String("e", "all", "search engine(s): google | bing | ask | yahoo | all")
+	strategy := flag.String("s", "top", "result show strategy: top | cross | all")
+
+	var showVersion bool
+	flag.BoolVar(&showVersion, "v", false, "show application version")
+	flag.BoolVar(&showVersion, "version", false, "show application version")
+	flag.Parse()
+
+	return CommandParams(*engine, *strategy, queryString, showVersion)
+}
+
+func main() {
 	// parse command params
-	cmdParams := commandParser.ParseParams()
+	cmdParams := ParseParams()
 
 	// check meta_info
 	if cmdParams.ShowVersion {
@@ -44,12 +73,12 @@ func main() {
 	}
 
 	searchStrategiesRepo := repository.SearchStrategies()
-	searchEnginesRepo := MaterialPoolFactory(cmdParams.Engine)
+	searchEnginesRepo := repository.SearchEngines(service.EmptyCollectorList())
 	textPresenter := console.NewColorfulTextPresenter()
 
 	infoSearchCtl := controller.NewInfoSearch(searchStrategiesRepo, searchEnginesRepo, textPresenter)
 
-	err := infoSearchCtl.Search(cmdParams.QueryString, cmdParams.Strategy)
+	err := infoSearchCtl.Search(cmdParams.QueryString, cmdParams.Engine, cmdParams.Strategy)
 	if err != nil {
 		io.Errorln(err)
 		os.Exit(1)
@@ -59,28 +88,4 @@ func main() {
 func ShowMetaInfo(metaInfo *meta_info.MetaInfo) {
 	io.Infof(metaInfo.GetMetaInfo())
 	os.Exit(0)
-}
-
-func MaterialPoolFactory(selectedEngine string) *repository.SearchEngines {
-	collectors := service.EmptyCollectorList()
-	switch strings.ToUpper(selectedEngine) {
-	case domain.GOOGLE.String():
-		collectors.Add(spiderPool.NewGoogleSpider())
-		break
-	case domain.BING.String():
-		collectors.Add(spiderPool.NewBingSpider())
-		break
-	case domain.ASK.String():
-		collectors.Add(spiderPool.NewAskSpider())
-		break
-	case domain.YAHOO.String():
-		collectors.Add(spiderPool.NewYahooSpider())
-		break
-	default:
-		collectors.Add(spiderPool.NewAskSpider())
-		collectors.Add(spiderPool.NewBingSpider())
-		collectors.Add(spiderPool.NewGoogleSpider())
-		collectors.Add(spiderPool.NewYahooSpider())
-	}
-	return repository.NewSearchEnginesRepository(*collectors)
 }

@@ -23,7 +23,9 @@ func (c *CollectorMock) Query(keyword domain.Keyword) (*domain.SearchEngine, err
 func TestMaterialPool_FetchData(t *testing.T) {
 	keyword := domain.NewKeyword("sample")
 
-	resultPoolRepo := repository.NewSearchEnginesRepository([]service.Collector{&CollectorMock{}})
+	collectors := service.EmptyCollectorList()
+	collectors.Add(&CollectorMock{})
+	resultPoolRepo := repository.SearchEngines(collectors)
 
 	resultPool, _ := resultPoolRepo.FetchData(keyword)
 	if len(*resultPool) != 1 {
