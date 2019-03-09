@@ -1,5 +1,7 @@
 package domain
 
+import "strings"
+
 /*
 Search Engine Entity
 */
@@ -36,7 +38,8 @@ Search Engine Type
 type SearchEngineType int
 
 const (
-	GOOGLE SearchEngineType = iota
+	ALL SearchEngineType = iota
+	GOOGLE
 	BING
 	DUCKDUCKGO
 	ASK
@@ -44,8 +47,25 @@ const (
 	YAHOO
 )
 
+func FactorySearchEngineType(sType string) SearchEngineType {
+	switch strings.ToUpper(sType) {
+	case GOOGLE.String():
+		return GOOGLE
+	case BING.String():
+		return BING
+	case ASK.String():
+		return ASK
+	case YAHOO.String():
+		return YAHOO
+	default:
+		return ALL
+	}
+}
+
 func (s SearchEngineType) String() string {
 	switch s {
+	case ALL:
+		return "ALL"
 	case GOOGLE:
 		return "GOOGLE"
 	case BING:
@@ -59,7 +79,7 @@ func (s SearchEngineType) String() string {
 	case YAHOO:
 		return "YAHOO"
 	}
-	return "Unknown"
+	return "ALL"
 }
 
 /*
