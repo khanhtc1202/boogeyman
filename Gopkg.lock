@@ -10,8 +10,8 @@
 [[projects]]
   name = "github.com/PuerkitoBio/goquery"
   packages = ["."]
-  revision = "09540e565986583836b5fc792fe951ec5fd201dd"
-  version = "v1.3.0"
+  revision = "2d2796f41742ece03e8086188fa4db16a3a0b458"
+  version = "v1.5.0"
 
 [[projects]]
   branch = "master"
@@ -94,6 +94,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "c146749b0176f005387b7cf349725828487a52a750de4dd4a97fac6c3f15e3b9"
+  inputs-digest = "f58a53d110ea383bce19a271b2cd359fbd560c86da032787af815bf373c1ef00"
   solver-name = "gps-cdcl"
   solver-version = 1

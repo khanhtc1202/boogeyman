@@ -19,10 +19,9 @@
 #  name = "github.com/x/y"
 #  version = "2.4.0"
 
-
 [[constraint]]
-  name = "github.com/PuerkitoBio/gocrawl"
-  version = "1.0.0"
+  name = "github.com/PuerkitoBio/goquery"
+  version = "1.5.0"
 
 [[constraint]]
   name = "github.com/fatih/color"
