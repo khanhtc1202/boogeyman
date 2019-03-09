@@ -4,12 +4,12 @@ import (
 	"flag"
 	"os"
 
-	"github.com/khanhtc1202/boogeyman/cmd/boogeyman/presenter/console"
 	"github.com/khanhtc1202/boogeyman/internal/controller"
 	"github.com/khanhtc1202/boogeyman/internal/gateway/repository"
 	"github.com/khanhtc1202/boogeyman/internal/gateway/service"
-	"github.com/khanhtc1202/boogeyman/tools/io"
-	"github.com/khanhtc1202/boogeyman/tools/meta_info"
+	"github.com/khanhtc1202/boogeyman/internal/presenter/console"
+	"github.com/khanhtc1202/boogeyman/pkg/io"
+	"github.com/khanhtc1202/boogeyman/pkg/meta_info"
 )
 
 var (

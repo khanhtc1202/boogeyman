@@ -3,7 +3,7 @@ package console
 import (
 	"github.com/fatih/color"
 	"github.com/khanhtc1202/boogeyman/internal/domain"
-	"github.com/khanhtc1202/boogeyman/tools/io"
+	"github.com/khanhtc1202/boogeyman/pkg/io"
 	"github.com/pkg/errors"
 )
 
