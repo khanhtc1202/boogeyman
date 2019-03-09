@@ -4,10 +4,13 @@ import (
 	"flag"
 	"os"
 
+	"github.com/fatih/color"
+	"github.com/pkg/errors"
+
 	"github.com/khanhtc1202/boogeyman/internal/controller"
+	"github.com/khanhtc1202/boogeyman/internal/domain"
 	"github.com/khanhtc1202/boogeyman/internal/gateway/repository"
 	"github.com/khanhtc1202/boogeyman/internal/gateway/service"
-	"github.com/khanhtc1202/boogeyman/internal/presenter/console"
 	"github.com/khanhtc1202/boogeyman/pkg/io"
 	"github.com/khanhtc1202/boogeyman/pkg/meta_info"
 )
@@ -74,7 +77,7 @@ func main() {
 
 	searchStrategiesRepo := repository.SearchStrategies()
 	searchEnginesRepo := repository.SearchEngines(service.EmptyCollectorList())
-	textPresenter := console.NewColorfulTextPresenter()
+	textPresenter := NewColorfulTextPresenter()
 
 	infoSearchCtl := controller.NewInfoSearch(searchStrategiesRepo, searchEnginesRepo, textPresenter)
 
@@ -88,4 +91,37 @@ func main() {
 func ShowMetaInfo(metaInfo *meta_info.MetaInfo) {
 	io.Infof(metaInfo.GetMetaInfo())
 	os.Exit(0)
+}
+
+type TextPresenter struct {
+	writer io.UI
+}
+
+func NewColorfulTextPresenter() *TextPresenter {
+	return &TextPresenter{
+		writer: io.ColorfulConsole(),
+	}
+}
+
+func (t *TextPresenter) PrintList(results *domain.QueryResults) error {
+	for _, result := range *results {
+		switch result.(type) {
+		case *domain.UrlBaseResultItem:
+			t.presentUrlBaseItem(result.(*domain.UrlBaseResultItem))
+			continue
+		default:
+			return errors.New("Error not found presenter for this type of ResultItem")
+		}
+	}
+
+	t.writer.Printf(color.HiCyanString("\nTotal %v result(s) founded!\n", len(*results)))
+	return nil
+}
+
+func (t *TextPresenter) presentUrlBaseItem(result *domain.UrlBaseResultItem) {
+	t.writer.Printf(color.HiGreenString("Title: %v \n", result.GetTitleString()))
+	t.writer.Printf(color.YellowString("URL: %v \n", result.GetUrl()))
+	t.writer.Printf(color.RedString("Description: ") + result.GetDescription() + "\n")
+	t.writer.Printf(color.BlueString("Create At: %v \n", result.Time()))
+	t.writer.Println("---------------------")
 }
