@@ -30,7 +30,7 @@ func FactoryFilterStrategyType(fType string) FilterStrategyType {
 func (s FilterStrategyType) String() string {
 	switch s {
 	case MERGE:
-		return "MERGE"
+		return "ALL"
 	case CROSS:
 		return "CROSS"
 	case TOP:
