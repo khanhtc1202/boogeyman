@@ -7,4 +7,5 @@ before_install:
 install:
     - make dep
 script:
-    - make production
+    - make cli
+    - make rest
