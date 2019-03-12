@@ -7,6 +7,7 @@ GOVERSION := $(shell go version)
 LDFLAGS := -X 'main.revision=$(REVISION)' -X 'main.version=$(VERSION)' -X 'main.buildDate=$(BUILDDATE)' -X 'main.goVersion=$(GOVERSION)'
 CLI_ENTRYPOINT := cmd/boogeyman/main.go
 REST_ENTRYPOINT := web/boogeyman/app.go
+REQUIRETESTPKG := internal
 
 all: dep cli rest
 
@@ -31,7 +32,7 @@ build-rest-%:
 
 # test
 test-%:
-	go test -tags="$* netgo" ./...
+	go test -tags="$* netgo" ./$(REQUIRETESTPKG)...
 
 update:
 	dep ensure -update
