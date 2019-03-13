@@ -37,6 +37,7 @@ func (b *BingSpider) fetchFromInternet(keyword string) *goquery.Document {
 	doc, err := goquery.NewDocument(b.baseUrl + keyword)
 	if err != nil {
 		fmt.Println("Error fetching data from bing.com!")
+		fmt.Println(err.Error())
 		os.Exit(1)
 	}
 	return doc

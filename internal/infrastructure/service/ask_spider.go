@@ -37,6 +37,7 @@ func (a *AskSpider) fetchFromInternet(keyword string) *goquery.Document {
 	doc, err := goquery.NewDocument(a.baseUrl + keyword)
 	if err != nil {
 		fmt.Println("Error fetching data from ask.com!")
+		fmt.Println(err.Error())
 		os.Exit(1)
 	}
 	return doc

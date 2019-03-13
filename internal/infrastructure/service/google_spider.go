@@ -41,6 +41,7 @@ func (g *GoogleSpider) fetchFromInternet(keyword string) *goquery.Document {
 	doc, err := goquery.NewDocument(g.baseUrl + keyword)
 	if err != nil {
 		fmt.Println("Error fetching data from google.com!")
+		fmt.Println(err.Error())
 		os.Exit(1)
 	}
 	return doc
