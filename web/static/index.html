@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Boogeyman</title>
+    <meta name="description" content="The Boogeyman search">
+    <meta name="author" content="khanhtc1202">
+</head>
+<body>
+    <div id="search-area">
+        <form id="search-form">
+            <div id="search-box">
+                <input type="text" placeholder="query string" name="q">
+            </div>
+            <div id="search-filter">
+                <select name="e">
+                    <option value="all">all</option>
+                    <option value="google">google</option>
+                    <option value="bing">bing</option>
+                    <option value="ask">ask</option>
+                    <option value="yahoo">yahoo</option>
+                </select>
+                <select name="s">
+                    <option value="all">all</option>
+                    <option value="cross">cross</option>
+                    <option value="top">top</option>
+                </select>
+            </div>
+            <div id="search-submit">
+                <button onclick="query()">Search</button>
+            </div>
+        </form>
+    </div>
+    <div id="result-area"></div>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>
