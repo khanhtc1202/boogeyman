@@ -57,16 +57,12 @@ func (s *searchEngines) AddEnginesByType(engineType domain.SearchEngineType) err
 	switch engineType {
 	case domain.ASK:
 		s.collectors.Add(collectorPool.NewAskSpider())
-		break
 	case domain.BING:
 		s.collectors.Add(collectorPool.NewBingSpider())
-		break
 	case domain.YAHOO:
 		s.collectors.Add(collectorPool.NewYahooSpider())
-		break
 	case domain.GOOGLE:
 		s.collectors.Add(collectorPool.NewGoogleSpider())
-		break
 	default:
 		// return collect from all search engine by default
 		s.addAllEngines()

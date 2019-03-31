@@ -2,135 +2,98 @@
 
 
 [[projects]]
-  digest = "1:893f698324418a5cd58f372921648940336c1e79e90eb222a0736ab21b09112c"
   name = "github.com/BurntSushi/toml"
   packages = ["."]
-  pruneopts = ""
   revision = "2ceedfee35ad3848e49308ab0c9a4f640cfb5fb2"
   version = "v0.1.0"
 
 [[projects]]
-  digest = "1:439bfb51db599cd80766736b93b3d10e9314361197ada0b1209a51627a00ccd5"
   name = "github.com/PuerkitoBio/goquery"
   packages = ["."]
-  pruneopts = ""
   revision = "2d2796f41742ece03e8086188fa4db16a3a0b458"
   version = "v1.5.0"
 
 [[projects]]
   branch = "master"
-  digest = "1:8012998ddb3eed9cc0a3b2512d1f37d0947fd604868049cc698d9dc6ea1bd46c"
   name = "github.com/andybalholm/cascadia"
   packages = ["."]
-  pruneopts = ""
   revision = "349dd0209470eabd9514242c688c403c0926d266"
 
 [[projects]]
-  digest = "1:e988ed0ca0d81f4d28772760c02ee95084961311291bdfefc1b04617c178b722"
   name = "github.com/fatih/color"
   packages = ["."]
-  pruneopts = ""
   revision = "5b77d2a35fb0ede96d138fc9a99f5c9b6aef11b4"
   version = "v1.7.0"
 
 [[projects]]
-  digest = "1:748df8eda48a48d6d05ebb848a6cf966f846fa4e6179f8731385d04d7a287fc1"
   name = "github.com/gin-gonic/gin"
   packages = ["json"]
-  pruneopts = ""
   revision = "b869fe1415e4b9eb52f247441830d502aece2d4d"
   version = "v1.3.0"
 
 [[projects]]
-  digest = "1:55d7786e315a68ad27227a9800ebed9c48a23379de13358ab9a331ae8fe39283"
   name = "github.com/go-chi/chi"
   packages = [
     ".",
-    "middleware",
+    "middleware"
   ]
-  pruneopts = ""
   revision = "da24bba8dcd4021cafac38724bf10dccc97c3e36"
   version = "v4.0.2"
 
 [[projects]]
-  digest = "1:b79fc583e4dc7055ed86742e22164ac41bf8c0940722dbcb600f1a3ace1a8cb5"
   name = "github.com/json-iterator/go"
   packages = ["."]
-  pruneopts = ""
   revision = "1624edc4454b8682399def8740d46db5e4362ba4"
   version = "v1.1.5"
 
 [[projects]]
-  digest = "1:9ea83adf8e96d6304f394d40436f2eb44c1dc3250d223b74088cc253a6cd0a1c"
   name = "github.com/mattn/go-colorable"
   packages = ["."]
-  pruneopts = ""
   revision = "167de6bfdfba052fa6b2d3664c8f5272e23c9072"
   version = "v0.0.9"
 
 [[projects]]
-  digest = "1:78229b46ddb7434f881390029bd1af7661294af31f6802e0e1bedaad4ab0af3c"
   name = "github.com/mattn/go-isatty"
   packages = ["."]
-  pruneopts = ""
   revision = "0360b2af4f38e8d38c7fce2a9f4e702702d73a39"
   version = "v0.0.3"
 
 [[projects]]
-  digest = "1:0c0ff2a89c1bb0d01887e1dac043ad7efbf3ec77482ef058ac423d13497e16fd"
   name = "github.com/modern-go/concurrent"
   packages = ["."]
-  pruneopts = ""
   revision = "bacd9c7ef1dd9b15be4a9909b8ac7a4e313eec94"
   version = "1.0.3"
 
 [[projects]]
-  digest = "1:e32bdbdb7c377a07a9a46378290059822efdce5c8d96fe71940d87cb4f918855"
   name = "github.com/modern-go/reflect2"
   packages = ["."]
-  pruneopts = ""
   revision = "4b7aa43c6742a2c18fdef89dd197aaae7dac7ccd"
   version = "1.0.1"
 
 [[projects]]
-  digest = "1:7365acd48986e205ccb8652cc746f09c8b7876030d53710ea6ef7d0bd0dcd7ca"
   name = "github.com/pkg/errors"
   packages = ["."]
-  pruneopts = ""
   revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
   version = "v0.8.0"
 
 [[projects]]
   branch = "master"
-  digest = "1:e8c91565d4707bd93aa70e096884ce533acc5deb2bbb500bb064f49de70acda0"
   name = "golang.org/x/net"
   packages = [
     "html",
-    "html/atom",
+    "html/atom"
   ]
-  pruneopts = ""
   revision = "2fb46b16b8dda405028c50f7c7f0f9dd1fa6bfb1"
 
 [[projects]]
   branch = "master"
-  digest = "1:bc468e6f6fb109d22b8aa37b1eb9f8e705ebdbe7f462034cfcb72ac73e41b375"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  pruneopts = ""
   revision = "c11f84a56e43e20a78cee75a7c034031ecf57d1f"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = [
-    "github.com/BurntSushi/toml",
-    "github.com/PuerkitoBio/goquery",
-    "github.com/fatih/color",
-    "github.com/gin-gonic/gin/json",
-    "github.com/go-chi/chi",
-    "github.com/go-chi/chi/middleware",
-    "github.com/mattn/go-colorable",
-    "github.com/pkg/errors",
-  ]
+  inputs-digest = "a1094975d86f042b2fe65a288f8b8d8672637cbac303822e24767ed389b6b064"
   solver-name = "gps-cdcl"
   solver-version = 1
