@@ -1,0 +1,23 @@
+{
+  "name": "boogeyman-view",
+  "version": "1.0.0",
+  "description": "front page of boogeyman search",
+  "main": "index.js",
+  "repository": "https://github.com/khanhtc1202/boogeyman",
+  "author": "khanhtc1202",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
+    "semantic-ui-react": "^0.87.1"
+  },
+  "scripts": {
+    "build": "webpack -p"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "webpack": "^4.31.0",
+    "webpack-cli": "^3.3.2"
+  }
+}
