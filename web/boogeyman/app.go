@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/go-chi/cors"
+
 	"github.com/gin-gonic/gin/json"
 
 	"github.com/go-chi/chi"
@@ -17,8 +19,19 @@ import (
 )
 
 func main() {
+	restCORS := cors.New(cors.Options{
+		// AllowedOrigins: []string{"https://foo.com"}, // Use this to allow specific origin hosts
+		AllowedOrigins:   []string{"*"},
+		AllowedMethods:   []string{"GET"},
+		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+		ExposedHeaders:   []string{"Link"},
+		AllowCredentials: true,
+		MaxAge:           300,
+	})
+
 	r := chi.NewRouter()
 
+	r.Use(restCORS.Handler)
 	r.Use(middleware.RealIP)
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
