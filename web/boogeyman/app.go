@@ -1,15 +1,13 @@
 package main
 
 import (
+	"encoding/json"
 	"net/http"
 	"time"
 
-	"github.com/go-chi/cors"
-
-	"github.com/gin-gonic/gin/json"
-
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/cors"
 
 	"github.com/khanhtc1202/boogeyman/internal/controller"
 	"github.com/khanhtc1202/boogeyman/internal/domain"
