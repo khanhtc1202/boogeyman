@@ -1,20 +1,26 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import { Result } from "components/Result";
+import { SearchBar } from "components/SearchBar";
 
 class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			query: "sample",
-			selectedEngine: "",
-			selectedStrategy: ""
+			results: []
 		}
 	}
 
 	render() {
 		return (
 			<div className="app-container">
-				<p>{this.state.query}</p>
+				<SearchBar query={()=>{}}/>
+				<hr/>
+				<Result
+					title="sample"
+					link="https://khanhtc.me"
+					description="sample text"
+				/>
 			</div>
 		);
 	}
