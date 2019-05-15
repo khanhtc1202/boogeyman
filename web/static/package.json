@@ -7,7 +7,6 @@
   "author": "khanhtc1202",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.18.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "semantic-ui-react": "^0.87.1"
