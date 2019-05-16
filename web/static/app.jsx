@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import {Search,Dropdown} from "semantic-ui-react";
-import {Results} from "./components/Results";
+import {Search,Dropdown,Item} from "semantic-ui-react";
 
 class App extends Component {
 	constructor(props) {
@@ -11,11 +10,16 @@ class App extends Component {
 			selectedEngine: "",
 			selectedStrategy: "",
 			results: []
-		}
+		};
+		this.onInputChange = this.onInputChange.bind(this);
+		this.onSearchBarKeyPress = this.onSearchBarKeyPress.bind(this);
+		this.search = this.search.bind(this);
+		this.selectEngine = this.selectEngine.bind(this);
+		this.selectStrategy = this.selectStrategy.bind(this);
 	}
 
-	onInputChange(event) {
-		this.setState({query: event.target.value});
+	onInputChange(event, data) {
+		this.setState({query: data.value});
 	}
 
 	onSearchBarKeyPress(event) {
@@ -25,26 +29,28 @@ class App extends Component {
 	}
 
 	search() {
-		this.setState({
-			results: [
-					{
-						"title": "The Go Programming Language",
-						"url": "https://golang.org/",
-						"description": "Go is an open source "
-					},
-					{
-						"title": "GitHub - golang/go: The Go programming languageCached",
-						"url": "https://github.com/golang/go",
-						"description": "The Go Programming Language.  "
-					}
-				]
-			}
-		);
+		fetch("http://localhost:3000/search"
+			+ "?q=" + this.state.query
+			+ "&s=" + this.state.selectedStrategy
+			+ "&e=" + this.state.selectedEngine)
+			.then(response => response.json())
+			.then(data => {
+				if (data.results !== null) {
+					this.setState({results: data.results});
+				}
+			})
+			.catch(() => {});
 	}
 
 	selectEngine(event, data) {
 		this.setState({
 			selectedEngine: data.value
+		})
+	}
+
+	selectStrategy(event, data) {
+		this.setState({
+			selectedStrategy: data.value
 		})
 	}
 
@@ -61,33 +67,45 @@ class App extends Component {
 			{key: 4, value: 'ask', text: 'ask'},
 			{key: 5, value: 'yahoo', text: 'yahoo'},
 		];
+		let groupedItems = this.state.results.map((item, index) => {
+			return (
+				<Item>
+					<Item.Content>
+						<Item.Header>{index+1}. {item.title}</Item.Header>
+						<Item.Extra as='a' href={item.url} target='_blank'>{item.url}</Item.Extra>
+						<Item.Description>{item.description}</Item.Description>
+					</Item.Content>
+				</Item>
+			);
+		});
 		return (
 			<div className="app-container">
-				<Search
-					placeholder="Search..."
-					showNoResults={false}
-					onSearchChange={this.onInputChange}
-					onKeyPress={this.onSearchBarKeyPress}
-				/>
-				<div style={{display: 'block'}}>
+				<div style={{display: "inline-block"}}>
 					<Dropdown
-						placeholder="Strategy"
-						fluid
-						selection
+						placeholder="Strategy" fluid selection
 						options={strategies}
+						onChange={this.selectStrategy}
+					/>
+				</div>
+				<div style={{display: 'inline-block'}}>
+					<Dropdown
+						placeholder="Engine" fluid selection
+						options={engines}
 						onChange={this.selectEngine}
 					/>
-					<Dropdown
-						placeholder="Engine"
-						fluid
-						selection
-						options={engines}
+				</div>
+				<div style={{display: 'inline-block'}}>
+					<Search
+						placeholder="Search..."
+						showNoResults={false}
+						onSearchChange={this.onInputChange}
+						onKeyPress={this.onSearchBarKeyPress}
 					/>
 				</div>
 				<hr/>
-				<Results
-					results={this.state.results}
-				/>
+				<Item.Group divided>
+					{groupedItems}
+				</Item.Group>
 			</div>
 		);
 	}
