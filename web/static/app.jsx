@@ -1,6 +1,17 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import {Search,Dropdown,Item} from "semantic-ui-react";
+import toastr from "toastr";
+
+toastr.options = {
+	debug: false,
+	positionClass: "toast-top-right",
+	onclick: null,
+	fadeIn: 300,
+	fadeOut: 1000,
+	timeOut: 5000,
+	extendedTimeOut: 1000
+};
 
 class App extends Component {
 	constructor(props) {
@@ -37,9 +48,13 @@ class App extends Component {
 			.then(data => {
 				if (data.results !== null) {
 					this.setState({results: data.results});
+				} else {
+					throw new Error("Not found!");
 				}
 			})
-			.catch(() => {});
+			.catch((err) => {
+				toastr.warning(err.message);
+			});
 	}
 
 	selectEngine(event, data) {
