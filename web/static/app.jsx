@@ -40,7 +40,7 @@ class App extends Component {
 	}
 
 	search() {
-		fetch("http://localhost:3000/search"
+		fetch("/api/search"
 			+ "?q=" + this.state.query
 			+ "&s=" + this.state.selectedStrategy
 			+ "&e=" + this.state.selectedEngine)
