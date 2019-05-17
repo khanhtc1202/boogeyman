@@ -35,7 +35,7 @@ class App extends Component {
 
 	onSearchBarKeyPress(event) {
 		if (event.key === "Enter") {
-			this.search();
+			this.queryOnChange();
 		}
 	}
 
