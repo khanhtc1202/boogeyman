@@ -57,16 +57,22 @@ class App extends Component {
 			});
 	}
 
+	queryOnChange() {
+		if (this.state.query !== "") {
+			this.search();
+		}
+	}
+
 	selectEngine(event, data) {
 		this.setState({
 			selectedEngine: data.value
-		})
+		}, this.queryOnChange);
 	}
 
 	selectStrategy(event, data) {
 		this.setState({
 			selectedStrategy: data.value
-		})
+		}, this.queryOnChange);
 	}
 
 	renderResults() {
