@@ -69,6 +69,25 @@ class App extends Component {
 		})
 	}
 
+	renderResults() {
+		let groupedItems = this.state.results.map((item, index) => {
+			return (
+				<Item>
+					<Item.Content>
+						<Item.Header>{index+1}. {item.title}</Item.Header>
+						<Item.Extra as='a' href={item.url} target='_blank'>{item.url}</Item.Extra>
+						<Item.Description>{item.description}</Item.Description>
+					</Item.Content>
+				</Item>
+			);
+		});
+		return (
+			<Item.Group divided>
+				{groupedItems}
+			</Item.Group>
+		);
+	}
+
 	render() {
 		let strategies = [
 			{key: 1, value: 'cross', text: 'cross'},
@@ -82,34 +101,23 @@ class App extends Component {
 			{key: 4, value: 'ask', text: 'ask'},
 			{key: 5, value: 'yahoo', text: 'yahoo'},
 		];
-		let groupedItems = this.state.results.map((item, index) => {
-			return (
-				<Item>
-					<Item.Content>
-						<Item.Header>{index+1}. {item.title}</Item.Header>
-						<Item.Extra as='a' href={item.url} target='_blank'>{item.url}</Item.Extra>
-						<Item.Description>{item.description}</Item.Description>
-					</Item.Content>
-				</Item>
-			);
-		});
 		return (
 			<div className="app-container">
-				<div style={{display: "inline-block"}}>
+				<div className="filter-item header-item">
 					<Dropdown
 						placeholder="Strategy" fluid selection
 						options={strategies}
 						onChange={this.selectStrategy}
 					/>
 				</div>
-				<div style={{display: 'inline-block'}}>
+				<div className="filter-item header-item">
 					<Dropdown
 						placeholder="Engine" fluid selection
 						options={engines}
 						onChange={this.selectEngine}
 					/>
 				</div>
-				<div style={{display: 'inline-block'}}>
+				<div className="search-bar header-item">
 					<Search
 						placeholder="Search..."
 						showNoResults={false}
@@ -118,9 +126,7 @@ class App extends Component {
 					/>
 				</div>
 				<hr/>
-				<Item.Group divided>
-					{groupedItems}
-				</Item.Group>
+				{this.renderResults()}
 			</div>
 		);
 	}
