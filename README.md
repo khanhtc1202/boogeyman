@@ -9,7 +9,7 @@
 [goreportcard]: https://goreportcard.com/report/github.com/khanhtc1202/boogeyman
 [goreportcard-svg]: https://goreportcard.com/badge/github.com/khanhtc1202/boogeyman
 
-A simple program that help you get search results from multi search engines instead of just from google.
+A simple program that help you get search results from multi search engines instead of just from google. Try it [here](https://search.khanhtc.me/).
 
 ## What can it does
 
