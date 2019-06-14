@@ -18,8 +18,7 @@ import (
 
 func main() {
 	restCORS := cors.New(cors.Options{
-		// AllowedOrigins: []string{"https://foo.com"}, // Use this to allow specific origin hosts
-		AllowedOrigins:   []string{"*"},
+		AllowedOrigins:   []string{"https://search.khanhtc.me"},
 		AllowedMethods:   []string{"GET"},
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		ExposedHeaders:   []string{"Link"},
